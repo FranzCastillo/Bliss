@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #E8E3E1;
 }
 
 code {
@@ -12,7 +13,12 @@ code {
     monospace;
 }
 
-.my-app-bar {
+.navbar {
   background-color: #FFFFFF !important;
   color: #201B40 !important;
+}
+
+.navbar-link {
+  text-decoration: none;
+  color: #201B40;
 }
