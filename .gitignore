@@ -1,0 +1,32 @@
+# Directories
+node_modules/
+dist/
+build/
+coverage/
+tmp/
+logs/
+public/uploads/
+
+# Visual Studio
+.vscode/
+*.sln
+*.suo
+*.user
+*.vspscc
+*.vssscc
+*/bin/
+*/obj/
+
+# WebStorm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# ignore .env files
+.env
+.env.*
