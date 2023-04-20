@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.my-app-bar {
+  background-color: #FFFFFF !important;
+  color: #201B40 !important;
+}
