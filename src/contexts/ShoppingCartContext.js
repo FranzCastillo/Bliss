@@ -102,7 +102,11 @@ export default function ShoppingCartProvider({children}) {
      * @returns {number}
      */
     function getTotal(){
-        return cartProducts.reduce((total, product) => total + product.price * product.quantity, 0);
+        let total = 0;
+        cartProducts.forEach((product) => {
+            total += getProductData(product.id).price * product.quantity;
+        });
+        return total;
     }
 
     /**

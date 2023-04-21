@@ -24,17 +24,22 @@ function CartModal({open, handleClose}) {
                     Productos en el carrito:
                 </Typography>
                 {cart.items.length > 0 ? (
-                    <Typography id="modal-modal-description" sx={{mt: 2}}>
-                        {cart.items.map((item) => {
-                            let productData = getProductData(item.id);
-                            return (
-                                <div>
-                                    <p>{item.quantity} x {productData.name} a Q.{productData.price}</p>
-                                    <p></p>
-                                </div>
-                            );
-                        })}
-                    </Typography>
+                    <React.Fragment>
+                        <Typography id="modal-modal-description" sx={{mt: 2}}>
+                            {cart.items.map((item) => {
+                                let productData = getProductData(item.id);
+                                return (
+                                    <div>
+                                        <p>{item.quantity} x {productData.name} a Q.{productData.price}</p>
+                                        <p></p>
+                                    </div>
+                                );
+                            })}
+                        </Typography>
+                        <Typography>
+                            Total: Q.{cart.getTotal()}
+                        </Typography>
+                    </React.Fragment>
                 ) : (
                     <Typography id="modal-modal-description" sx={{mt: 2}}>
                         No hay productos en el carrito.
