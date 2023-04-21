@@ -3,7 +3,7 @@ import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 
 const ProductCard = ({ product }) => {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 800, width: '70%' }}>
       <CardMedia
         component="img"
         height="140"
@@ -11,13 +11,17 @@ const ProductCard = ({ product }) => {
         alt={product.name}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography gutterBottom variant="h6" component="div" align='left'>
           {product.name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {product.description}
+        <Typography gutterBottom variant="subtitle2" component="div" align='left'>
+          {product.detail}
         </Typography>
-        <Typography variant="h6" color="text.primary">
+        <br />
+        <Typography variant="body2" color="text.secondary" align='right'>
+          {product.code}
+        </Typography>
+        <Typography variant="h6" color="text.primary" align='right'>
           ${product.price}
         </Typography>
       </CardContent>
