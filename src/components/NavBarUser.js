@@ -33,6 +33,11 @@ function NavBarUser() {
                                     Inicio
                                 </Typography>
                             </Button>
+                            <Button onClick={() => window.location.href = '/grid'} className="navbar-link">
+                                <Typography variant="h6" style={{marginLeft: "40px"}}>
+                                    Grid
+                                </Typography>
+                            </Button>
                             <Button onClick={() => window.location.href = '/productos'} className="navbar-link">
                                 <Typography variant="h6" style={{marginLeft: "40px"}}>
                                     Productos
