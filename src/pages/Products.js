@@ -8,10 +8,8 @@ function Products() {
 
     return (
         <Box>
-            {console.log("CARRITO: ", cart.items)}
             <h1>Productos</h1>
             {fetchProducts().map((product) => {
-                console.log(product.name, cart.getProductQuantity(product.id));
                 return (
                     <Box key={product.id}>
                         <Button variant="contained" color="primary" onClick={() => {}}>
