@@ -1,59 +1,42 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+import React from 'react';
+import { styled } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
+const SearchBox = styled('div')({
+  backgroundColor: '#FFFFFF',
+  borderRadius: '4px',
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
+  height: '40px',
+  '&:hover': {
+    backgroundColor: '#F1F1F1',
   },
-}));
+});
 
-export default function PrimarySearchAppBar() {
+const SearchInput = styled(InputBase)({
+  marginLeft: '8px',
+  flex: 1,
+  fontSize: '16px',
+  lineHeight: '24px',
+  '& input': {
+    padding: '10px 0px 10px 10px',
+    borderRadius: '4px',
+    backgroundColor: 'transparent',
+  },
+});
+
+const StyledSearchIcon = styled(SearchIcon)({
+  marginLeft: '10px',
+});
+
+const PrimarySearchAppBar = () => {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Buscar…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-      </AppBar>
-    </Box>
+    <SearchBox>
+      <StyledSearchIcon />
+      <SearchInput placeholder="Buscar..." />
+    </SearchBox>
   );
-}
+};
+
+export default PrimarySearchAppBar;

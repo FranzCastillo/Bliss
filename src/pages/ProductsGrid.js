@@ -2,7 +2,6 @@ import React from "react";
 import { Grid, Box} from "@mui/material";
 import ProductCard from "./ProductCard";
 import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
-import { SpaceBar } from "@mui/icons-material";
 
 const ProductsGrid = ({ products }) => {
   return (
@@ -10,17 +9,17 @@ const ProductsGrid = ({ products }) => {
         <Grid
             container
             direction="row"
-            justifyContent="space-evenly"
             alignItems="center"
-            textAlign="left">
+            justifyContent="space-between">
 
-            <item xs={8} textAlign="left" >  
+            <item xs={9} textAlign="left" >  
                 <h1 style={{ marginLeft: "50px", marginBottom:"30px", marginTop:"30px", textAlign:"left"}}>Nuestros Productos</h1>
             </item>
 
-            <item xs={4}>  
-                <PrimarySearchAppBar/>
-            </item>
+            <Grid item xs={3} sx={{ marginRight: "50px", width: "300px" }}>
+                <PrimarySearchAppBar />
+            </Grid>
+
 
         </Grid>
 
