@@ -7,8 +7,12 @@ import {Button, Box, Modal} from "@mui/material";
 import logo from '../media/Logo.png';
 import user from '../media/Account.png';
 import CartModal from './CartModal';
+import { useNavigate } from 'react-router-dom';
 
 function NavBarUser() {
+
+    const navigate = useNavigate();
+
     const theme = createTheme({
         typography: {
             fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
@@ -31,32 +35,33 @@ function NavBarUser() {
                             <div style={{width: '49%'}}  >
                                 
                             </div>
-                            <Button onClick={() => window.location.href = '/'} className="navbar-button">
+                            <Button onClick={() => navigate('/')} className="navbar-button">
                                 <Typography variant="h6" style={{}}>
                                     Inicio
                                 </Typography>
                             </Button>
-                            <Button onClick={() => window.location.href = '/grid'} className="navbar-button">
+                            <Button onClick={() => navigate('/grid')} className="navbar-button">
                                 <Typography variant="h6" style={{}}>
                                     Grid
                                 </Typography>
                             </Button>
-                            <Button onClick={() => window.location.href = '/productos'} className="navbar-button">
+                            <Button onClick={() => navigate('/products')} className="navbar-button">
                                 <Typography variant="h6" style={{}}>
                                     Productos
                                 </Typography>
                             </Button>
+
                             <Button onClick={handleOpen} className="navbar-button">
                                 <Typography variant="h6" style={{}}>
                                     Carrito
                                 </Typography>
                             </Button>
-                            <Button onClick={() => window.location.href = '/login'} className="navbar-button">
+                            <Button onClick={() => navigate('/login')} className="navbar-button">
                                 <Typography variant="h6" style={{}}>
                                     Cerrar Sesión
                                 </Typography>
                             </Button>
-                            <Button onClick={() => window.location.href = '/perfil'} className="navbar-button">
+                            <Button onClick={() => navigate('/perfil')} className="navbar-button">
                                 <img src={user} alt="User" style={{ height: '45px'}}/>
                             </Button>
                         </Toolbar>
