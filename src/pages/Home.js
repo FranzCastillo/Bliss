@@ -12,7 +12,7 @@ import fetchTable from '../components/fetchAPI.js'
       fetch()
     }, [])
     |---------------------------------------------------|
-    -- Una forma simple de imprimir los datos --
+      -- Una forma simple de imprimir los datos --
     {datos && (
         <div className='si'>
           {datos.map(dato =>(<p>{dato.tipo}</p>))}
