@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box, Button} from "@mui/material";
-import {fetchProducts} from "../fetchProducts";
+import {FetchProducts} from "../fetchProducts";
 import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
 
 function Products() {
@@ -9,7 +9,7 @@ function Products() {
     return (
         <Box>
             <h1>Productos</h1>
-            {fetchProducts().map((product) => {
+            {FetchProducts().map((product) => {
                 return (
                     <Box key={product.id}>
                         <Button variant="contained" color="primary" onClick={() => {}}>

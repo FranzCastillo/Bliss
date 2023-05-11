@@ -1,28 +1,23 @@
-export function fetchProducts() {
-    return [
-        {
-            id: 1,
-            name: "Producto 1",
-            price: 100,
-            quantity: 1,
-        },
-        {
-            id: 2,
-            name: "Producto 2",
-            price: 200,
-            quantity: 2,
-        },
-        {
-            id: 3,
-            name: "Producto 3",
-            price: 300,
-            quantity: 3,
-        }
-    ]
+import {useEffect, useState} from 'react';
+import {supabase} from './supabase/client.js';
+
+export async function FetchProducts() {
+    const { data: productData } = await supabase.rpc('getproducts')
+    const products = productData.map((dato) => ({
+        id: dato.id,
+        name: dato.nombre,
+        detail: dato.descripcion,
+        code: dato.codigo,
+        price: dato.precio,
+        imageUrl: dato.imagen,
+    }))
+
+    return products
+
 }
 
 export function getProductData(id){
-    let productData = fetchProducts().find(product => product.id === id)
+    let productData = FetchProducts().find(product => product.id === id)
     if(productData === undefined){
         alert("No se encontró el producto")
     }

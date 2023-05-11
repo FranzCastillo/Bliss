@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import {useEffect, useState} from 'react';
 import {supabase} from './supabase/client.js';
+import {FetchProducts} from "./fetchProducts";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import NavBarUser from "./components/NavBarUser";
 import Home from "./pages/Home";
@@ -16,35 +17,18 @@ import Login from "./pages/login";
 import ProductsGrid from './pages/ProductsGrid';
 
 function App() {
-  const [productos, setProductos] = useState([]);
+  const [fetchedProducts, setFetchedProducts] = useState({});
 
   useEffect(() => {
-
-    //Obtener los lugares que se muestran en el select
-    async function getProducts() {
-        const {data: productData} = await supabase.rpc('getproducts')
-        //await supabase.from('categorias').select('*');
-        //await supabase.rpc('getproducts')
-        setProductos(productData);
+    async function fetchData() {
+      const fetchedData = await FetchProducts();
+      setFetchedProducts(fetchedData);
     }
-    getProducts();
-
+    fetchData();
   }, []);
 
-  const products = productos.map((dato) => ({
-    id: dato.id,
-    name: dato.nombre,
-    detail: dato.descripcion,
-    code: dato.codigo,
-    price: dato.precio,
-    imageUrl: dato.imagen,
-  }));
+  console.log(fetchedProducts);
 
-  console.log(products)
-
-    // Products data for the grid (test)
-
-      
       return (
         <div className="App">
             <ShoppingCartProvider>
@@ -53,7 +37,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/productos" element={<Products/>}/>
-                        <Route path="/grid" element={<ProductsGrid products={products} />}/>
+                        <Route path="/grid" element={<ProductsGrid products={fetchedProducts} />}/>
                         <Route path="/carrito" element={<Cart/>}/>
                         <Route path="/perfil" element={<Profile/>}/>
                         <Route path="/login" element={<Login/>}/>
