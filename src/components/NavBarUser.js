@@ -10,6 +10,7 @@ import CartModal from './CartModal';
 import { redirect, useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase/client';
 
+
 function NavBarUser() {
 
     const navigate = useNavigate();
@@ -67,6 +68,7 @@ function NavBarUser() {
                                     Carrito
                                 </Typography>
                             </Button>
+
                             <Button onClick={handleLogOut} className="navbar-button">
                                 <Typography variant="h6" style={{}}>
                                     Cerrar Sesión

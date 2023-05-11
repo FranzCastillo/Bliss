@@ -12,6 +12,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useNavigate} from 'react-router-dom';
 import {supabase} from "../supabase/client.js"
+
 /**
  * 
  * @param {*} props 
@@ -37,6 +38,7 @@ const theme = createTheme();
  */
 export default function Login() {
   const navigate = useNavigate();
+
   //Function that handles the form submission
   const handleSubmit = (event) => {
     event.preventDefault();
