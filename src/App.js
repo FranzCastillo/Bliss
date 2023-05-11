@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import NavBarUser from "./components/NavBarUser";
 import Home from "./pages/Home";
@@ -12,6 +12,8 @@ import {Container} from "@mui/material";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import ProductsGrid from './pages/ProductsGrid';
+import { useState } from 'react';
+import { supabase } from './supabase/client';
 function App() {
     // Products data for the grid (test)
     const products = [
@@ -67,7 +69,6 @@ function App() {
             imageUrl: "https://via.placeholder.com/300x200",
           },
       ];
-      
       return (
         <div className="App">
             <ShoppingCartProvider>
@@ -84,9 +85,7 @@ function App() {
                     </Routes>
                 </Router>
             </ShoppingCartProvider>
-        </div>
-
-        
+        </div> 
     );
 
 }
