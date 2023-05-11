@@ -6,8 +6,10 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {Button, Box, Modal} from "@mui/material";
 import logo from '../media/Logo.png';
 import user from '../media/Account.png';
-import CartModal from './ShoppingCart/CartModal';
-import { useNavigate } from 'react-router-dom';
+import CartModal from './CartModal';
+import { redirect, useNavigate } from 'react-router-dom';
+import { supabase } from '../supabase/client';
+
 
 function NavBarUser() {
 
@@ -22,6 +24,16 @@ function NavBarUser() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const handleLogOut = async ()=>{
+        try {
+            navigate("/login")
+           await supabase.auth.signOut();
+           //
+        } catch (error) {
+            console.log('Error signing out:', error.message);
+        }
+    
+    }
 
     return (
         <>
@@ -56,7 +68,8 @@ function NavBarUser() {
                                     Carrito
                                 </Typography>
                             </Button>
-                            <Button onClick={() => navigate('/login')} className="navbar-button">
+
+                            <Button onClick={handleLogOut} className="navbar-button">
                                 <Typography variant="h6" style={{}}>
                                     Cerrar Sesión
                                 </Typography>

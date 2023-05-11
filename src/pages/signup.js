@@ -10,6 +10,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useNavigate} from 'react-router-dom';
+import {supabase} from "../supabase/client.js"
 /**
  * 
  * @param {*} props 
@@ -34,16 +36,29 @@ const theme = createTheme();
  * @returns Signup form
  */
 export default function Signup() {
+  const navigate = useNavigate();
   //Function that handles the form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      //email data
-      email: data.get('email'),
-      //password data
-      password: data.get('password'),
+    const { user, error }= await supabase.auth.signUp({
+        email: data.get('email'),
+        password: data.get('password'),
     });
+    if(error){
+      console.log(error)
+    }else{
+      await supabase
+        .from("usuarios")
+        .insert({
+            nombre: data.get('firstName'),
+            apellido: data.get('lastName'),
+            email: data.get('email'),
+            direccion: data.get('address'),
+            telefono: data.get('phone'),
+      });
+      navigate("/")
+    }
   };
 
   return (
@@ -74,7 +89,6 @@ export default function Signup() {
               {/*First name field*/}
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="given-name"
                   name="firstName"
                   required
                   fullWidth
@@ -91,7 +105,6 @@ export default function Signup() {
                   id="lastName"
                   label="Last Name"
                   name="lastName"
-                  autoComplete="family-name"
                 />
               </Grid>
               {/*Mail field*/}
@@ -102,7 +115,26 @@ export default function Signup() {
                   id="email"
                   label="Email Address"
                   name="email"
-                  autoComplete="email"
+                />
+              </Grid>
+              {/*Phone field*/}
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="phone"
+                  label="Phone number"
+                  name="phone"
+                />
+              </Grid>
+              {/*Direction field*/}
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="address"
+                  label="Address"
+                  name="address"
                 />
               </Grid>
               {/*Password field*/}
@@ -114,7 +146,6 @@ export default function Signup() {
                   label="Password"
                   type="password"
                   id="password"
-                  autoComplete="new-password"
                 />
               </Grid>
             </Grid>
