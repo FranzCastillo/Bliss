@@ -17,7 +17,7 @@ import Login from "./pages/login";
 import ProductsGrid from './pages/ProductsGrid';
 
 function App() {
-  const [fetchedProducts, setFetchedProducts] = useState({});
+  const [fetchedProducts, setFetchedProducts] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
