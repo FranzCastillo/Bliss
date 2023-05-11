@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 
 const CartProductCard = ({id, quantity}) => {
     const product = getProductData(id);
-    console.log(product)
 
     const cardStyle = {
         backgroundColor: "#d2d1d9",
@@ -19,14 +18,30 @@ const CartProductCard = ({id, quantity}) => {
         color: "#201b40",
     }
 
-    const buttonStyle = {
+    const buttonStyleLeft = {
         backgroundColor: "#201b40",
         color: "#d2d1d9",
-        borderRadius: "50%",
         fontSize: "20px",
         fontWeight: "bold",
         width: "20px",
-        height: "20px",
+        height: "27px",
+        borderRadius: "5px 0 0 5px",
+        minWidth: "unset",
+        minHeight: "unset",
+        padding: 0,
+        display: "flex", // Add display: flex
+        alignItems: "center", // Center vertically
+        justifyContent: "center", // Center horizontally
+    };
+
+    const buttonStyleRight = {
+        backgroundColor: "#201b40",
+        color: "#d2d1d9",
+        fontSize: "20px",
+        fontWeight: "bold",
+        width: "20px",
+        height: "27px",
+        borderRadius: "0 5px 5px 0",
         minWidth: "unset",
         minHeight: "unset",
         padding: 0,
@@ -50,7 +65,7 @@ const CartProductCard = ({id, quantity}) => {
                     <Button
                         variant={"contained"}
                         color={"secondary"}
-                        style={buttonStyle}
+                        style={buttonStyleLeft}
                     >
                         -
                     </Button>
@@ -60,7 +75,7 @@ const CartProductCard = ({id, quantity}) => {
                     <Button
                         variant={"contained"}
                         color={"secondary"}
-                        style={buttonStyle}
+                        style={buttonStyleRight}
                     >
                         +
                     </Button>
