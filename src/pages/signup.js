@@ -10,6 +10,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useNavigate} from 'react-router-dom';
+import {supabase} from "../supabase/client.js"
 /**
  * 
  * @param {*} props 
@@ -34,16 +36,27 @@ const theme = createTheme();
  * @returns Signup form
  */
 export default function Signup() {
+  const navigate = useNavigate();
   //Function that handles the form submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const { user, error }= await supabase.auth.signUp({
+        email: data.get('email'),
+        password: data.get('password'),
+    });
+    if(error){
+      console.log(error)
+    }else{
+      navigate("/")
+    }
+    /*
     console.log({
       //email data
       email: data.get('email'),
       //password data
       password: data.get('password'),
-    });
+    });*/
   };
 
   return (

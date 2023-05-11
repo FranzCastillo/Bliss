@@ -12,7 +12,6 @@ import {Container} from "@mui/material";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import ProductsGrid from './pages/ProductsGrid';
-
 function App() {
     // Products data for the grid (test)
     const products = [
