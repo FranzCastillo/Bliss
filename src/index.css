@@ -18,7 +18,10 @@ code {
   color: #201B40 !important;
 }
 
-.navbar-link {
+.navbar-button {
   text-decoration: none;
-  color: #201B40;
+  color: #201B40 !important;
+  text-transform: none !important; 
+  
 }
+
