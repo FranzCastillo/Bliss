@@ -50,13 +50,6 @@ export default function Signup() {
     }else{
       navigate("/")
     }
-    /*
-    console.log({
-      //email data
-      email: data.get('email'),
-      //password data
-      password: data.get('password'),
-    });*/
   };
 
   return (

@@ -43,18 +43,20 @@ export default function Login() {
     const data = new FormData(event.currentTarget);
     try{
       if((data.get('email').trim() !=='')||(data.get('password').trim() !=='')){
-
+        supabase.auth.signInWithPassword({
+          email: data.get('email'),
+          password: data.get('password'),
+      }).then(async ({data, error}) => {
+          if (error) {
+              alert(error.message);
+          } else {
+              navigate('/');
+          }
+      })
       }
     }catch(error){
       console.log(error)
     }
-    
-    /*console.log({
-      //email data
-      email: data.get('email'),
-      //password data
-      password: data.get('password'),
-    });*/
   };
 
   return (
