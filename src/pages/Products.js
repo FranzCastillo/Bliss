@@ -2,14 +2,25 @@ import React from 'react'
 import {Box, Button} from "@mui/material";
 import {FetchProducts} from "../fetchProducts";
 import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
+import {useEffect, useState} from 'react';
 
 function Products() {
     const cart = React.useContext(ShoppingCartContext);
 
+    const [fetchedProducts, setFetchedProducts] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+        const fetchedData = await FetchProducts();
+        setFetchedProducts(fetchedData);
+        }
+        fetchData();
+    }, []);
+
     return (
         <Box>
             <h1>Productos</h1>
-            {FetchProducts().map((product) => {
+            {fetchedProducts.map((product) => {
                 return (
                     <Box key={product.id}>
                         <Button variant="contained" color="primary" onClick={() => {}}>

@@ -16,8 +16,9 @@ export async function FetchProducts() {
 
 }
 
-export function getProductData(id){
-    let productData = FetchProducts().find(product => product.id === id)
+export async function getProductData(id){
+    const products = await FetchProducts();
+    let productData = products.find((product) => product.id === id);
     if(productData === undefined){
         alert("No se encontró el producto")
     }
