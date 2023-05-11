@@ -3,6 +3,7 @@ import {getProductData} from "../../../fetchProducts";
 import Container from "@mui/material/Container";
 import "./CartProductCard.scss"
 import Button from "@mui/material/Button";
+import {ShoppingCartContext} from "../../../contexts/ShoppingCartContext";
 
 const CartProductCard = ({id, quantity}) => {
     const product = getProductData(id);
@@ -50,6 +51,7 @@ const CartProductCard = ({id, quantity}) => {
         justifyContent: "center", // Center horizontally
     };
 
+    const cart = React.useContext(ShoppingCartContext);
 
     return (
         <Container fixed minWidth={"sm"} sx={cardStyle} disableGutters={true}>
@@ -66,6 +68,9 @@ const CartProductCard = ({id, quantity}) => {
                         variant={"contained"}
                         color={"secondary"}
                         style={buttonStyleLeft}
+                        onClick={() => {
+                            cart.removeOneProduct(id);
+                        }}
                     >
                         -
                     </Button>
@@ -76,6 +81,9 @@ const CartProductCard = ({id, quantity}) => {
                         variant={"contained"}
                         color={"secondary"}
                         style={buttonStyleRight}
+                        onClick={() => {
+                            cart.addOneProduct(id);
+                        }}
                     >
                         +
                     </Button>
