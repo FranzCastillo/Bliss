@@ -22,7 +22,7 @@ const ProductCard = ({ product }) => {
           {product.code}
         </Typography>
         <Typography variant="h6" color="text.primary" align='right'>
-          ${product.price}
+          Q{product.price}
         </Typography>
       </CardContent>
     </Card>

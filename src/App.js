@@ -1,5 +1,7 @@
 import './App.css';
 import React from 'react';
+import {useEffect, useState} from 'react';
+import {supabase} from './supabase/client.js';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import NavBarUser from "./components/NavBarUser";
 import Home from "./pages/Home";
@@ -14,60 +16,34 @@ import Login from "./pages/login";
 import ProductsGrid from './pages/ProductsGrid';
 
 function App() {
+  const [productos, setProductos] = useState([]);
+
+  useEffect(() => {
+
+    //Obtener los lugares que se muestran en el select
+    async function getProducts() {
+        const {data: productData} = await supabase.rpc('getproducts')
+        //await supabase.from('categorias').select('*');
+        //await supabase.rpc('getproducts')
+        setProductos(productData);
+    }
+    getProducts();
+
+  }, []);
+
+  const products = productos.map((dato) => ({
+    id: dato.id,
+    name: dato.nombre,
+    detail: dato.descripcion,
+    code: dato.codigo,
+    price: dato.precio,
+    imageUrl: dato.imagen,
+  }));
+
+  console.log(products)
+
     // Products data for the grid (test)
-    const products = [
-        {
-          id: 1,
-          name: "Producto 1",
-          detail: "Descripción del Producto 1",
-          code: "123456",
-          price: 10.99,
-          imageUrl: "https://via.placeholder.com/300x200",
-        },
-        {
-          id: 2,
-          name: "Producto 2",
-          detail: "Descripción del Producto 2",
-          code: "123456",
-          price: 15.99,
-          imageUrl: "https://via.placeholder.com/300x200",
-        },
-        {
-          id: 3,
-          name: "Producto 3",
-          detail: "Descripción del Producto 3",
-          code: "123456",
-          price: 12.99,
-          imageUrl: "https://via.placeholder.com/300x200",
-        },
 
-        {
-            id: 4,
-            name: "Producto 3",
-            detail: "Descripción del Producto 3",
-            code: "123456",
-            price: 12.99,
-            imageUrl: "https://via.placeholder.com/300x200",
-          },
-
-          {
-            id: 5,
-            name: "Producto 3",
-            detail: "Descripción del Producto 3",
-            code: "123456",
-            price: 12.99,
-            imageUrl: "https://via.placeholder.com/300x200",
-          },
-
-          {
-            id: 6,
-            name: "Producto 3",
-            detail: "Descripción del Producto 3",
-            code: "123456",
-            price: 12.99,
-            imageUrl: "https://via.placeholder.com/300x200",
-          },
-      ];
       
       return (
         <div className="App">
