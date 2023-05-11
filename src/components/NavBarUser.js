@@ -6,7 +6,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {Button, Box, Modal} from "@mui/material";
 import logo from '../media/Logo.png';
 import user from '../media/Account.png';
-import CartModal from './CartModal';
+import CartModal from './ShoppingCart/CartModal';
 import { useNavigate } from 'react-router-dom';
 
 function NavBarUser() {
