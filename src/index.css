@@ -5,9 +5,23 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #E8E3E1;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.navbar {
+  background-color: #FFFFFF !important;
+  color: #201B40 !important;
+}
+
+.navbar-button {
+  text-decoration: none;
+  color: #201B40 !important;
+  text-transform: none !important; 
+  
+}
+

@@ -31,9 +31,9 @@ function Copyright(props) {
 const theme = createTheme();
 /**
  * 
- * @returns Signin form
+ * @returns Signup form
  */
-export default function Login() {
+export default function Signup() {
   //Function that handles the form submission
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -65,12 +65,35 @@ export default function Login() {
           </Avatar>
           {/*Title*/}
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign up
           </Typography>
           {/*Form*/}
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             {/*Form inputs*/}
             <Grid container spacing={2}>
+              {/*First name field*/}
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                />
+              </Grid>
+              {/*Last name field*/}
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="family-name"
+                />
+              </Grid>
               {/*Mail field*/}
               <Grid item xs={12}>
                 <TextField
@@ -102,13 +125,13 @@ export default function Login() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Sign Up
             </Button>
-            {/*Sign up redirect*/}
+            {/*Sign in redirect*/}
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/signup" variant="body2">
-                  Not have an account? Sign up
+                <Link href="/login" variant="body2">
+                  Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
