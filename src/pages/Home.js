@@ -22,9 +22,9 @@ import fetchTable from '../components/fetchAPI.js'
   */
 
 function Home() {
-  return (
-    <div>Home</div>
-  )
+    return (
+        <div>Home</div>
+    )
 }
 
 export default Home
