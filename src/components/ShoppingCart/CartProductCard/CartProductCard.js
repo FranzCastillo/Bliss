@@ -90,7 +90,8 @@ const CartProductCard = ({id, quantity}) => {
                 </div>
             </div>
             <div className={"product-total"}>
-                <h1>Q.{product.price * quantity}</h1>
+                {/*Formats to 2 decimals*/}
+                <h1>Q.{(product.price * quantity).toFixed(2)}</h1>
             </div>
         </Container>
     )
