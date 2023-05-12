@@ -11,11 +11,11 @@ function Products() {
 
     useEffect(() => {
         async function fetchData() {
-        const fetchedData = await FetchProducts();
-        setFetchedProducts(fetchedData);
+            const fetchedData = await FetchProducts();
+            setFetchedProducts(fetchedData)
         }
-        fetchData();
-    }, []);
+        fetchData()
+    }, [])
 
     return (
         <Box>

@@ -4,9 +4,18 @@ import Container from "@mui/material/Container";
 import "./CartProductCard.scss"
 import Button from "@mui/material/Button";
 import {ShoppingCartContext} from "../../../contexts/ShoppingCartContext";
+import {useEffect, useState} from 'react';
 
 const CartProductCard = ({id, quantity}) => {
-    const product = getProductData(id);
+    const [product, setProduct] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            const fetchedProduct = await getProductData(id)
+            setProduct(fetchedProduct)
+        }
+        fetchData()
+    }, []);
 
     const cardStyle = {
         backgroundColor: "#d2d1d9",

@@ -27,8 +27,6 @@ function App() {
     fetchData();
   }, []);
 
-  console.log(fetchedProducts);
-
       return (
         <div className="App">
             <ShoppingCartProvider>
