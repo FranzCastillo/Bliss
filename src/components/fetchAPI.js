@@ -1,4 +1,4 @@
-import supabase from '../supabase/client.js'
+import {supabase} from '../supabase/client.js'
 
 export default async function fetchTable(table){
 
