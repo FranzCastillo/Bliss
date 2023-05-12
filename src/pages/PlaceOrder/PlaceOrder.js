@@ -1,5 +1,5 @@
 import React from 'react'
-import {Paper, Typography} from "@mui/material";
+import {Alert, Paper, Typography} from "@mui/material";
 
 const ordersStyle = {
     display: "flex",
@@ -8,16 +8,14 @@ const ordersStyle = {
     margin: "1rem",
 }
 
-function Orders() {
+function PlaceOrder() {
     return (
         <div className={"orders"}>
             <Paper elevation={3} style={ordersStyle}>
-                <Typography>
-                    HOLA
-                </Typography>
+                <Alert severity="success">Su orden ha sido colocada con éxito</Alert>
             </Paper>
         </div>
     )
 }
 
-export default Orders
+export default PlaceOrder
