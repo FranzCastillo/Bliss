@@ -111,6 +111,8 @@ export default function ShoppingCartProvider({children}) {
         cartProducts.forEach((product) => {
             total += getProductData(product.id).price * product.quantity;
         });
+        // Format Total to 2 decimals
+        total = Math.round(total * 100) / 100;
         return total;
     }
 
