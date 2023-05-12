@@ -1,25 +1,63 @@
-import {useEffect, useState} from 'react';
-import {supabase} from './supabase/client.js';
+export function fetchProducts() {
+    return [
+        {
+            id: 1,
+            name: "Producto 1",
+            detail: "Descripción del Producto 1",
+            code: "123456",
+            price: 10.99,
+            imageUrl: "https://via.placeholder.com/300x200",
+        },
+        {
+            id: 2,
+            name: "Producto 2",
+            quantity: 2,
+            detail: "Descripción del Producto 2",
+            code: "123456",
+            price: 15.99,
+            imageUrl: "https://via.placeholder.com/300x200",
+        },
+        {
+            id: 3,
+            name: "Producto 3",
+            detail: "Descripción del Producto 3",
+            code: "123456",
+            price: 12.99,
+            imageUrl: "https://via.placeholder.com/300x200",
+        },
 
-export async function FetchProducts() {
-    const { data: productData } = await supabase.rpc('getproducts')
-    const products = productData.map((dato) => ({
-        id: dato.id,
-        name: dato.nombre,
-        detail: dato.descripcion,
-        code: dato.codigo,
-        price: dato.precio,
-        imageUrl: dato.imagen,
-    }))
+        {
+            id: 4,
+            name: "Producto 3",
+            detail: "Descripción del Producto 3",
+            code: "123456",
+            price: 12.99,
+            imageUrl: "https://via.placeholder.com/300x200",
+        },
 
-    return products
+        {
+            id: 5,
+            name: "Producto 3",
+            detail: "Descripción del Producto 3",
+            code: "123456",
+            price: 12.99,
+            imageUrl: "https://via.placeholder.com/300x200",
+        },
 
+        {
+            id: 6,
+            name: "Producto 3",
+            detail: "Descripción del Producto 3",
+            code: "123456",
+            price: 12.99,
+            imageUrl: "https://via.placeholder.com/300x200",
+        },
+    ];
 }
 
-export async function getProductData(id){
-    const products = await FetchProducts();
-    let productData = products.find((product) => product.id === id);
-    if(productData === undefined){
+export function getProductData(id) {
+    let productData = fetchProducts().find(product => product.id === id)
+    if (productData === undefined) {
         alert("No se encontró el producto")
     }
     return productData;

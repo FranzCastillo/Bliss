@@ -3,11 +3,13 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {Button, Box, Modal} from "@mui/material";
+import {Button} from "@mui/material";
 import logo from '../media/Logo.png';
 import user from '../media/Account.png';
-import CartModal from './CartModal';
-import { useNavigate } from 'react-router-dom';
+import CartModal from './ShoppingCart/CartModal';
+import {useNavigate} from 'react-router-dom';
+import {supabase} from '../supabase/client';
+
 
 function NavBarUser() {
 
@@ -22,6 +24,15 @@ function NavBarUser() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const handleLogOut = async () => {
+        try {
+            navigate("/login")
+            await supabase.auth.signOut();
+        } catch (error) {
+            console.log('Error signing out:', error.message);
+        }
+
+    }
 
     return (
         <>
@@ -32,8 +43,8 @@ function NavBarUser() {
                             <Button onClick={() => window.location.href = '/'} className="navbar-button">
                                 <img src={logo} alt="Logo" style={{height: '50px'}}/>
                             </Button>
-                            <div style={{width: '49%'}}  >
-                                
+                            <div style={{width: '49%'}}>
+
                             </div>
                             <Button onClick={() => navigate('/')} className="navbar-button">
                                 <Typography variant="h6" style={{}}>
@@ -56,17 +67,18 @@ function NavBarUser() {
                                     Carrito
                                 </Typography>
                             </Button>
-                            <Button onClick={() => navigate('/login')} className="navbar-button">
+
+                            <Button onClick={handleLogOut} className="navbar-button">
                                 <Typography variant="h6" style={{}}>
                                     Cerrar Sesión
                                 </Typography>
                             </Button>
                             <Button onClick={() => navigate('/perfil')} className="navbar-button">
-                                <img src={user} alt="User" style={{ height: '45px'}}/>
+                                <img src={user} alt="User" style={{height: '45px'}}/>
                             </Button>
                         </Toolbar>
                     </AppBar>
-                    <CartModal open={open} handleClose={handleClose} />
+                    <CartModal open={open} handleClose={handleClose}/>
                 </ThemeProvider>
             </div>
         </>
