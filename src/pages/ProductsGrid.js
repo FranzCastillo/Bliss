@@ -1,5 +1,5 @@
 import React from "react";
-import {Grid, Box} from "@mui/material";
+import {Grid} from "@mui/material";
 import ProductCard from "./ProductCard";
 import PrimarySearchAppBar from "../components/PrimarySearchAppBar";
 
