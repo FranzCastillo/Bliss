@@ -15,6 +15,7 @@ import {Container} from "@mui/material";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import ProductsGrid from './pages/ProductsGrid';
+import Orders from "./pages/Orders/Orders";
 
 function App() {
   const [fetchedProducts, setFetchedProducts] = useState([]);
@@ -40,6 +41,7 @@ function App() {
                         <Route path="/perfil" element={<Profile/>}/>
                         <Route path="/login" element={<Login/>}/>
                         <Route path="/signup" element={<Signup/>}/>
+                        <Route path={"/orders"} element={<Orders/>}/>
                     </Routes>
                 </Router>
             </ShoppingCartProvider>

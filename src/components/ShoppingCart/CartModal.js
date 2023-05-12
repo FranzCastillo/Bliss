@@ -3,6 +3,7 @@ import {Box, Button, Modal, Stack, Typography} from '@mui/material';
 import {ShoppingCartContext} from '../../contexts/ShoppingCartContext';
 import CartProductCard from "./CartProductCard/CartProductCard";
 import {getProductData} from "../../fetchProducts";
+import {useNavigate} from "react-router-dom";
 
 function CartModal({open, handleClose}) {
     const modalStyle = {
@@ -37,6 +38,13 @@ function CartModal({open, handleClose}) {
     }
     const cart = React.useContext(ShoppingCartContext);
     const hasItems = cart.items.length > 0;
+    const navigate = useNavigate();
+
+    const handleButtonClick = () => {
+        navigate('/orders', { replace: true });
+        handleClose();
+    };
+
 
     return (
         <Modal keepMounted open={open} onClose={handleClose}>
@@ -55,8 +63,13 @@ function CartModal({open, handleClose}) {
                     </div>
                     {hasItems ? (
                         <div className={"buttons"}>
-                            <Button variant="contained" color="success" onClick={() => {
-                            }}>
+                            <Button
+                                variant="contained"
+                                color="success"
+                                onClick={() => {
+                                    handleButtonClick()
+                                }}
+                            >
                                 Colocar Orden
                             </Button>
                         </div>
