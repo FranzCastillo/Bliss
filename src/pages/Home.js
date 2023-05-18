@@ -1,6 +1,5 @@
 import React from 'react'
 import {useEffect, useState} from 'react'
-import fetchTable from '../components/fetchAPI.js'
 /*
       -- Modelo para usar fetchTable --
 
