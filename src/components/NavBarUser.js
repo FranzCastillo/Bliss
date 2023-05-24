@@ -25,9 +25,10 @@ function NavBarUser() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleLogOut = async () => {
-        try {
-            navigate("/login")
-            await supabase.auth.signOut();
+        try { 
+            await supabase.auth.signOut().then(
+                navigate("/")
+            );
         } catch (error) {
             console.log('Error signing out:', error.message);
         }

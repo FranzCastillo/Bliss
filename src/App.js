@@ -19,7 +19,7 @@ import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 
 function App() {
   const [fetchedProducts, setFetchedProducts] = useState([]);
-
+  const [isLoged, setIsLoged] = useState(false)
   useEffect(() => {
     async function fetchData() {
       const fetchedData = await FetchProducts();
@@ -28,6 +28,22 @@ function App() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        if (event === 'SIGNED_IN') {
+          setIsLoged(true)
+        } else if (event === 'SIGNED_OUT') {
+          setIsLoged(false)
+        }
+      }
+    );
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+    if(isLoged){
       return (
         <div className="App">
             <ShoppingCartProvider>
@@ -39,8 +55,6 @@ function App() {
                         <Route path="/grid" element={<ProductsGrid products={fetchedProducts} />}/>
                         <Route path="/carrito" element={<Cart/>}/>
                         <Route path="/perfil" element={<Profile/>}/>
-                        <Route path="/login" element={<Login/>}/>
-                        <Route path="/signup" element={<Signup/>}/>
                         <Route path={"/orders"} element={<PlaceOrder/>}/>
                     </Routes>
                 </Router>
@@ -49,6 +63,20 @@ function App() {
 
         
     );
+  } else {
+    return (
+      <div className="App">
+          <ShoppingCartProvider>
+              <Router>
+                  <Routes>
+                      <Route path="/" element={<Login/>}/>
+                      <Route path="/signup" element={<Signup/>}/>
+                  </Routes>
+              </Router>
+          </ShoppingCartProvider>
+      </div>
+  );
+  }
 
 }
 
