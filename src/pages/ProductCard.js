@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/card.css';
 import {Card, CardMedia, CardContent, Typography, Button, Modal, Box} from "@mui/material";
 import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -18,14 +19,17 @@ const ProductCard = ({product}) => {
 
     return (
         <>
-            <Card sx={{maxWidth: 800, width: '70%', maxHeight:800}}>
-                <CardMedia
-                    component="img"
-                    height="140"
-                    image={product.imageUrl}
-                    alt={product.name}
-                    onClick={handleModalOpen}
-                />
+            <Card sx={{width: '250px', height: '100%'}}>
+                <Card className='img-card' sx={{boxShadow: 'none'}}>
+                    <CardMedia
+                        component="img"
+                        className='product-img'
+                        sx={{objectFit: 'contain'}}
+                        image={product.imageUrl}
+                        alt={product.name}
+                        onClick={handleModalOpen}
+                    />
+                </Card>
                 <CardContent>
                     <Typography gutterBottom variant="h6" component="div" align='left'>
                         {product.name}
@@ -37,10 +41,16 @@ const ProductCard = ({product}) => {
                         {product.code}
                     </Typography>
                     <Typography variant="h6" color="text.primary" align='right'>
-                        ${product.price}
+                        Q{product.price}
                     </Typography>
                     <br/>
-                    <Button variant="contained" color="success" onClick={() => {cart.addOneProduct(product.id)}}>Agregar al carrito<AddShoppingCartIcon/></Button>
+                    <Button 
+                        variant="contained" 
+                        sx={{backgroundColor: '#312D4F'}}
+                        onClick={() => {cart.addOneProduct(product.id)}}>
+                        Agregar al carrito
+                        <AddShoppingCartIcon/>
+                    </Button>
                     
                 </CardContent>
             </Card>
@@ -69,7 +79,7 @@ const ProductCard = ({product}) => {
                         Código: {product.code}
                     </Typography>
                     <Typography variant="h6" color="text.primary" gutterBottom>
-                        Precio: ${product.price}
+                        Precio: Q{product.price}
                     </Typography>
                     <Button variant="contained" onClick={handleModalClose}>Cerrar</Button>
                 </Box>
