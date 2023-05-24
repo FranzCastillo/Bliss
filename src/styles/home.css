@@ -1,0 +1,67 @@
+.photo-carrousel {
+    max-width: 80%; 
+    margin: 0 auto; 
+}
+
+.widgets {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.catalogue {
+    animation-name: show-div;
+    animation-duration: 3s; 
+    cursor: pointer;
+    width: 250px;
+    height: 380px;
+    background-color: #312D4F;
+    margin-right: 10%;
+    border-radius: 10px; 
+    vertical-align: middle;
+}
+
+.catalogue:hover {
+    transform: scale(1.01);
+}
+
+.catalogue img {
+    width: 250px;
+    vertical-align: middle;
+    margin-bottom: 8px;
+}
+
+.animated-text {
+    animation-name: show-text;
+    animation-duration: 3s; 
+    color: #312D4F;
+}
+
+@keyframes show-text {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+
+@keyframes show-div {
+    0% {
+      transform: translateY(10%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+}
+
+@keyframes up {
+    0% {
+      transform: translateY(15%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+}
