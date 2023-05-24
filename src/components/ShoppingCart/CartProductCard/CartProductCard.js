@@ -1,7 +1,7 @@
 import React from 'react'
 import {getProductData} from "../../../fetchProducts";
 import Container from "@mui/material/Container";
-import "./CartProductCard.scss"
+import "./CartProductCard.css"
 import Button from "@mui/material/Button";
 import {ShoppingCartContext} from "../../../contexts/ShoppingCartContext";
 import {useEffect, useState} from 'react';
@@ -34,7 +34,7 @@ const CartProductCard = ({id, quantity}) => {
         fontSize: "20px",
         fontWeight: "bold",
         width: "20px",
-        height: "27px",
+        height: "26px",
         borderRadius: "5px 0 0 5px",
         minWidth: "unset",
         minHeight: "unset",
@@ -50,7 +50,7 @@ const CartProductCard = ({id, quantity}) => {
         fontSize: "20px",
         fontWeight: "bold",
         width: "20px",
-        height: "27px",
+        height: "26px",
         borderRadius: "0 5px 5px 0",
         minWidth: "unset",
         minHeight: "unset",
@@ -64,11 +64,19 @@ const CartProductCard = ({id, quantity}) => {
 
     return (
         <Container fixed minWidth={"sm"} sx={cardStyle} disableGutters={true}>
-            <img className={"product-image"} src={product.imageUrl} alt={"Product image"}/>
+            <div className='img-container'>
+                <img 
+                    className={"product-image"} 
+                    src={product.imageUrl} 
+                    alt={"Product image"}
+                />
+            </div>
+
             <div className={"product-info"}>
                 <h1>{product.name}</h1>
                 <h4>Código: {product.code}</h4>
                 <h4>Precio Unitario: Q.{product.price}</h4>
+                <br/>
             </div>
             <div className={"quantity"}>
                 <h1>Cantidad</h1>

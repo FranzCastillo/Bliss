@@ -14,10 +14,11 @@ const ProductsGrid = ({products}) => {
 
                 <item xs={9} textAlign="left">
                     <h1 style={{
-                        marginLeft: "30px",
+                        marginLeft: "26px",
                         marginBottom: "30px",
                         marginTop: "30px",
-                        textAlign: "left"
+                        textAlign: "left",
+                        color: "#201b40"
                     }}>Nuestros Productos</h1>
                 </item>
 

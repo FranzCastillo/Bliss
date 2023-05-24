@@ -51,11 +51,6 @@ function NavBarUser() {
 
                             <Button onClick={() => navigate('/grid')} className="navbar-button">
                                 <Typography variant="h6" style={{}}>
-                                    Grid
-                                </Typography>
-                            </Button>
-                            <Button onClick={() => navigate('/productos')} className="navbar-button">
-                                <Typography variant="h6" style={{}}>
                                     Productos
                                 </Typography>
                             </Button>

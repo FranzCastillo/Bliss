@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/card.css';
+import '../styles/productcard.css';
 import {Card, CardMedia, CardContent, Typography, Button, Modal, Box} from "@mui/material";
 import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
