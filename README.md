@@ -2,7 +2,9 @@
 ## ¿Qué es [Bliss](https://www.facebook.com/profile.php?id=100084330857074&sk=about)?
 Bliss es una empresa encargada de la venta de calzado a través de catálogos, estos son fabricados en México y exportado a Guatemala.
 
-<img src="https://scontent.fgua3-3.fna.fbcdn.net/v/t39.30808-6/298920247_108067455343960_4003941667118518395_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=DxRHa75z4Y0AX8ffeaA&_nc_ht=scontent.fgua3-3.fna&oh=00_AfBzWdQYIQigK5wVdg01HE6enRMTHOjRPq6TN0zZDvurEA&oe=64734F68" width="200px"></img>
+<p align="center">
+  <img src="https://scontent.fgua3-3.fna.fbcdn.net/v/t39.30808-6/298920247_108067455343960_4003941667118518395_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=DxRHa75z4Y0AX8ffeaA&_nc_ht=scontent.fgua3-3.fna&oh=00_AfBzWdQYIQigK5wVdg01HE6enRMTHOjRPq6TN0zZDvurEA&oe=64734F68" width="200px"></img>
+ </p>
 
 ## ¿Qué es este repositorio?
 Este repositorio contiene el código fuente del desarrollo de la página de venta en línea y administración para todas aquellas personas involucradas con la empresa, desde los clientes hasta los encargados.
