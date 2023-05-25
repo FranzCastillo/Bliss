@@ -21,16 +21,16 @@
     margin-right: 10%;
     border-radius: 10px; 
     vertical-align: middle;
-}
 
-.catalogue:hover {
-    transform: scale(1.01);
-}
+    &:hover {
+      transform: scale(1.01);
+    }
 
-.catalogue img {
-    width: 250px;
-    vertical-align: middle;
-    margin-bottom: 8px;
+    img {
+      width: 250px;
+      vertical-align: middle;
+      margin-bottom: 8px;
+    }
 }
 
 .animated-text {

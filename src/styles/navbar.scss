@@ -8,20 +8,20 @@
     color: #201B40 !important;
     text-transform: none !important;
     background-color: transparent !important;
-}
 
-.navbar-button:hover {
-    color: #E35358 !important;
-    background-color: transparent !important;
-}
+    &:hover {
+        color: #E35358 !important;
+        background-color: transparent !important;
+    }
 
-.navbar-button:hover svg{
-    fill: #E35358 !important;
-    background-color: transparent !important;
-}
+    &:hover svg {
+        fill: #E35358 !important;
+        background-color: transparent !important;
+    }
 
-.navbar-button:active {
-    color: transparent !important;
+    &:active {
+        color: transparent !important;
+    }
 }
 
 .navbar-logo {
