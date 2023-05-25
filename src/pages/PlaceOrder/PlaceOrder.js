@@ -68,6 +68,7 @@ function PlaceOrder() {
     const productCards = {
         padding: "25px",
         border: "1px solid #e0e0e0",
+        marginTop: "25px"
     }
 
     useEffect(() => {
@@ -133,6 +134,7 @@ function PlaceOrder() {
                                 id="address"
                                 label="Dirección de Entrega"
                                 name="address"
+                                onChange={(event) => setAddress(event.target.value)}
                                 value={address}
                             />
                         </Grid>
