@@ -6,15 +6,13 @@ import {FetchProducts} from "./fetchProducts";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import NavBarUser from "./components/NavBarUser";
 import Home from "./pages/Home";
-import Cart from "./pages/ShoppingCart";
 import Profile from "./pages/Profile";
-import login from "./pages/login";
 import ShoppingCartProvider from "./contexts/ShoppingCartContext";
-import {Container} from "@mui/material";
 import Signup from "./pages/signup";
 import Login from "./pages/login";
 import ProductsGrid from './pages/ProductsGrid';
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
+import OrderPlaced from "./pages/OrderPlaced/OrderPlaced";
 
 function App() {
   const [fetchedProducts, setFetchedProducts] = useState([]);
@@ -51,9 +49,9 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/grid" element={<ProductsGrid products={fetchedProducts}/>}/>
-                        <Route path="/carrito" element={<Cart/>}/>
                         <Route path="/perfil" element={<Profile/>}/>
                         <Route path={"/orders"} element={<PlaceOrder/>}/>
+                        <Route path={"/order-placed"} element={<OrderPlaced/>}/>
                     </Routes>
                 </Router>
             </ShoppingCartProvider>

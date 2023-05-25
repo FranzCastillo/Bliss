@@ -2,7 +2,6 @@ import React from 'react';
 import {Box, Button, Modal, Stack, Typography} from '@mui/material';
 import {ShoppingCartContext} from '../../contexts/ShoppingCartContext';
 import CartProductCard from "./CartProductCard/CartProductCard";
-import {getProductData} from "../../fetchProducts";
 import {useNavigate} from "react-router-dom";
 
 function CartModal({open, handleClose}) {
