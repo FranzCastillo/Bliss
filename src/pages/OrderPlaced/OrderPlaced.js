@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Container from "@mui/material/Container";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import {useNavigate} from "react-router-dom";
-import {Button} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
+import { ShoppingCartContext } from "../../contexts/ShoppingCartContext";
 
 const OrderPlaced = () => {
-    const naviate = useNavigate();
+    const navigate = useNavigate();
+    const cart = useContext(ShoppingCartContext);
+
+    useEffect(() => {
+        cart.clearCart();
+    }, []);
 
     return (
         <Container sx={{
@@ -15,10 +21,12 @@ const OrderPlaced = () => {
         }}>
             <h1>¡Su orden fue colocada exitosamente!</h1>
             <CheckCircleOutlineIcon
-                sx={{fontSize: 100, paddingBottom: '30px'}}/>
+                sx={{ fontSize: 100, paddingBottom: '30px' }}
+            />
             <Button
-                onClick={() => naviate('/grid')}
-                variant="contained">
+                onClick={() => navigate('/grid')}
+                variant="contained"
+            >
                 Seguir Comprando
             </Button>
         </Container>

@@ -34,6 +34,7 @@ const getUserAddress = async (email) => {
         return data[0].direccion;
     }
 };
+
 function PlaceOrder() {
     const navigate = useNavigate();
 
