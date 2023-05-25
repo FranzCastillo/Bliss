@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useContext, useEffect, useState } from 'react';
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -8,9 +8,11 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, Stack } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import CartProductCard from "../../components/ShoppingCart/CartProductCard/CartProductCard";
+import { ShoppingCartContext } from "../../contexts/ShoppingCartContext";
 import {supabase} from "../../supabase/client";
-import {Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select} from "@mui/material";
-import {useNavigate} from "react-router-dom";
 
 const getUserEmail = () => {
     return supabase.auth.getSession().then((session) => {
@@ -23,7 +25,7 @@ const getUserEmail = () => {
 };
 
 const getUserAddress = async (email) => {
-    const {data, error} = await supabase
+    const { data, error } = await supabase
         .from('usuarios')
         .select('direccion')
         .eq('email', email);
@@ -37,6 +39,7 @@ const getUserAddress = async (email) => {
 
 function PlaceOrder() {
     const navigate = useNavigate();
+    const cart = useContext(ShoppingCartContext);
 
     const [email, setEmail] = useState('');
     const [hasSalesPerson, setHasSalesPerson] = useState(true);
@@ -62,6 +65,11 @@ function PlaceOrder() {
         setPaymentMethod(event.target.value);
     }
 
+    const productCards = {
+        padding: "25px",
+        border: "1px solid #e0e0e0",
+    }
+
     useEffect(() => {
         getUserEmail().then((email) => {
             setEmail(email || '');
@@ -70,6 +78,12 @@ function PlaceOrder() {
             })
         });
     }, []);
+
+    useEffect(() => {
+        if (cart.getTotal() === 0) {
+            navigate('/grid');
+        }
+    }, [cart.getTotal()]);
 
     return (
         <Container component="main" maxWidth="xs">
@@ -149,6 +163,30 @@ function PlaceOrder() {
                         Confirmar Orden
                     </Button>
                 </Box>
+                <div className={"product-cards"} style={productCards}>
+                    <div className={"text"}>
+                        <Typography
+                            id="modal-modal-title"
+                            variant="h6" component="h2"
+                        >
+                            Mi Carrito
+                        </Typography>
+                        <Typography>
+                            Total: Q.{cart.getTotal()}
+                        </Typography>
+                    </div>
+                    <Stack>
+                        {cart.items.map((item) => {
+                            return (
+                                <CartProductCard
+                                    key={item.id}
+                                    id={item.id}
+                                    quantity={item.quantity}
+                                />
+                            );
+                        })}
+                    </Stack>
+                </div>
             </Box>
         </Container>
     )
