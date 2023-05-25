@@ -1,4 +1,4 @@
-# [Bliss, Lo mejor de México para Guatemala](https://www.facebook.com/profile.php?id=100084330857074&sk=about) 
+# [Bliss, lo mejor de México para Guatemala](https://www.facebook.com/profile.php?id=100084330857074&sk=about) 
 ## ¿Qué es [Bliss](https://www.facebook.com/profile.php?id=100084330857074&sk=about)?
 Bliss es una empresa encargada de la venta de calzado a través de catálogos, estos son fabricados en México y exportado a Guatemala.
 
