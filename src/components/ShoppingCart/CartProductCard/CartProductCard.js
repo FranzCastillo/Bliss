@@ -1,7 +1,7 @@
 import React from 'react'
 import {getProductData} from "../../../fetchProducts";
 import Container from "@mui/material/Container";
-import "./CartProductCard.css"
+import "./CartProductCard.scss"
 import Button from "@mui/material/Button";
 import {ShoppingCartContext} from "../../../contexts/ShoppingCartContext";
 import {useEffect, useState} from 'react';
