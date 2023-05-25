@@ -42,7 +42,7 @@ function NavBarUser() {
                     <AppBar position="static" className="navbar">
                         <Toolbar>
                             <img 
-                                onClick={() => window.location.href = '/'} 
+                                onClick={() => navigate("/")} 
                                 src={logo} alt="Logo" 
                                 style={{height: '50px'}}
                                 className="navbar-logo"
