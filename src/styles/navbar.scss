@@ -1,6 +1,8 @@
 .navbar {
     background-color: #FFFFFF !important;
     color: #201B40 !important;
+    position: fixed !important;
+    z-index: 100 !important;
 }
 
 .navbar-button {
@@ -26,4 +28,8 @@
 
 .navbar-logo {
     cursor: pointer;
+}
+
+.separator {
+    height: 50px;
 }

@@ -95,6 +95,7 @@ function NavBarUser() {
                     </AppBar>
                     <CartModal open={open} handleClose={handleClose}/>
                 </ThemeProvider>
+                <div className='separator'> </div>
             </div>
         </>
     )
