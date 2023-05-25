@@ -14,14 +14,15 @@ const ProductsGrid = ({products}) => {
 
                 <item xs={9} textAlign="left">
                     <h1 style={{
-                        marginLeft: "50px",
+                        marginLeft: "26px",
                         marginBottom: "30px",
                         marginTop: "30px",
-                        textAlign: "left"
+                        textAlign: "left",
+                        color: "#201b40"
                     }}>Nuestros Productos</h1>
                 </item>
 
-                <Grid item xs={3} sx={{marginRight: "50px", width: "300px"}}>
+                <Grid item xs={3} sx={{marginRight: "24px", width: "300px"}}>
                     <PrimarySearchAppBar/>
                 </Grid>
 
