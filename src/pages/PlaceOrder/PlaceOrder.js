@@ -10,6 +10,7 @@ import Button from "@mui/material/Button";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import {supabase} from "../../supabase/client";
 import {Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select} from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 const getUserEmail = () => {
     return supabase.auth.getSession().then((session) => {
@@ -22,7 +23,7 @@ const getUserEmail = () => {
 };
 
 const getUserAddress = async (email) => {
-    const { data, error } = await supabase
+    const {data, error} = await supabase
         .from('usuarios')
         .select('direccion')
         .eq('email', email);
@@ -33,20 +34,20 @@ const getUserAddress = async (email) => {
         return data[0].direccion;
     }
 };
-
-const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // Retrieve the form values
-    const { email } = event.target.elements;
-};
-
 function PlaceOrder() {
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [hasSalesPerson, setHasSalesPerson] = useState(true);
     const [address, setAddress] = useState('');
     const [salesPerson, setSalesPerson] = useState('');
     const [paymentMethod, setPaymentMethod] = useState(3);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        navigate('/order-placed');
+    };
+
 
     const handleSalesPersonCheckbox = (event) => {
         setHasSalesPerson(!event.target.checked);
@@ -91,7 +92,6 @@ function PlaceOrder() {
                     <Grid container spacing={2}>
                         <Grid item xs={8}>
                             <TextField
-                                xs={8}
                                 required
                                 fullWidth
                                 id="email"
@@ -105,7 +105,7 @@ function PlaceOrder() {
                         <Grid item xs={4}>
                             <FormControlLabel
                                 value="bottom"
-                                control={<Checkbox />}
+                                control={<Checkbox/>}
                                 label="No tengo vendedor"
                                 labelPlacement="bottom"
                                 onChange={handleSalesPersonCheckbox}
@@ -122,7 +122,7 @@ function PlaceOrder() {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <FormControl fullWidth>
+                            <FormControl fullWidth required>
                                 <InputLabel id="demo-simple-select-label">Método de Pago</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"

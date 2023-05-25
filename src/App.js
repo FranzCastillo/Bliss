@@ -12,6 +12,7 @@ import Signup from "./pages/signup";
 import Login from "./pages/login";
 import ProductsGrid from './pages/ProductsGrid';
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
+import OrderPlaced from "./pages/OrderPlaced/OrderPlaced";
 
 function App() {
   const [fetchedProducts, setFetchedProducts] = useState([]);
@@ -50,6 +51,7 @@ function App() {
                         <Route path="/grid" element={<ProductsGrid products={fetchedProducts}/>}/>
                         <Route path="/perfil" element={<Profile/>}/>
                         <Route path={"/orders"} element={<PlaceOrder/>}/>
+                        <Route path={"/order-placed"} element={<OrderPlaced/>}/>
                     </Routes>
                 </Router>
             </ShoppingCartProvider>
