@@ -48,7 +48,7 @@ const ProductsGrid = ({products}) => {
                         />
                     </div>
                 </Grid>
-
+                    
             </Grid>
 
             <Grid container spacing={1}>

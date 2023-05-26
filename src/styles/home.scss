@@ -65,3 +65,29 @@
       transform: translateY(0);
     }
 }
+
+@media (max-width: 746px) {
+  
+  .widgets {
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 50%;
+  }
+
+  .catalogue {
+    clear: both;
+
+  }
+
+  .map {
+    clear: both;
+    margin-top: 10%;
+  }
+  
+  .mapita {
+    width: 110%;
+  }
+  
+}
