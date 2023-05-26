@@ -48,7 +48,7 @@ export default function Signup() {
             password: data.get('password'),
         });
         if (error) {
-            console.log(error)
+            alert(error)
         } else {
             await supabase
                 .from("usuarios")
