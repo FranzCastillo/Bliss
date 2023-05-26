@@ -55,7 +55,7 @@ function App() {
               <Route path="/orders" element={<PlaceOrder />} />
               <Route path="/order-placed" element={<OrderPlaced />} />
               <Route path="/product/:id" element={<ProductDetails />} />
-              <Route path={"/signup"} element={<Signup/>}/>
+              <Route path="/signup" element={<Signup/>}/>
             </Routes>
           </Router>
         </ShoppingCartProvider>
