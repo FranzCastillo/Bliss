@@ -123,7 +123,7 @@ export default function Login() {
                         {/*Sign up redirect*/}
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="/signup" variant="body2">
+                                <Link onClick={() => navigate('/signup')} sx={{cursor: 'pointer'}} variant="body2">
                                     Not have an account? Sign up
                                 </Link>
                             </Grid>

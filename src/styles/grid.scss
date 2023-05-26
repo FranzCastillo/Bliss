@@ -1,0 +1,29 @@
+.search-bar-container {
+  width: 305px;
+  height: 40px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+  .search-bar {
+    border: none;
+    outline: none;
+    object-fit: contain;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif !important;
+    height: 90%;
+    width: 100%;
+    color: #201B40;
+    font-size: large;
+  }
+}
+
+

@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/home.css';
+import '../styles/home.scss';
 import {useEffect, useState} from 'react'
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -69,7 +69,8 @@ function Home() {
                 style={{border: '0'}}
                 allowfullscreen="" 
                 loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
+                referrerpolicy="no-referrer-when-downgrade"
+                className='mapita'>
               </iframe>
             </div>
           </div>
