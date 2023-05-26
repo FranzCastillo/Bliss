@@ -20,6 +20,7 @@ const ProductDetails = () => {
     return (
         <>
             <div>
+                <br/>
                 <img src={product.imageUrl} alt={product.name} />
             </div>
             <div>
@@ -52,6 +53,7 @@ const ProductDetails = () => {
                     Agregar al carrito
                     <AddShoppingCartIcon />
             </Button>
+            <br/> <br/>
         </>
     );
 };
