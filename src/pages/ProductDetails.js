@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from '@mui/material/';
+import { Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Grid} from '@mui/material/';
 
 const ProductDetails = () => {
     const cart = useContext(ShoppingCartContext);
@@ -19,15 +19,26 @@ const ProductDetails = () => {
 
     return (
         <>
-            <div>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <item>" "</item>
+                </Grid>
+                <Grid item xs={6}>
+                    <item>
+                    <div>
                 <br/>
                 <img src={product.imageUrl} alt={product.name} />
             </div>
+                    </item>
+                </Grid>
+                <Grid item xs={6}>
+                    <item>
+                    
             <div>
                 <h2>{product.name}</h2>
-                <p>{product.detail}</p>
                 <p>Código: {product.code}</p>
                 <p>Precio: Q{product.price}</p>
+                <p>{product.detail}</p>
             </div>
             <FormControl>
             <FormLabel id="demo-talla">Talla</FormLabel>
@@ -45,6 +56,8 @@ const ProductDetails = () => {
             </RadioGroup>
             </FormControl>
             <br />
+            <br />
+            <br />
             <Button
                     variant="contained"
                     sx={{ backgroundColor: '#312D4F' }}
@@ -53,7 +66,10 @@ const ProductDetails = () => {
                     Agregar al carrito
                     <AddShoppingCartIcon />
             </Button>
-            <br/> <br/>
+                    </item>
+                </Grid>
+                
+            </Grid>
         </>
     );
 };
