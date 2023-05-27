@@ -19,11 +19,23 @@ const ProductDetails = () => {
 
     return (
         <>
-            <Grid container spacing={2}>
+            <br />
+            <br />
+            <Grid container 
+                spacing={2}
+                direction="row"
+                justifyContent="center"
+                alignItems="center"
+                >
+                
                 <Grid item xs={12}>
-                    <item>" "</item>
+                    <item></item>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
+                    <item> </item>
+                </Grid>
+                
+                <Grid item xs={4} sx={{ background: "white" }} >
                     <item>
                     <div>
                 <br/>
@@ -31,7 +43,7 @@ const ProductDetails = () => {
             </div>
                     </item>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                     <item>
                     
             <div>
