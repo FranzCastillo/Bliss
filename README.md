@@ -24,3 +24,5 @@ El proyecto se encuentra publicado en internet a través de Firebase. Para visit
 2. Ingresar a la terminal con la dirección donde se ha almacenado el código recién descargado
 3. Ejecutar `npm install`
 4. Se puede ejecutar en modo desarrollo con `npm run start` o en modo producción con `npm run build`
+
+¡Gracias por comprar en Bliss! =)
