@@ -4,16 +4,34 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {Button} from "@mui/material";
+import {Button, Badge} from "@mui/material";
+import { styled } from '@mui/material/styles';
 import logo from '../media/Logo.png';
 import CartModal from './ShoppingCart/CartModal';
 import {useNavigate} from 'react-router-dom';
 import {supabase} from '../supabase/client';
+import {ShoppingCartContext} from ".././contexts/ShoppingCartContext";
 
 
 function NavBarUser() {
 
     const navigate = useNavigate();
+
+    /**
+     * Variable to get the number of products in the cart from the context, using function getTotalQuantity from ShoppingCartContext
+     * @type {number}
+     */
+    const cart = React.useContext(ShoppingCartContext);
+    const totalQuantity = cart.getTotalQuantity();
+
+    const StyledBadge = styled(Badge)(({ theme }) => ({
+        '& .MuiBadge-badge': {
+          right: 15,
+          top: 5,
+          border: `2px solid ${theme.palette.background.paper}`,
+          padding: '0 4px',
+        },
+      }));
 
     const theme = createTheme({
         typography: {
@@ -64,17 +82,20 @@ function NavBarUser() {
                                     c2.2,0,4-1.8,4-4V65.3h9.5V88c0,2.2,1.8,4,4,4h20.5C77.5,92,79.2,90.2,79.2,88z"/>
                                 </svg>
                             </Button>
+                            
+                            <StyledBadge badgeContent={totalQuantity} color='primary'>
+                                <Button onClick={handleOpen} className="navbar-button">
+                                    <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92">
+                                        <path id="XMLID_1732_" d="M91.8,27.3L81.1,61c-0.8,2.4-2.9,4-5.4,4H34.4c-2.4,0-4.7-1.5-5.5-3.7L13.1,19H4c-2.2,0-4-1.8-4-4
+                                            s1.8-4,4-4h11.9c1.7,0,3.2,1.1,3.8,2.7L36,57h38l8.5-27H35.4c-2.2,0-4-1.8-4-4s1.8-4,4-4H88c1.3,0,2.5,0.7,3.2,1.7
+                                            C92,24.7,92.2,26.1,91.8,27.3z M36.4,70.3c-1.7,0-3.4,0.7-4.6,1.9c-1.2,1.2-1.9,2.9-1.9,4.6c0,1.7,0.7,3.4,1.9,4.6
+                                            c1.2,1.2,2.9,1.9,4.6,1.9s3.4-0.7,4.6-1.9c1.2-1.2,1.9-2.9,1.9-4.6c0-1.7-0.7-3.4-1.9-4.6C39.8,71,38.1,70.3,36.4,70.3z M72.3,70.3
+                                            c-1.7,0-3.4,0.7-4.6,1.9s-1.9,2.9-1.9,4.6c0,1.7,0.7,3.4,1.9,4.6c1.2,1.2,2.9,1.9,4.6,1.9c1.7,0,3.4-0.7,4.6-1.9
+                                            c1.2-1.2,1.9-2.9,1.9-4.6c0-1.7-0.7-3.4-1.9-4.6S74,70.3,72.3,70.3z"/>
+                                    </svg>
+                                </Button>
+                            </StyledBadge>
 
-                            <Button onClick={handleOpen} className="navbar-button">
-                                <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92">
-                                    <path id="XMLID_1732_" d="M91.8,27.3L81.1,61c-0.8,2.4-2.9,4-5.4,4H34.4c-2.4,0-4.7-1.5-5.5-3.7L13.1,19H4c-2.2,0-4-1.8-4-4
-                                        s1.8-4,4-4h11.9c1.7,0,3.2,1.1,3.8,2.7L36,57h38l8.5-27H35.4c-2.2,0-4-1.8-4-4s1.8-4,4-4H88c1.3,0,2.5,0.7,3.2,1.7
-                                        C92,24.7,92.2,26.1,91.8,27.3z M36.4,70.3c-1.7,0-3.4,0.7-4.6,1.9c-1.2,1.2-1.9,2.9-1.9,4.6c0,1.7,0.7,3.4,1.9,4.6
-                                        c1.2,1.2,2.9,1.9,4.6,1.9s3.4-0.7,4.6-1.9c1.2-1.2,1.9-2.9,1.9-4.6c0-1.7-0.7-3.4-1.9-4.6C39.8,71,38.1,70.3,36.4,70.3z M72.3,70.3
-                                        c-1.7,0-3.4,0.7-4.6,1.9s-1.9,2.9-1.9,4.6c0,1.7,0.7,3.4,1.9,4.6c1.2,1.2,2.9,1.9,4.6,1.9c1.7,0,3.4-0.7,4.6-1.9
-                                        c1.2-1.2,1.9-2.9,1.9-4.6c0-1.7-0.7-3.4-1.9-4.6S74,70.3,72.3,70.3z"/>
-                                </svg>
-                            </Button>
                             {/*
                             <Button onClick={() => navigate('/perfil')} className="navbar-button">
                                 <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92" >
