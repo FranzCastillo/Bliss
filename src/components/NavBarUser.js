@@ -1,5 +1,5 @@
 import '../styles/navbar.scss';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -34,7 +34,26 @@ function NavBarUser() {
         }
 
     }
+    const [securityLevel, setSecurityLevel] = useState() 
+    useEffect(()=>{
+        async function getUserMail() {
+            const userData = await supabase.auth.getUser()
+            if(userData){
+                const {data,error} = await supabase.from("usuarios").select("rol_id").eq("email",userData.data.user.email)
+                if(data){
+                    setSecurityLevel(data[0].rol_id)
+                }
+                if(error){
+                    console.log(error)
+                } 
+            }
+        }
 
+        getUserMail()
+    })
+    const isSeller = securityLevel === 2
+    const isManager = securityLevel === 3
+    const isAdmin = securityLevel === 4
     return (
         <>
             <div>
@@ -49,6 +68,30 @@ function NavBarUser() {
                             />
                             
                             <div style={{width: '70%'}}> </div>
+
+                            {isAdmin &&(
+                                <Button onClick={() => navigate('/perfil')} className="navbar-button">
+                                    <Typography variant="h6" style={{}}>
+                                        Estadisticas
+                                    </Typography>
+                                </Button>
+                            )}
+
+                            {isSeller &&(
+                                <Button onClick={() => navigate('/grid')} className="navbar-button">
+                                    <Typography variant="h6" style={{}}>
+                                        Estadisticas
+                                    </Typography>
+                                </Button>
+                            )}
+
+                            {isManager &&(
+                                <Button onClick={() => navigate('/grid')} className="navbar-button">
+                                    <Typography variant="h6" style={{}}>
+                                        Estadisticas
+                                    </Typography>
+                                </Button>
+                            )}
 
                             <Button onClick={() => navigate('/grid')} className="navbar-button">
                                 <Typography variant="h6" style={{}}>
