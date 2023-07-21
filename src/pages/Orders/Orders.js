@@ -7,7 +7,7 @@ import DetailsButton from './Components/DetailsButton';
 function Orders() {
     const navigate = useNavigate();
     const columns = [
-        {field: 'id', headerName: 'ID', width: 70},
+        {field: 'id', headerName: 'ID', width: 70, type: 'number'},
         {field: 'cliente', headerName: 'Cliente', width: 225},
         {field: 'fecha', headerName: 'Fecha', width: 200},
         {field: 'estado', headerName: 'Estado', width: 130},
@@ -41,7 +41,7 @@ function Orders() {
             data = data.map((row) => ({
                 id: row.id,
                 cliente: row.usuarios.email,
-                fecha: row.fecha,
+                fecha: new Date(row.fecha).toLocaleDateString(),
                 estado: row.estado,
             }));
 
