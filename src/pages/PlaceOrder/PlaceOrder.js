@@ -99,13 +99,11 @@ function PlaceOrder() {
         });
 
         await Promise.all(promises);
-
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        saveOrderInDB();
-        // navigate('/order-placed');
+        saveOrderInDB().then(r => navigate('/order-placed'));
     };
 
 
