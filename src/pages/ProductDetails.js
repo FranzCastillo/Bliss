@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -8,21 +8,15 @@ const ProductDetails = () => {
     const cart = useContext(ShoppingCartContext);
     const location = useLocation();
     const product = location.state?.product;
-    const [selectedSize, setSelectedSize] = useState(product.sizes[1]); 
 
+    const imageURL = process.env.REACT_APP_STORAGE_URL + product.imageUrl + ".png"
     const handleAddToCart = () => {
-        cart.addOneProduct(product.id, selectedSize);
-    };
-
-    const handleSelectSize = (event) => {
-        setSelectedSize(event.target.value); 
+        cart.addOneProduct(product.id);
     };
 
     if (!product) {
         return <div>No se encontró información del producto</div>;
     }
-
-    const imageURL = process.env.REACT_APP_IMG_URL + product.imageUrl + ".png"
 
     return (
         <>
@@ -42,15 +36,11 @@ const ProductDetails = () => {
                     <item> </item>
                 </Grid>
                 
-                <Grid item xs={4} >
+                <Grid item xs={4} sx={{ background: "white" }} >
                     <item>
                     <div>
                 <br/>
-                <img 
-                    src={imageURL} 
-                    alt={"Product image"}
-                    style={{ width: "350px", height: "auto" }}
-                />
+                <img src={imageURL} alt={product.name} />
             </div>
                     </item>
                 </Grid>
@@ -63,37 +53,21 @@ const ProductDetails = () => {
                 <p>Precio: Q{product.price}</p>
                 <p>{product.detail}</p>
             </div>
-            <FormControl >
-                        <FormLabel  id="demo-radio-buttons-group-label" style={{ fontSize: '14px', color: '#201B40' }} >
-                            Talla
-                        </FormLabel>
-                        <RadioGroup
-                            row
-                            aria-labelledby="demo-radio-buttons-group-label"
-                            defaultValue={product.sizes[1]}
-                            name="radio-buttons-group"
-                            style={{ fontSize: '12px' }} 
-                            onChange={handleSelectSize}
-                        >
-                        {product.sizes.slice(1).map((talla) => (
-                            <FormControlLabel
-                                key={talla}
-                                value={talla}
-                                control={<Radio 
-                                    sx={{
-                                        '& .MuiSvgIcon-root': {
-                                        fontSize: 18,
-                                        color: '#201B40',
-                                        },
-                                    }}
-                                
-                                />}
-                                label={talla.toString()}
-                            />
-                        ))}
-
-                        </RadioGroup>
-                </FormControl>
+            <FormControl>
+            <FormLabel id="demo-talla">Talla</FormLabel>
+            <RadioGroup
+                row
+                aria-labelledby="demo-talla"
+                name="demo-talla"
+            >
+                <FormControlLabel value="35" control={<Radio />} label="35" />
+                <FormControlLabel value="36" control={<Radio />} label="36" />
+                <FormControlLabel value="37" control={<Radio />} label="37" />
+                <FormControlLabel value="38" control={<Radio />} label="38" />
+                <FormControlLabel value="39" control={<Radio />} label="39" />
+                
+            </RadioGroup>
+            </FormControl>
             <br />
             <br />
             <br />
