@@ -36,6 +36,9 @@ const ProductCard = ({ product }) => {
                 <Typography gutterBottom variant="subtitle2" component="div" align='left'>
                     {product.detail}
                 </Typography>
+                <Typography gutterBottom variant="subtitle2" component="div" align='left'>
+                    lolol
+                </Typography>
                 <Typography variant="body2" color="text.secondary" align='right'>
                     {product.code}
                 </Typography>
