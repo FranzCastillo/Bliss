@@ -9,6 +9,7 @@ const ProductDetails = () => {
     const location = useLocation();
     const product = location.state?.product;
 
+    const imageURL = process.env.REACT_APP_STORAGE_URL + product.imageUrl + ".png"
     const handleAddToCart = () => {
         cart.addOneProduct(product.id);
     };
@@ -39,7 +40,7 @@ const ProductDetails = () => {
                     <item>
                     <div>
                 <br/>
-                <img src={product.imageUrl} alt={product.name} />
+                <img src={imageURL} alt={product.name} />
             </div>
                     </item>
                 </Grid>
