@@ -1,13 +1,24 @@
 import React, {useEffect, useState} from 'react';
 import {supabase} from '../../supabase/client.js';
 import {DataGrid} from '@mui/x-data-grid';
+import { useNavigate } from "react-router-dom";
+import DetailsButton from './Components/DetailsButton';
 
 function Orders() {
+    const navigate = useNavigate();
     const columns = [
         {field: 'id', headerName: 'ID', width: 70},
         {field: 'cliente', headerName: 'Cliente', width: 225},
         {field: 'fecha', headerName: 'Fecha', width: 200},
         {field: 'estado', headerName: 'Estado', width: 130},
+        {
+            field: 'detalles',
+            headerName: 'Detalles',
+            renderCell: (params) => <DetailsButton path={"universidades"} id={params.row.id}/>,
+            width: 200,
+            sortable: false,
+            filterable: false,
+        },
     ];
 
     const [rows, setRows] = useState([]);
