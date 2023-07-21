@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { supabase } from '../../supabase/client.js';
-import { DataGrid } from '@mui/x-data-grid';
+import React, {useEffect, useState} from 'react';
+import {supabase} from '../../supabase/client.js';
+import {DataGrid} from '@mui/x-data-grid';
 
 function Orders() {
     const columns = [
-        { field: 'id', headerName: 'ID', width: 70 },
-        { field: 'cliente', headerName: 'Cliente', width: 225 },
-        { field: 'fecha', headerName: 'Fecha', width: 200 },
-        { field: 'estado', headerName: 'Estado', width: 130 },
+        {field: 'id', headerName: 'ID', width: 70},
+        {field: 'cliente', headerName: 'Cliente', width: 225},
+        {field: 'fecha', headerName: 'Fecha', width: 200},
+        {field: 'estado', headerName: 'Estado', width: 130},
     ];
 
     const [rows, setRows] = useState([]);
 
     const fetchRows = async () => {
         try {
-            let { data, error } = await supabase
+            let {data, error} = await supabase
                 .from('pedidos')
                 .select(`
-            id,
-            usuarios ( email ),
-            fecha,
-            estado
-        `)
-                .order('id', { ascending: true });
+                    id,
+                    usuarios ( email ),
+                    fecha,
+                    estado
+                `)
+                .order('id', {ascending: true});
 
             if (error) {
                 throw new Error('Error fetching rows');
@@ -54,12 +54,13 @@ function Orders() {
     return (
         <div id={'orders'}>
             <h1>Todas las Ordenes</h1>
-            <div style={{ height: 500, width: '90%', paddingLeft: '25px', paddingRight: '25px' }}>
+            <div style={{height: 500, width: '90%', paddingLeft: '25px', paddingRight: '25px'}}>
                 <DataGrid
                     rows={rows}
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
+                    sx={{borderWidth: '1px', borderColor: 'divider'}}
                 />
             </div>
         </div>
