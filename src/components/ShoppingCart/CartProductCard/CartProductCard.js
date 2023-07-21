@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import {ShoppingCartContext} from "../../../contexts/ShoppingCartContext";
 import {useEffect, useState} from 'react';
 
-const CartProductCard = ({id, quantity}) => {
+const CartProductCard = ({id, quantity, size}) => {
     const [product, setProduct] = useState([]);
 
     useEffect(() => {
@@ -16,6 +16,8 @@ const CartProductCard = ({id, quantity}) => {
         }
         fetchData()
     }, []);
+
+    const imageURL = process.env.REACT_APP_IMG_URL + product.imageUrl + ".png"
 
     const cardStyle = {
         backgroundColor: "#d2d1d9",
@@ -67,7 +69,7 @@ const CartProductCard = ({id, quantity}) => {
             <div className='img-container'>
                 <img 
                     className={"product-image"} 
-                    src={product.imageUrl} 
+                    src={imageURL} 
                     alt={"Product image"}
                 />
             </div>
@@ -76,6 +78,7 @@ const CartProductCard = ({id, quantity}) => {
                 <h1>{product.name}</h1>
                 <h4>Código: {product.code}</h4>
                 <h4>Precio Unitario: Q.{product.price}</h4>
+                <h4>Talla: {size}</h4>
                 <br/>
             </div>
             <div className={"quantity"}>
