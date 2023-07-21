@@ -17,6 +17,8 @@ const ProductDetails = () => {
         return <div>No se encontró información del producto</div>;
     }
 
+    const imageURL = process.env.REACT_APP_IMG_URL + product.imageUrl + ".png"
+
     return (
         <>
             <br />
@@ -35,11 +37,15 @@ const ProductDetails = () => {
                     <item> </item>
                 </Grid>
                 
-                <Grid item xs={4} sx={{ background: "white" }} >
+                <Grid item xs={4} >
                     <item>
                     <div>
                 <br/>
-                <img src={product.imageUrl} alt={product.name} />
+                <img 
+                    src={imageURL} 
+                    alt={"Product image"}
+                    style={{ width: "350px", height: "auto" }}
+                />
             </div>
                     </item>
                 </Grid>
