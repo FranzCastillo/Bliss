@@ -8,7 +8,7 @@ import {useEffect, useState} from 'react';
 
 const CartProductCard = ({id, quantity, size}) => {
     const [product, setProduct] = useState([]);
-
+    const [imageURL, setImage] = useState(' ')
     useEffect(() => {
         async function fetchData() {
             const fetchedProduct = await getProductData(id)
@@ -16,6 +16,11 @@ const CartProductCard = ({id, quantity, size}) => {
         }
         fetchData()
     }, []);
+
+    useEffect(() =>{
+        const img = process.env.REACT_APP_STORAGE_URL + product.imageUrl + ".png"
+        setImage(img)
+    }, [product]);
 
     const cardStyle = {
         backgroundColor: "#d2d1d9",
@@ -67,7 +72,7 @@ const CartProductCard = ({id, quantity, size}) => {
             <div className='img-container'>
                 <img 
                     className={"product-image"} 
-                    src={product.imageUrl} 
+                    src={imageURL} 
                     alt={"Product image"}
                 />
             </div>
