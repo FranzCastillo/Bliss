@@ -1,0 +1,21 @@
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  padding: 8px;
+
+  svg {
+    fill: #201B40;
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
+    background-color: white;
+  }
+
+  input.search-bar {
+    border: none;
+    outline: none;
+    flex: 1;
+  }
+}
