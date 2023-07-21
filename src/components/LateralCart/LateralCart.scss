@@ -4,12 +4,13 @@
     position: fixed !important;
     top: 10;
     right: 0;
-    height: 100%;
+    height: 89%;
     width: 10%;
     background-color: #f0f0f0;
     box-shadow: -2px 0px 8px rgba(0, 0, 0, 0.2);
     padding: 16px;
     z-index: 2;
+    scrollbar-width: thin;
   }
   
   .lateral-cart-title {

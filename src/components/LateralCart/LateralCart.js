@@ -1,7 +1,7 @@
 import React from 'react';
 import './LateralCart.scss';
 import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
-import CartProductCard from '../ShoppingCart/CartProductCard/CartProductCard';
+import LateralCartCard from './LateralCartCard/LateralCartCard';
 
 const LateralCart = () => {
   const cart = React.useContext(ShoppingCartContext);
@@ -11,7 +11,7 @@ const LateralCart = () => {
       <h2 className="lateral-cart-title">Carrito de compras</h2>
       <div className="lateral-cart-items">
         {cart.items.map((item) => (
-          <CartProductCard key={item.id} id={item.id} quantity={item.quantity} />
+          <LateralCartCard key={item.id} id={item.id} quantity={item.quantity} />
         ))}
       </div>
     </div>
