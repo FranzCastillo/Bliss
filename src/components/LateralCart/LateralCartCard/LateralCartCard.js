@@ -26,17 +26,18 @@ const CartProductCard = ({id, quantity, size}) => {
                 />
             </div>
 
-            <div className={"product-info"}>
+            <div className="product-info-l">
                 <h1>{product.name}</h1>
                 <h4>Código: {product.code}</h4>
                 <h4>Precio Unitario: Q.{product.price}</h4>
                 <h4>Talla: {size}</h4>
                 <br/>
             </div>
-            <div className={"quantity"}>
-                <h1>Cantidad</h1>
+
+            <div className="quantity-l">
+                <h1>Cantidad:  {quantity}</h1>
             </div>
-            <div className={"product-total"}>
+            <div className="product-total-l">
                 {/*Formats to 2 decimals*/}
                 <h1>Q.{(product.price * quantity).toFixed(2)}</h1>
             </div>
