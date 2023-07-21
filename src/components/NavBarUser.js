@@ -1,5 +1,5 @@
 import '../styles/navbar.scss';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -45,14 +45,33 @@ function NavBarUser() {
     const handleLogOut = async () => {
         try { 
             await supabase.auth.signOut().then(
-                navigate("/")
+                navigate("/login")
             );
         } catch (error) {
             console.log('Error signing out:', error.message);
         }
 
     }
+    const [securityLevel, setSecurityLevel] = useState() 
+    useEffect(()=>{
+        async function getUserMail() {
+            const userData = await supabase.auth.getUser()
+            if(userData){
+                const {data,error} = await supabase.from("usuarios").select("rol_id").eq("email",userData.data.user.email)
+                if(data){
+                    setSecurityLevel(data[0].rol_id)
+                }
+                if(error){
+                    console.log(error)
+                } 
+            }
+        }
 
+        getUserMail()
+    })
+    const isSeller = securityLevel === 2
+    const isManager = securityLevel === 3
+    const isAdmin = securityLevel === 4
     return (
         <>
             <div>
@@ -67,6 +86,28 @@ function NavBarUser() {
                             />
                             
                             <div style={{width: '70%'}}> </div>
+
+                            {isAdmin &&(
+                                <Button onClick={() => navigate('/all-orders')} className="navbar-button">
+                                    <Typography variant="h6" style={{}}>
+                                        Ordenes
+                                    </Typography>
+                                </Button>
+                            )}
+                            {isManager &&(
+                                <Button onClick={() => navigate('/all-orders')} className="navbar-button">
+                                    <Typography variant="h6" style={{}}>
+                                        Ordenes
+                                    </Typography>
+                                </Button>
+                            )}
+                            {isSeller &&(
+                                <Button onClick={() => navigate('/my-orders')} className="navbar-button">
+                                    <Typography variant="h6" style={{}}>
+                                        Mis Ordenes
+                                    </Typography>
+                                </Button>
+                            )}
 
                             <Button onClick={() => navigate('/grid')} className="navbar-button">
                                 <Typography variant="h6" style={{}}>

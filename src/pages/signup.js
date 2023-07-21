@@ -10,8 +10,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 import {supabase} from "../supabase/client.js"
+import { useEffect } from 'react';
 
 /**
  *
@@ -39,6 +40,7 @@ const theme = createTheme();
  */
 export default function Signup() {
     const navigate = useNavigate();
+    const location = useLocation()
     //Function that handles the form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -62,6 +64,17 @@ export default function Signup() {
             navigate("/")
         }
     };
+
+    useEffect(()=>{
+        const {data:authListener} = supabase.auth.onAuthStateChange((event, session) => {
+            if (location.pathname === "/signup" && session) {
+              navigate('/');
+            }
+          });
+        return () => {
+            authListener.subscription.unsubscribe()
+        };
+      },[])
 
     return (
         <ThemeProvider theme={theme}>
@@ -163,7 +176,7 @@ export default function Signup() {
                         {/*Sign in redirect*/}
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link onClick={() => navigate('/')} sx={{cursor: 'pointer'}} variant="body2">
+                                <Link onClick={() => navigate('/login')} sx={{cursor: 'pointer'}} variant="body2">
                                     Already have an account? Sign in
                                 </Link>
                             </Grid>
