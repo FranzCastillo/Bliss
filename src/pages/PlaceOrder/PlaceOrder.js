@@ -14,8 +14,8 @@ import CartProductCard from "../../components/ShoppingCart/CartProductCard/CartP
 import { ShoppingCartContext } from "../../contexts/ShoppingCartContext";
 import {supabase} from "../../supabase/client";
 
-const getUserEmail = () => {
-    return supabase.auth.getSession().then((session) => {
+const getUserEmail = async () => {
+    return await supabase.auth.getSession().then((session) => {
         if (session) {
             return session.data.session.user.email;
         } else {
@@ -23,6 +23,21 @@ const getUserEmail = () => {
         }
     });
 };
+
+const getUserId = async () => {
+    const email = await getUserEmail();
+
+    const { data, error } = await supabase
+        .from('usuarios')
+        .select('id')
+        .eq('email', email);
+
+    if (error) {
+        alert(error.message);
+    } else {
+        return data[0].id;
+    }
+}
 
 const getUserAddress = async (email) => {
     const { data, error } = await supabase
@@ -47,9 +62,48 @@ function PlaceOrder() {
     const [salesPerson, setSalesPerson] = useState('');
     const [paymentMethod, setPaymentMethod] = useState(3);
 
+    const saveOrderInDB = async () => {
+        const userId = await getUserId();
+        // Create the registry in the database
+        const { data, error } = await supabase
+            .from('pedidos')
+            .insert([{
+                usuario_id: userId,
+                fecha: new Date(),
+                estado: 'Pendiente',
+                direccion: address,
+                pago_id: paymentMethod,
+            }]);
+
+        // Gets the id of the new registry
+        let orderId = 0;
+        await supabase
+            .from('pedidos')
+            .select('id')
+            .eq('usuario_id', userId)
+            .order('id', { ascending: false })
+            .limit(1)
+            .then((data) => {
+                orderId = data.data[0].id;
+            });
+
+        // saves the products in the database
+        const promises = cart.items.map(async (item) => {
+            await supabase.from('productos_del_pedido').insert([
+                {
+                    pedido_id: orderId,
+                    producto_id: item.id,
+                    cantidad: item.quantity,
+                },
+            ]);
+        });
+
+        await Promise.all(promises);
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        navigate('/order-placed');
+        saveOrderInDB().then(r => navigate('/order-placed'));
     };
 
 
@@ -142,8 +196,8 @@ function PlaceOrder() {
                             <FormControl fullWidth required>
                                 <InputLabel id="demo-simple-select-label">Método de Pago</InputLabel>
                                 <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
+                                    labelId="payment-method-label"
+                                    id="payment-method"
                                     value={paymentMethod}
                                     label="PaymentMethod"
                                     onChange={handlePaymentMethodChange}
