@@ -87,7 +87,7 @@ const ProductsGrid = ({ products }) => {
                 </Grid>
             </div>
             <div className="third" style={{ width: "20%", display: "flex" }}>
-                <LateralCart cartItems={cartItems} />
+                <LateralCart />
             </div>
         </div>
     </>
