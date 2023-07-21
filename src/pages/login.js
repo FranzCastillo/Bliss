@@ -63,13 +63,14 @@ export default function Login() {
         }
     };
     useEffect(()=>{
-        if(location.pathname==="/login"){
-            supabase.auth.onAuthStateChange((event,session) =>{
-                if(session){
-                  navigate('/')
-                }
-            })
-        }
+        const {data:authListener} = supabase.auth.onAuthStateChange((event, session) => {
+            if (location.pathname === "/login" && session) {
+              navigate('/');
+            }
+          });
+        return () => {
+            authListener.subscription.unsubscribe()
+        };
       },[])
 
     return (

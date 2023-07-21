@@ -27,7 +27,7 @@ function NavBarUser() {
     const handleLogOut = async () => {
         try { 
             await supabase.auth.signOut().then(
-                navigate("/")
+                navigate("/login")
             );
         } catch (error) {
             console.log('Error signing out:', error.message);
@@ -70,25 +70,23 @@ function NavBarUser() {
                             <div style={{width: '70%'}}> </div>
 
                             {isAdmin &&(
-                                <Button onClick={() => navigate('/perfil')} className="navbar-button">
+                                <Button onClick={() => navigate('/all-orders')} className="navbar-button">
                                     <Typography variant="h6" style={{}}>
-                                        Estadisticas
+                                        Ordenes
                                     </Typography>
                                 </Button>
                             )}
-
-                            {isSeller &&(
-                                <Button onClick={() => navigate('/grid')} className="navbar-button">
-                                    <Typography variant="h6" style={{}}>
-                                        Estadisticas
-                                    </Typography>
-                                </Button>
-                            )}
-
                             {isManager &&(
-                                <Button onClick={() => navigate('/grid')} className="navbar-button">
+                                <Button onClick={() => navigate('/all-orders')} className="navbar-button">
                                     <Typography variant="h6" style={{}}>
-                                        Estadisticas
+                                        Ordenes
+                                    </Typography>
+                                </Button>
+                            )}
+                            {isSeller &&(
+                                <Button onClick={() => navigate('/my-orders')} className="navbar-button">
+                                    <Typography variant="h6" style={{}}>
+                                        Mis Ordenes
                                     </Typography>
                                 </Button>
                             )}

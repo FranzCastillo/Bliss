@@ -13,14 +13,15 @@ import ProductsGrid from './pages/ProductsGrid';
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 import OrderPlaced from "./pages/OrderPlaced/OrderPlaced";
 import ProductDetails from "./pages/ProductDetails";
+import Orders from './pages/Orders';
+import MyOrders from './pages/MyOrders';
+import ConfigProducts from './pages/ConfigProducts';
 
 function App() {
   const navigate = useNavigate()
   const location = useLocation()
   const [fetchedProducts, setFetchedProducts] = useState([]);
   const [isLoged, setIsLoged] = useState()
-  const [path, setPath] = useState(location.pathname)
-  const [allowNav, setAllowNav] = useState(false)
   
   useEffect(() => {
     async function fetchData() {
@@ -30,37 +31,19 @@ function App() {
     fetchData();
   }, []);
 
-  /*useEffect(() => {
-    async function checkAuth(){
-      const { data: authListener } = await supabase.auth.onAuthStateChange(
-        (event, session) => {
-          if (event === 'SIGNED_IN') {
-            setIsLoged(true);
-            setLoading(false)
-          } else if (event === 'SIGNED_OUT') {
-            setIsLoged(false);
-            setLoading(false)
-          }
-        }
-      );
-  
-      return () => {
-        authListener.subscription.unsubscribe();
-      };
-    }
-    checkAuth()
-    
-  });*/
-
   useEffect(()=>{
-    supabase.auth.onAuthStateChange((event,session) =>{
+    const{data:authListener}=supabase.auth.onAuthStateChange((event,session) =>{
       if(!session){
+        console.log("Any -> Login.js")
         navigate('/login')
         setIsLoged(false)
       }else{
         setIsLoged(true)
       }
     })
+    return () => {
+      authListener.subscription.unsubscribe()
+    };
   },[])
 
   const [securityLevel, setSecurityLevel] = useState() 
@@ -100,7 +83,20 @@ function App() {
             <Route path="/grid" element={<ProductsGrid products={fetchedProducts} />} />
             {isAdmin&&(
               <>
-
+                <Route path="/config-product" element={<ConfigProducts/>}/>
+                <Route path="/all-orders" element={<Orders/>}/>
+                <Route path="/my-orders" element={<MyOrders/>}/>
+              </>
+            )}
+            {isManager&&(
+              <>
+                <Route path="/all-orders" element={<Orders/>}/>
+                <Route path="/my-orders" element={<MyOrders/>}/>
+              </>
+            )}
+            {isSeller&&(
+              <>
+                <Route path="/my-orders" element={<MyOrders/>}/>
               </>
             )}
             <Route path="/perfil" element={<Profile />} />

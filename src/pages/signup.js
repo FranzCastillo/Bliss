@@ -66,14 +66,15 @@ export default function Signup() {
     };
 
     useEffect(()=>{
-        if(location.pathname==="/signup"){
-            supabase.auth.onAuthStateChange((event,session) =>{
-                if(session){
-                  navigate('/')
-                }
-            })
-        }
-    },[])
+        const {data:authListener} = supabase.auth.onAuthStateChange((event, session) => {
+            if (location.pathname === "/signup" && session) {
+              navigate('/');
+            }
+          });
+        return () => {
+            authListener.subscription.unsubscribe()
+        };
+      },[])
 
     return (
         <ThemeProvider theme={theme}>
