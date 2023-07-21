@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import {ShoppingCartContext} from "../../../contexts/ShoppingCartContext";
 import {useEffect, useState} from 'react';
 
-const CartProductCard = ({id, quantity}) => {
+const CartProductCard = ({id, quantity, size}) => {
     const [product, setProduct] = useState([]);
 
     useEffect(() => {
@@ -76,6 +76,7 @@ const CartProductCard = ({id, quantity}) => {
                 <h1>{product.name}</h1>
                 <h4>Código: {product.code}</h4>
                 <h4>Precio Unitario: Q.{product.price}</h4>
+                <h4>Talla: {size}</h4>
                 <br/>
             </div>
             <div className={"quantity"}>

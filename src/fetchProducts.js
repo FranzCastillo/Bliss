@@ -8,13 +8,12 @@ export async function FetchProducts() {
                                     .select("producto_id, talla")
 
     const grupos = {}
-
     productSizes.forEach((dato) => {
-    const { producto_id, talla } = dato;
-    if (!grupos[producto_id]) {
-        grupos[producto_id] = [producto_id];
-    }
-    grupos[producto_id].push(talla);
+        const { producto_id, talla } = dato;
+        if (!grupos[producto_id]) {
+            grupos[producto_id] = [producto_id];
+        }
+        grupos[producto_id].push(talla);
     })
 
     const tallas = Object.values(grupos)
@@ -28,8 +27,6 @@ export async function FetchProducts() {
         imageUrl: dato.imagen,
         sizes: tallas[dato.id-1]
     }))
-
-    console.log(products)
 
     return products
 

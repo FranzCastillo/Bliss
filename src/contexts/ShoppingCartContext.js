@@ -53,7 +53,7 @@ export default function ShoppingCartProvider({children}) {
      * @param id the id of the product
      * 
      */
-    async function addOneProduct(id) {
+    async function addOneProduct(id, size) {
         const quantity = getProductQuantity(id);
         const prod = await getProductData(id)
         if (quantity === 0) {
@@ -62,7 +62,8 @@ export default function ShoppingCartProvider({children}) {
                 {
                     id: id,
                     quantity: 1,
-                    price: prod.price
+                    price: prod.price, 
+                    size: size
                 }
             ]);
         } else {
@@ -72,7 +73,8 @@ export default function ShoppingCartProvider({children}) {
                         return {
                             ...product,
                             quantity: product.quantity + 1,
-                            price: product.price
+                            price: product.price,
+                            size: size
                         };
                     }
                     return product;
