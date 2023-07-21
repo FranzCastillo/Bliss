@@ -37,6 +37,18 @@ export default function ShoppingCartProvider({children}) {
     }
 
     /**
+     * Returns the total quantity of products in the cart.
+     * @returns {number} the total quantity of products in the cart.
+     */
+    function getTotalQuantity() {
+        let total = 0;
+        cartProducts.forEach((product) => {
+            total += product.quantity
+        });
+        return total;
+    }
+
+    /**
      * Adds a product to the cart. If the product is already in the cart, it increases the quantity by 1.
      * @param id the id of the product
      * 
@@ -130,7 +142,8 @@ export default function ShoppingCartProvider({children}) {
         addOneProduct,
         removeOneProduct,
         clearCart,
-        getTotal
+        getTotal,
+        getTotalQuantity
     }
 
     return (

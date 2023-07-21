@@ -18,6 +18,7 @@ const OrderPlaced = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            color: '#201B40'
         }}>
             <h1>¡Su orden fue colocada exitosamente!</h1>
             <CheckCircleOutlineIcon

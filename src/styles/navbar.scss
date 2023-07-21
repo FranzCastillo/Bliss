@@ -1,0 +1,35 @@
+.navbar {
+    background-color: #FFFFFF !important;
+    color: #201B40 !important;
+    position: fixed !important;
+    z-index: 100 !important;
+}
+
+.navbar-button {
+    text-decoration: none;
+    color: #201B40 !important;
+    text-transform: none !important;
+    background-color: transparent !important;
+
+    &:hover {
+        color: #E35358 !important;
+        background-color: transparent !important;
+    }
+
+    &:hover svg {
+        fill: #E35358 !important;
+        background-color: transparent !important;
+    }
+
+    &:active {
+        color: transparent !important;
+    }
+}
+
+.navbar-logo {
+    cursor: pointer;
+}
+
+.separator {
+    height: 50px;
+}
