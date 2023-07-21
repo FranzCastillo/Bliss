@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import ProductCard from "./ProductCard";
 import FloatingButton from "../components/FloatingButton/FloatingButton";
+import LateralCart from "../components/LateralCart/LateralCart";
 import { supabase } from "../supabase/client";
 import PrimarySearchBar from "../components/PrimarySearchBar/PrimarySearchBar";
 
 const ProductsGrid = ({ products }) => {
+  // Estado para almacenar los ítems del carrito
+  const [cartItems] = useState([]);
 
   const [securityLevel, setSecurityLevel] = useState();
   useEffect(() => {
@@ -84,6 +87,7 @@ const ProductsGrid = ({ products }) => {
                 </Grid>
             </div>
             <div className="third" style={{ width: "20%", display: "flex" }}>
+                <LateralCart cartItems={cartItems} />
             </div>
         </div>
     </>
