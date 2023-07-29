@@ -9,15 +9,14 @@ const ProductDetails = () => {
     const location = useLocation();
     const product = location.state?.product;
     const [selectedSize, setSelectedSize] = useState(product.sizes[1]); 
-
     const imageURL = process.env.REACT_APP_STORAGE_URL + product.imageUrl + ".png"
+
     const handleAddToCart = () => {
         cart.addOneProduct(product.id, selectedSize);
     };
 
     const handleSelectSize = (event) => {
         setSelectedSize(event.target.value); 
-        cart.addOneProduct(product.id);
     };
 
     if (!product) {
@@ -64,35 +63,36 @@ const ProductDetails = () => {
                 <p>{product.detail}</p>
             </div>
             <FormControl >
-                <FormLabel  id="demo-radio-buttons-group-label" style={{ fontSize: '14px', color: '#201B40' }} >
-                    Talla
-                </FormLabel>
-                <RadioGroup
-                    row
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue={product.sizes[1]}
-                    name="radio-buttons-group"
-                    style={{ fontSize: '12px' }} 
-                    onChange={handleSelectSize}
-                >
-                {product.sizes.slice(1).map((talla) => (
-                    <FormControlLabel
-                        key={talla}
-                        value={talla}
-                        control={<Radio 
-                            sx={{
-                                '& .MuiSvgIcon-root': {
-                                fontSize: 18,
-                                color: '#201B40',
-                                },
-                            }}
+                        <FormLabel  id="demo-radio-buttons-group-label" style={{ fontSize: '14px', color: '#201B40' }} >
+                            Talla
+                        </FormLabel>
+                        <RadioGroup
+                            row
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            defaultValue={product.sizes[1]}
+                            name="radio-buttons-group"
+                            style={{ fontSize: '12px' }} 
+                            onChange={handleSelectSize}
+                        >
+                        {product.sizes.slice(1).map((talla) => (
+                            <FormControlLabel
+                                key={talla}
+                                value={talla}
+                                control={<Radio 
+                                    sx={{
+                                        '& .MuiSvgIcon-root': {
+                                        fontSize: 18,
+                                        color: '#201B40',
+                                        },
+                                    }}
                                 
-                        />}
-                        label={talla.toString()}
-                    />
-                ))}
-                </RadioGroup>
-            </FormControl>
+                                />}
+                                label={talla.toString()}
+                            />
+                        ))}
+
+                        </RadioGroup>
+                </FormControl>
             <br />
             <br />
             <br />
