@@ -1,0 +1,54 @@
+.card-container {
+    background-color: lightgrey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .img-container {
+        justify-content: center;
+        display: table-row;
+        width: fit-content;
+    }
+      
+    .product-image {
+        width: 85%;
+        object-fit: contain;
+    }
+    
+
+    .product-info-l {
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        object-fit: contain;
+        width: fit-content;
+    
+    }
+    h1 {
+        font-size: 12px;
+        margin-bottom: 0;
+    }
+    
+    h4 {
+        color: gray;
+        font-size: 60%;
+        margin: 0;
+    }
+    .quantity-l {
+        width: fit-content;
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+    }
+
+    .product-total-l {
+
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+}

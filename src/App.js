@@ -13,7 +13,7 @@ import ProductsGrid from './pages/ProductsGrid';
 import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 import OrderPlaced from "./pages/OrderPlaced/OrderPlaced";
 import ProductDetails from "./pages/ProductDetails";
-import Orders from './pages/Orders';
+import Orders from './pages/Orders/Orders';
 import MyOrders from './pages/MyOrders';
 import ConfigProducts from './pages/ConfigProducts';
 

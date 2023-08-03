@@ -1,21 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
-import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, Stack } from "@mui/material";
+import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, Stack, Button, TextField, Grid, Typography, Avatar, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import CartProductCard from "../../components/ShoppingCart/CartProductCard/CartProductCard";
 import { ShoppingCartContext } from "../../contexts/ShoppingCartContext";
 import {supabase} from "../../supabase/client";
 
-const getUserEmail = () => {
-    return supabase.auth.getSession().then((session) => {
+const getUserEmail = async () => {
+    return await supabase.auth.getSession().then((session) => {
         if (session) {
             return session.data.session.user.email;
         } else {
@@ -23,6 +17,21 @@ const getUserEmail = () => {
         }
     });
 };
+
+const getUserId = async () => {
+    const email = await getUserEmail();
+
+    const { data, error } = await supabase
+        .from('usuarios')
+        .select('id')
+        .eq('email', email);
+
+    if (error) {
+        alert(error.message);
+    } else {
+        return data[0].id;
+    }
+}
 
 const getUserAddress = async (email) => {
     const { data, error } = await supabase
@@ -37,9 +46,25 @@ const getUserAddress = async (email) => {
     }
 };
 
+const getUserSellers = async () => {
+    const { data, error } = await supabase
+        .from('usuarios')
+        .select('id, nombre, apellido')
+        .eq('rol_id', 2);
+
+    if (error) {
+        alert(error.message);
+        return [];
+    } else {
+        return data.map(item => ({ id: item.id, nombre: item.nombre, apellido: item.apellido }));
+    }
+};
+
 function PlaceOrder() {
     const navigate = useNavigate();
     const cart = useContext(ShoppingCartContext);
+
+    const [names, setNames] = useState([]);
 
     const [email, setEmail] = useState('');
     const [hasSalesPerson, setHasSalesPerson] = useState(true);
@@ -47,18 +72,58 @@ function PlaceOrder() {
     const [salesPerson, setSalesPerson] = useState('');
     const [paymentMethod, setPaymentMethod] = useState(3);
 
+    const saveOrderInDB = async () => {
+        const userId = await getUserId();
+        // Create the registry in the database
+        const { data, error } = await supabase
+            .from('pedidos')
+            .insert([{
+                usuario_id: userId,
+                fecha: new Date(),
+                estado: 'Pendiente',
+                direccion: address,
+                pago_id: paymentMethod,
+                vendedor_id: salesPerson,
+            }]);
+
+        // Gets the id of the new registry
+        let orderId = 0;
+        await supabase
+            .from('pedidos')
+            .select('id')
+            .eq('usuario_id', userId)
+            .order('id', { ascending: false })
+            .limit(1)
+            .then((data) => {
+                orderId = data.data[0].id;
+            });
+
+        // saves the products in the database
+        const promises = cart.items.map(async (item) => {
+            await supabase.from('productos_del_pedido').insert([
+                {
+                    pedido_id: orderId,
+                    producto_id: item.id,
+                    cantidad: item.quantity,
+                },
+            ]);
+        });
+
+        await Promise.all(promises);
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        navigate('/order-placed');
+        saveOrderInDB().then(r => navigate('/order-placed'));
     };
-
 
     const handleSalesPersonCheckbox = (event) => {
         setHasSalesPerson(!event.target.checked);
     }
 
     const handleSalesPersonChange = (event) => {
-        setSalesPerson(event.target.value);
+        const selectedNames = event.target.value; 
+        setSalesPerson(selectedNames);
     }
 
     const handlePaymentMethodChange = (event) => {
@@ -78,6 +143,34 @@ function PlaceOrder() {
                 setAddress(address);
             })
         });
+    }, []);
+
+    const [securityLevel, setSecurityLevel] = useState();
+
+    useEffect(() => {
+        getUserSellers().then((sellerNames) => {
+            setNames(sellerNames);
+        });
+    }, []);
+
+    useEffect(() => {
+        async function getUserMail() {
+        const userData = await supabase.auth.getUser();
+        if (userData) {
+            const { data, error } = await supabase
+            .from("usuarios")
+            .select("rol_id")
+            .eq("email", userData.data.user.email);
+            if (data) {
+            setSecurityLevel(data[0].rol_id);
+            }
+            if (error) {
+            console.log(error);
+            }
+        }
+        }
+
+        getUserMail();
     }, []);
 
     useEffect(() => {
@@ -107,16 +200,27 @@ function PlaceOrder() {
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
                     <Grid container spacing={2}>
                         <Grid item xs={8}>
-                            <TextField
-                                required
-                                fullWidth
-                                id="email"
-                                label="Nombre del Vendedor"
-                                name="salesman"
-                                onChange={handleSalesPersonChange}
-                                value={hasSalesPerson ? salesPerson : ''}
-                                disabled={!hasSalesPerson}
-                            />
+                        
+                        <FormControl fullWidth required>
+                            <InputLabel id="demo-simple-select-label">Vendedor</InputLabel>
+                                <Select
+                                    labelId="salesman-selection-label"
+                                    id="salesman-selection"
+                                    label="PaymentMethod"
+                                    value={salesPerson}
+                                    onChange={handleSalesPersonChange}
+                                    disabled={!hasSalesPerson}
+                                >
+                                    {names.map((seller) => (
+                                        <MenuItem
+                                            key={`${seller.id}`}
+                                            value={`${seller.id}`}
+                                        >
+                                            {`${seller.nombre} ${seller.apellido}`}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
                         </Grid>
                         <Grid item xs={4}>
                             <FormControlLabel
@@ -142,8 +246,8 @@ function PlaceOrder() {
                             <FormControl fullWidth required>
                                 <InputLabel id="demo-simple-select-label">Método de Pago</InputLabel>
                                 <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
+                                    labelId="payment-method-label"
+                                    id="payment-method"
                                     value={paymentMethod}
                                     label="PaymentMethod"
                                     onChange={handlePaymentMethodChange}
