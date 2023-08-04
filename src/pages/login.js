@@ -44,7 +44,7 @@ export default function Login() {
     //Function that handles the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
+        const data = new FormData(event.currentTarget); 
         try {
             if ((data.get('email').trim() !== '') || (data.get('password').trim() !== '')) {
                 supabase.auth.signInWithPassword({
@@ -53,6 +53,7 @@ export default function Login() {
                 }).then(async ({data, error}) => {
                     if (error) {
                         alert(error.message);
+                        console.log(error.message)
                     } else {
                         navigate('/');
                     }
@@ -105,6 +106,7 @@ export default function Login() {
                                     fullWidth
                                     id="email"
                                     label="Email Address"
+                                    data-testid="email"
                                     name="email"
                                     autoComplete="email"
                                 />
@@ -118,6 +120,7 @@ export default function Login() {
                                     label="Password"
                                     type="password"
                                     id="password"
+                                    data-testid="password"
                                     autoComplete="new-password"
                                 />
                             </Grid>
@@ -125,6 +128,7 @@ export default function Login() {
                         {/*Submit button*/}
                         <Button
                             type="submit"
+                            data-testid="sign-in-button"
                             fullWidth
                             variant="contained"
                             sx={{mt: 3, mb: 2}}
@@ -134,7 +138,7 @@ export default function Login() {
                         {/*Sign up redirect*/}
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link onClick={() => navigate('/signup')} sx={{cursor: 'pointer'}} variant="body2">
+                                <Link onClick={() => navigate('/signup')} sx={{cursor: 'pointer'}} variant="body2" name="to-register">
                                     Not have an account? Sign up
                                 </Link>
                             </Grid>

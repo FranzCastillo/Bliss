@@ -35,14 +35,13 @@ const ProductDetails = () => {
                 >
                 
                 <Grid item xs={12}>
-                    <item></item>
+                    
                 </Grid>
                 <Grid item xs={12}>
-                    <item> </item>
+                    
                 </Grid>
                 
                 <Grid item xs={4} >
-                    <item>
                     <div>
                 <br/>
                 <img 
@@ -51,10 +50,10 @@ const ProductDetails = () => {
                     style={{ width: "350px", height: "auto" }}
                 />
             </div>
-                    </item>
+                    
                 </Grid>
                 <Grid item xs={4}>
-                    <item>
+                    
                     
             <div>
                 <h2>{product.name}</h2>
@@ -104,7 +103,7 @@ const ProductDetails = () => {
                     Agregar al carrito
                     <AddShoppingCartIcon />
             </Button>
-                    </item>
+                    
                 </Grid>
                 
             </Grid>
