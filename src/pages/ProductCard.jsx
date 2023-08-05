@@ -12,7 +12,7 @@ import FormLabel from '@mui/material/FormLabel';
 
 const ProductCard = ({ product }) => {
     
-    const imageURL = process.env.REACT_APP_STORAGE_URL + product.imageUrl + ".png"
+    const imageURL = import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"
     const cart = useContext(ShoppingCartContext);
     const navigate = useNavigate();
     const [selectedSize, setSelectedSize] = useState(product.sizes[1]); 

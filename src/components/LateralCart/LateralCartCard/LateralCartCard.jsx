@@ -14,7 +14,7 @@ const CartProductCard = ({id, quantity, size}) => {
         fetchData()
     }, []);
 
-    const imageURL = process.env.REACT_APP_STORAGE_URL + product.imageUrl + ".png"
+    const imageURL = import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"
 
     return (
         <div className='card-container' >

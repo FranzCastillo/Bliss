@@ -10,7 +10,7 @@ import logo from '../media/Logo.png';
 import CartModal from './ShoppingCart/CartModal';
 import {useNavigate} from 'react-router-dom';
 import {supabase} from '../supabase/client';
-import {ShoppingCartContext} from ".././contexts/ShoppingCartContext";
+import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
 
 
 function NavBarUser() {
