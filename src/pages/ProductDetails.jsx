@@ -9,7 +9,7 @@ const ProductDetails = () => {
     const location = useLocation();
     const product = location.state?.product;
     const [selectedSize, setSelectedSize] = useState(product.sizes[1]); 
-    const imageURL = process.env.REACT_APP_STORAGE_URL + product.imageUrl + ".png"
+    const imageURL = import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"
 
     const handleAddToCart = () => {
         cart.addOneProduct(product.id, selectedSize);
@@ -35,14 +35,14 @@ const ProductDetails = () => {
                 >
                 
                 <Grid item xs={12}>
-                    <item></item>
+                    
                 </Grid>
                 <Grid item xs={12}>
-                    <item> </item>
+                    
                 </Grid>
                 
                 <Grid item xs={4} >
-                    <item>
+                    
                     <div>
                 <br/>
                 <img 
@@ -51,10 +51,10 @@ const ProductDetails = () => {
                     style={{ width: "350px", height: "auto" }}
                 />
             </div>
-                    </item>
+                    
                 </Grid>
                 <Grid item xs={4}>
-                    <item>
+                    
                     
             <div>
                 <h2>{product.name}</h2>
@@ -104,7 +104,7 @@ const ProductDetails = () => {
                     Agregar al carrito
                     <AddShoppingCartIcon />
             </Button>
-                    </item>
+                    
                 </Grid>
                 
             </Grid>

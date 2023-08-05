@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
-import ProductCard from "./ProductCard";
+import ProductCard from "./ProductCard.jsx";
 import FloatingButton from "../components/FloatingButton/FloatingButton";
 import LateralCart from "../components/LateralCart/LateralCart";
 import { supabase } from "../supabase/client";

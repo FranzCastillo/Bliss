@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {supabase} from '../../supabase/client.js';
 import {DataGrid} from '@mui/x-data-grid';
 import { useNavigate } from "react-router-dom";
-import DetailsButton from './Components/DetailsButton';
+import DetailsButton from './Components/DetailsButton.jsx';
 
 function Orders() {
     const navigate = useNavigate();
