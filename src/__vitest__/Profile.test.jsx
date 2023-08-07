@@ -1,13 +1,13 @@
 import {describe, test, expect} from 'vitest'
 import {render} from '@testing-library/react'
-import Home from '../pages/Home'
+import Profile from '../pages/Profile'
 import { BrowserRouter } from 'react-router-dom'
 
-describe('Home', () => {
-    test('should render home page', () => {
+describe('Profile', () => {
+    test('should render Profile page', () => {
         const page = render(
             <BrowserRouter>
-                <Home/>
+                <Profile/>
             </BrowserRouter>
         )
         expect(page).not.toBeNull()
