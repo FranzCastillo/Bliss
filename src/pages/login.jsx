@@ -41,6 +41,7 @@ const theme = createTheme();
 export default function Login() {
     const navigate = useNavigate();
     const location = useLocation()
+    const [invalid, setInvalid] = React.useState();
     //Function that handles the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -52,12 +53,13 @@ export default function Login() {
                     password: data.get('password'),
                 }).then(async ({data, error}) => {
                     if (error) {
-                        alert(error.message);
-                        console.log(error.message)
+                        setInvalid(error.message)
                     } else {
                         navigate('/');
                     }
                 })
+            } else{
+                setInvalid("Email and password are required")
             }
         } catch (error) {
             console.log(error)
@@ -125,6 +127,11 @@ export default function Login() {
                                 />
                             </Grid>
                         </Grid>
+                        {invalid && (
+                            <Typography component="p" color="red">
+                                {"*"+invalid} 
+                            </Typography>
+                        )}
                         {/*Submit button*/}
                         <Button
                             type="submit"

@@ -18,6 +18,7 @@
     "@mui/material": "^5.14.3",
     "@mui/x-data-grid": "^6.11.0",
     "@supabase/supabase-js": "^2.31.0",
+    "@testing-library/user-event": "^14.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
