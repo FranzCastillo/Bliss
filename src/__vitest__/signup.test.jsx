@@ -1,7 +1,6 @@
 import {describe, test, expect} from 'vitest'
 import {render, waitFor} from '@testing-library/react'
 import Signup from '../pages/signup'
-import App from '../App'
 import { BrowserRouter } from 'react-router-dom'
 describe('signup', () => {
     test('should render signup page', () => {
