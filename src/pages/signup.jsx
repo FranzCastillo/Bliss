@@ -41,6 +41,8 @@ const theme = createTheme();
 export default function Signup() {
     const navigate = useNavigate();
     const location = useLocation()
+    const [invalid, setInvalid] = React.useState();
+
     //Function that handles the form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -50,7 +52,7 @@ export default function Signup() {
             password: data.get('password'),
         });
         if (error) {
-            alert(error)
+            setInvalid(error.message)
         } else {
             await supabase
                 .from("usuarios")
@@ -165,6 +167,11 @@ export default function Signup() {
                             </Grid>
                         </Grid>
                         {/*Submit button*/}
+                        {invalid && (
+                            <Typography component="p" color="red">
+                                {"*"+invalid} 
+                            </Typography>
+                        )}
                         <Button
                             type="submit"
                             fullWidth
