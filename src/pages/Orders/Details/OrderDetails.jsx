@@ -75,14 +75,31 @@ function OrderDetails() {
         <div id="order-details">
             {order ? (
                 <>
-                    <h1>Detalles de la Orden #{id}</h1>
-                    <h2>Cliente: {order.usuarios.nombre} {order.usuarios.apellido}</h2>
-                    <h2>Fecha de Colocación: {order.fecha}</h2>
-                    <h2>Estado: {order.estado}</h2>
-                    <h3>Dirección: {order.direccion}</h3>
-                    <h3>Tipo de Pago: {order.tipos_de_pago.tipo}</h3>
-                    <h3>Productos:</h3>
-                    <table>
+                    <h1>Detalles del pedido #{id}</h1>
+                    <hr/>
+                    <div className="details">
+                        <div id={"client"}>
+                            <h4>Cliente</h4>
+                            <h2>{order.usuarios.nombre} {order.usuarios.apellido}</h2>
+                        </div>
+                        <div id={"date"}>
+                            <h4>Fecha de Colocación</h4>
+                            <h2>{order.fecha}</h2>
+                        </div>
+                        <div id={"state"}>
+                            <h4>Estado</h4>
+                            <h2>{order.estado}</h2>
+                        </div>
+                        <div id={"address"}>
+                            <h4>Dirección</h4>
+                            <h2>{order.direccion}</h2>
+                        </div>
+                        <div id={"payment"}>
+                            <h4>Tipo de Pago</h4>
+                            <h2>{order.tipos_de_pago.tipo}</h2>
+                        </div>
+                    </div>
+                    <table className="product-table">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
