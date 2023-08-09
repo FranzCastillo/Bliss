@@ -18,7 +18,7 @@ const CartProductCard = ({id, quantity, size}) => {
     }, []);
 
     useEffect(() =>{
-        const img = process.env.REACT_APP_STORAGE_URL + product.imageUrl + ".png"
+        const img = import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"
         setImage(img)
     }, [product]);
 

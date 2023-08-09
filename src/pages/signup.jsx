@@ -36,35 +36,40 @@ function Copyright(props) {
 const theme = createTheme();
 /**
  *
- * @returns Signin form
+ * @returns Signup form
  */
-export default function Login() {
+export default function Signup() {
     const navigate = useNavigate();
     const location = useLocation()
+    const [invalid, setInvalid] = React.useState();
+
     //Function that handles the form submission
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        try {
-            if ((data.get('email').trim() !== '') || (data.get('password').trim() !== '')) {
-                supabase.auth.signInWithPassword({
+        const {user, error} = await supabase.auth.signUp({
+            email: data.get('email'),
+            password: data.get('password'),
+        });
+        if (error) {
+            setInvalid(error.message)
+        } else {
+            await supabase
+                .from("usuarios")
+                .insert({
+                    nombre: data.get('firstName'),
+                    apellido: data.get('lastName'),
                     email: data.get('email'),
-                    password: data.get('password'),
-                }).then(async ({data, error}) => {
-                    if (error) {
-                        alert(error.message);
-                    } else {
-                        navigate('/');
-                    }
-                })
-            }
-        } catch (error) {
-            console.log(error)
+                    direccion: data.get('address'),
+                    telefono: data.get('phone'),
+                });
+            navigate("/")
         }
     };
+
     useEffect(()=>{
         const {data:authListener} = supabase.auth.onAuthStateChange((event, session) => {
-            if (location.pathname === "/login" && session) {
+            if (location.pathname === "/signup" && session) {
               navigate('/');
             }
           });
@@ -92,12 +97,33 @@ export default function Login() {
                     </Avatar>
                     {/*Title*/}
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Sign up
                     </Typography>
                     {/*Form*/}
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
                         {/*Form inputs*/}
                         <Grid container spacing={2}>
+                            {/*First name field*/}
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    name="firstName"
+                                    required
+                                    fullWidth
+                                    id="firstName"
+                                    label="First Name"
+                                    autoFocus
+                                />
+                            </Grid>
+                            {/*Last name field*/}
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Last Name"
+                                    name="lastName"
+                                />
+                            </Grid>
                             {/*Mail field*/}
                             <Grid item xs={12}>
                                 <TextField
@@ -106,7 +132,26 @@ export default function Login() {
                                     id="email"
                                     label="Email Address"
                                     name="email"
-                                    autoComplete="email"
+                                />
+                            </Grid>
+                            {/*Phone field*/}
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="phone"
+                                    label="Phone number"
+                                    name="phone"
+                                />
+                            </Grid>
+                            {/*Direction field*/}
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="address"
+                                    label="Address"
+                                    name="address"
                                 />
                             </Grid>
                             {/*Password field*/}
@@ -118,24 +163,28 @@ export default function Login() {
                                     label="Password"
                                     type="password"
                                     id="password"
-                                    autoComplete="new-password"
                                 />
                             </Grid>
                         </Grid>
                         {/*Submit button*/}
+                        {invalid && (
+                            <Typography component="p" color="red">
+                                {"*"+invalid} 
+                            </Typography>
+                        )}
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{mt: 3, mb: 2}}
                         >
-                            Sign In
+                            Sign Up
                         </Button>
-                        {/*Sign up redirect*/}
+                        {/*Sign in redirect*/}
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link onClick={() => navigate('/signup')} sx={{cursor: 'pointer'}} variant="body2">
-                                    Not have an account? Sign up
+                                <Link onClick={() => navigate('/login')} sx={{cursor: 'pointer'}} variant="body2">
+                                    Already have an account? Sign in
                                 </Link>
                             </Grid>
                         </Grid>

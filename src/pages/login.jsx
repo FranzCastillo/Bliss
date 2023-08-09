@@ -36,38 +36,38 @@ function Copyright(props) {
 const theme = createTheme();
 /**
  *
- * @returns Signup form
+ * @returns Signin form
  */
-export default function Signup() {
+export default function Login() {
     const navigate = useNavigate();
     const location = useLocation()
+    const [invalid, setInvalid] = React.useState();
     //Function that handles the form submission
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        const {user, error} = await supabase.auth.signUp({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-        if (error) {
-            alert(error)
-        } else {
-            await supabase
-                .from("usuarios")
-                .insert({
-                    nombre: data.get('firstName'),
-                    apellido: data.get('lastName'),
+        const data = new FormData(event.currentTarget); 
+        try {
+            if ((data.get('email').trim() !== '') || (data.get('password').trim() !== '')) {
+                supabase.auth.signInWithPassword({
                     email: data.get('email'),
-                    direccion: data.get('address'),
-                    telefono: data.get('phone'),
-                });
-            navigate("/")
+                    password: data.get('password'),
+                }).then(async ({data, error}) => {
+                    if (error) {
+                        setInvalid(error.message)
+                    } else {
+                        navigate('/');
+                    }
+                })
+            } else{
+                setInvalid("Email and password are required")
+            }
+        } catch (error) {
+            console.log(error)
         }
     };
-
     useEffect(()=>{
         const {data:authListener} = supabase.auth.onAuthStateChange((event, session) => {
-            if (location.pathname === "/signup" && session) {
+            if (location.pathname === "/login" && session) {
               navigate('/');
             }
           });
@@ -95,33 +95,12 @@ export default function Signup() {
                     </Avatar>
                     {/*Title*/}
                     <Typography component="h1" variant="h5">
-                        Sign up
+                        Sign in
                     </Typography>
                     {/*Form*/}
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
                         {/*Form inputs*/}
                         <Grid container spacing={2}>
-                            {/*First name field*/}
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    name="firstName"
-                                    required
-                                    fullWidth
-                                    id="firstName"
-                                    label="First Name"
-                                    autoFocus
-                                />
-                            </Grid>
-                            {/*Last name field*/}
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="lastName"
-                                    label="Last Name"
-                                    name="lastName"
-                                />
-                            </Grid>
                             {/*Mail field*/}
                             <Grid item xs={12}>
                                 <TextField
@@ -129,27 +108,9 @@ export default function Signup() {
                                     fullWidth
                                     id="email"
                                     label="Email Address"
+                                    data-testid="email"
                                     name="email"
-                                />
-                            </Grid>
-                            {/*Phone field*/}
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="phone"
-                                    label="Phone number"
-                                    name="phone"
-                                />
-                            </Grid>
-                            {/*Direction field*/}
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="address"
-                                    label="Address"
-                                    name="address"
+                                    autoComplete="email"
                                 />
                             </Grid>
                             {/*Password field*/}
@@ -161,23 +122,31 @@ export default function Signup() {
                                     label="Password"
                                     type="password"
                                     id="password"
+                                    data-testid="password"
+                                    autoComplete="new-password"
                                 />
                             </Grid>
                         </Grid>
+                        {invalid && (
+                            <Typography component="p" color="red">
+                                {"*"+invalid} 
+                            </Typography>
+                        )}
                         {/*Submit button*/}
                         <Button
                             type="submit"
+                            data-testid="sign-in-button"
                             fullWidth
                             variant="contained"
                             sx={{mt: 3, mb: 2}}
                         >
-                            Sign Up
+                            Sign In
                         </Button>
-                        {/*Sign in redirect*/}
+                        {/*Sign up redirect*/}
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link onClick={() => navigate('/login')} sx={{cursor: 'pointer'}} variant="body2">
-                                    Already have an account? Sign in
+                                <Link onClick={() => navigate('/signup')} sx={{cursor: 'pointer'}} variant="body2" name="to-register">
+                                    Not have an account? Sign up
                                 </Link>
                             </Grid>
                         </Grid>

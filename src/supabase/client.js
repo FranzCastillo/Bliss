@@ -1,7 +1,7 @@
 import {createClient} from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.REACT_APP_DB_URL;
-const supabaseKey = process.env.REACT_APP_DB_KEY;
+const supabaseUrl = import.meta.env.VITE_DB_URL;
+const supabaseKey = import.meta.env.VITE_DB_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export {supabase};

@@ -16,6 +16,7 @@ import ProductDetails from "./pages/ProductDetails";
 import Orders from './pages/Orders/Orders';
 import MyOrders from './pages/MyOrders';
 import ConfigProducts from './pages/ConfigProducts';
+import NotFound from './pages/404';
 
 function App() {
   const navigate = useNavigate()
@@ -103,7 +104,7 @@ function App() {
             <Route path="/orders" element={<PlaceOrder />} />
             <Route path="/order-placed" element={<OrderPlaced />} />
             <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path='*' element={<Home/>}/>
+            <Route path='*' element={<NotFound/>}/>
           </Routes>
         </ShoppingCartProvider>
       </div>
