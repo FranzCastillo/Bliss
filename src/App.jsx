@@ -17,8 +17,10 @@ import Orders from './pages/Orders/Orders';
 import MyOrders from './pages/MyOrders';
 import ConfigProducts from './pages/ConfigProducts';
 import NotFound from './pages/404';
+import { ShoppingCartContext } from './contexts/ShoppingCartContext';
 
 function App() {
+  const cart = React.useContext(ShoppingCartContext);
   const navigate = useNavigate()
   const location = useLocation()
   const [fetchedProducts, setFetchedProducts] = useState([]);
@@ -35,7 +37,6 @@ function App() {
   useEffect(()=>{
     const{data:authListener}=supabase.auth.onAuthStateChange((event,session) =>{
       if(!session){
-        console.log("Any -> Login.js")
         navigate('/login')
         setIsLoged(false)
       }else{
