@@ -43,14 +43,14 @@ const ProductsGrid = ({ products }) => {
 
   return (
     <>
-        <div className="principal" style={{ height: "100px", display: "flex" }}>
+        <div className="principal" style={{ height: "100px", display: "flex"}}>
             {isAdmin && <FloatingButton />}
             <div className="secondary" style={{ width: "100%", display: "flex" }}>
                 <Grid container spacing={2}>
                     <Grid item xs={8} textAlign="left">
                         <h1
                             style={{
-                            marginLeft: "26px",
+                            marginLeft: "40px",
                             marginBottom: "30px",
                             marginTop: "40px",
                             textAlign: "left",
@@ -60,7 +60,7 @@ const ProductsGrid = ({ products }) => {
                             Nuestros Productos
                         </h1>
                     </Grid>
-                    <Grid item xs={3} marginTop= "40px">
+                    <Grid item xs={4} marginTop= "40px">
                         <PrimarySearchBar search={search} handleSearch={handleSearch} />
                     </Grid>
                     
@@ -70,25 +70,29 @@ const ProductsGrid = ({ products }) => {
                     )
                     .map((product) => (
                         <Grid
-                        container
-                        direction="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                        marginBottom={5}
-                        item
-                        xs={12}
-                        sm={3}
-                        key={product.id}
+                          container
+                          direction="flex"
+                          justifyContent="center"
+                          alignItems="center
+                          "
+                          marginBottom={3}
+                          item
+                          xs={12}
+                          sm={3}
+                          key={product.id}
+                          style={{
+                            marginLeft: "40px",
+                          }}
                         >
                             <ProductCard product={product} />
                         </Grid>
                     ))}
-                    
                 </Grid>
             </div>
             <div className="third" style={{ width: "20%", display: "flex" }}>
                 <LateralCart />
             </div>
+
         </div>
     </>
   );
