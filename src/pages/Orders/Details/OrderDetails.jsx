@@ -84,7 +84,7 @@ function OrderDetails() {
                         </div>
                         <div id={"date"}>
                             <h4>Fecha de Colocación</h4>
-                            <h2>{order.fecha}</h2>
+                            <h2>{new Date(order.fecha).toLocaleDateString()}</h2>
                         </div>
                         <div id={"state"}>
                             <h4>Estado</h4>
