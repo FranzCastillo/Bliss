@@ -1,43 +1,65 @@
-import {useEffect, useState} from 'react';
-import {supabase} from './supabase/client.js';
+import { supabase } from './supabase/client.js';
 
 export async function FetchProducts() {
-    const { data: productData } = await supabase.rpc('getproducts')
-    const { data: productSizes } = await supabase
-                                    .from("disponibilidad_de_producto")
-                                    .select("producto_id, talla")
-
-    const grupos = {}
-    productSizes.forEach((dato) => {
-        const { producto_id, talla } = dato;
-        if (!grupos[producto_id]) {
-            grupos[producto_id] = [producto_id];
+    try {
+        console.log('Fetching product data...');
+        const { data: productData, error } = await supabase.rpc('getproducts');
+        if (error) {
+            console.error('Error fetching product data:', error);
+            return [];
         }
-        grupos[producto_id].push(talla);
-    })
 
-    const tallas = Object.values(grupos)
+        console.log('Product data fetched:', productData);
 
-    const products = productData.map((dato) => ({
-        id: dato.id,
-        category: dato.categoria,
-        name: dato.nombre,
-        detail: dato.descripcion,
-        code: dato.codigo,
-        price: dato.precio,
-        imageUrl: dato.imagen,
-        sizes: tallas[dato.id-1]
-    }))
+        const { data: productSizes, error: sizeError } = await supabase
+            .from("disponibilidad_de_producto")
+            .select("producto_id, talla");
+        if (sizeError) {
+            console.error('Error fetching product sizes:', sizeError);
+            return [];
+        }
 
-    return products
+        console.log('Product sizes fetched:', productSizes);
 
+        const grupos = {};
+        productSizes.forEach((dato) => {
+            const { producto_id, talla } = dato;
+            if (!grupos[producto_id]) {
+                grupos[producto_id] = [talla];
+            } else {
+                grupos[producto_id].push(talla);
+            }
+        });
+
+        console.log('Groups:', grupos);
+
+        const tallas = Object.values(grupos);
+
+        const products = productData.map((dato) => ({
+            id: dato.id,
+            categoryId: dato.categoria_id,
+            name: dato.nombre,
+            detail: dato.descripcion,
+            code: dato.codigo,
+            price: dato.precio,
+            imageUrl: dato.imagen,
+            sizes: tallas[dato.id - 1] || [],
+        }));
+
+        console.log('Products:', products);
+
+        return products;
+    } catch (error) {
+        console.error('Error in FetchProducts:', error);
+        return [];
+    }
 }
 
-export async function getProductData(id){
+export async function getProductData(id) {
     const products = await FetchProducts();
     let productData = products.find((product) => product.id === id);
-    if(productData === undefined){
-        alert("No se encontró el producto")
+    if (productData === undefined) {
+        alert("No se encontró el producto");
     }
     return productData;
 }
