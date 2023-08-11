@@ -40,21 +40,12 @@ const ProductCard = ({ product }) => {
                 <Typography variant="body2" color="text.secondary" align='right'>
                     {product.code}
                 </Typography>
-
-                <Typography variant="body2" color="text.secondary" align='right'>
-                    Categoria: {product.categoryId}
-                </Typography>
-
                 <Typography variant="h6" color="text.primary" align='right'>
                     Q{product.price}
                 </Typography>
             </CardContent>
         </Card>
     );
-};
-
-ProductCard.propTypes = {
-    product: PropTypes.object.isRequired,
 };
 
 export default ProductCard;
