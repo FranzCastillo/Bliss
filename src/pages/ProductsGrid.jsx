@@ -1,36 +1,16 @@
-import { useState, useEffect } from "react";
-import { Grid, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Grid } from "@mui/material";
 import ProductCard from "./ProductCard.jsx";
 import FloatingButton from "../components/FloatingButton/FloatingButton";
 import LateralCart from "../components/LateralCart/LateralCart";
 import { supabase } from "../supabase/client";
 import PrimarySearchBar from "../components/PrimarySearchBar/PrimarySearchBar";
-import PropTypes from "prop-types";
-
-const getCategories = async () => {
-  const { data, error } = await supabase.from("categorias").select("id, categoria");
-
-  if (error) {
-    console.error("Error fetching categories:", error.message);
-    return [];
-  } else {
-    return data.map((item) => ({ id: item.id, categoria: item.categoria }));
-  }
-};
 
 const ProductsGrid = ({ products }) => {
-  const [names, setNames] = useState([]);
-  const [category, setCategory] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  // Estado para almacenar los ítems del carrito
+  const [cartItems] = useState([]);
+
   const [securityLevel, setSecurityLevel] = useState();
-  const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    getCategories().then((categoriesNames) => {
-      setNames(categoriesNames);
-    });
-  }, []);
-
   useEffect(() => {
     async function getUserMail() {
       const userData = await supabase.auth.getUser();
@@ -53,26 +33,13 @@ const ProductsGrid = ({ products }) => {
 
   const isAdmin = securityLevel === 4;
 
-  useEffect(() => {
-    if (category === "") {
-      setFilteredProducts(products);
-    } else {
-      const filtered = products.filter(
-        (product) => product.categoryId === category
-      );
-      setFilteredProducts(filtered);
-    }
-  }, [category, products]);
-
+  // Función de búsqueda para filtrar productos
   const handleSearch = (event) => {
     const inputValue = event.target.value;
     setSearch(inputValue);
   };
 
-  const handleCategoryChange = (event) => {
-    const selectedCategory = event.target.value;
-    setCategory(selectedCategory);
-  };
+  const [search, setSearch] = useState("");
 
   return (
     <>
@@ -125,27 +92,10 @@ const ProductsGrid = ({ products }) => {
             <div className="third" style={{ width: "20%", display: "flex" }}>
                 <LateralCart />
             </div>
+
         </div>
-        <div
-          className="third"
-          style={{ width: "20%", display: "flex" }}
-        >
-          <LateralCart />
-        </div>
-      </div>
     </>
   );
 };
 
-ProductsGrid.propTypes = {
-  products: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      categoryId: PropTypes.number.isRequired,
-    })
-  ).isRequired,
-};
-
 export default ProductsGrid;
-
