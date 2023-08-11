@@ -85,23 +85,18 @@ function PlaceOrder() {
                 pago_id: paymentMethod,
                 vendedor_id: salesPerson,
             }]);
-        if (error) {
-            console.log(error);
-        }
 
         // Gets the id of the new registry
         let orderId = 0;
-        const {data:orderData, error: orderError} = await supabase
+        await supabase
             .from('pedidos')
             .select('id')
             .eq('usuario_id', userId)
             .order('id', { ascending: false })
             .limit(1)
-        if (orderData){
-            orderId = orderData[0].id;
-        }else{
-            console.log(orderError)
-        }
+            .then((data) => {
+                orderId = data.data[0].id;
+            });
 
         // saves the products in the database
         const promises = cart.items.map(async (item) => {
@@ -110,6 +105,7 @@ function PlaceOrder() {
                     pedido_id: orderId,
                     producto_id: item.id,
                     cantidad: item.quantity,
+                    talla: item.size,
                 },
             ]);
         });
@@ -117,32 +113,9 @@ function PlaceOrder() {
         await Promise.all(promises);
     }
 
-    const clearCart = async () => {
-        const userData = await supabase.auth.getUser();
-        if(userData){
-            const { data:usrData, error:usrError } = await supabase
-            .from("usuarios")
-            .select("id")
-            .eq("email", userData.data.user.email);
-            if (usrData) {
-                const { error:cartError } = await supabase
-                .from("productos_en_carrito")
-                .delete()
-                .eq("usuario_id", usrData[0].id)
-                if(cartError){
-                    console.log(cartError)
-                }   
-            }
-        }
-    }
-
     const handleSubmit = (event) => {
         event.preventDefault();
-        saveOrderInDB().then(r => {
-            navigate('/order-placed')
-            cart.clearCart();
-            clearCart();
-        });
+        saveOrderInDB().then(r => navigate('/order-placed'));
     };
 
     const handleSalesPersonCheckbox = (event) => {
@@ -316,6 +289,7 @@ function PlaceOrder() {
                                     key={item.id}
                                     id={item.id}
                                     quantity={item.quantity}
+                                    size={item.size}
                                 />
                             );
                         })}
