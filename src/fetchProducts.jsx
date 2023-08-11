@@ -2,6 +2,7 @@ import { supabase } from './supabase/client.js';
 
 export async function FetchProducts() {
     try {
+        console.log('Fetching product data...');
         const { data: productData, error } = await supabase.rpc('getproducts');
         if (error) {
             console.error('Error fetching product data:', error);
