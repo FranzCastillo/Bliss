@@ -9,8 +9,6 @@ export async function FetchProducts() {
             return [];
         }
 
-        console.log('Product data fetched:', productData);
-
         const { data: productSizes, error: sizeError } = await supabase
             .from("disponibilidad_de_producto")
             .select("producto_id, talla");
@@ -18,8 +16,6 @@ export async function FetchProducts() {
             console.error('Error fetching product sizes:', sizeError);
             return [];
         }
-
-        console.log('Product sizes fetched:', productSizes);
 
         const grupos = {};
         productSizes.forEach((dato) => {
@@ -30,8 +26,6 @@ export async function FetchProducts() {
                 grupos[producto_id].push(talla);
             }
         });
-
-        console.log('Groups:', grupos);
 
         const tallas = Object.values(grupos);
 
@@ -45,8 +39,6 @@ export async function FetchProducts() {
             imageUrl: dato.imagen,
             sizes: tallas[dato.id - 1] || [],
         }));
-
-        console.log('Products:', products);
 
         return products;
     } catch (error) {
