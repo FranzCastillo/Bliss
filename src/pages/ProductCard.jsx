@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/productcard.scss';
 import { Card, CardMedia, CardContent, Typography, Button } from "@mui/material";
@@ -9,6 +9,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import PropTypes from "prop-types";
 
 const ProductCard = ({ product }) => {
     
@@ -80,6 +81,11 @@ const ProductCard = ({ product }) => {
                 <Typography variant="body2" color="text.secondary" align='right'>
                     {product.code}
                 </Typography>
+
+                <Typography variant="body2" color="text.secondary" align='right'>
+                    Categoria: {product.categoryId}
+                </Typography>
+
                 <Typography variant="h6" color="text.primary" align='right'>
                     Q{product.price}
                 </Typography>
@@ -95,6 +101,10 @@ const ProductCard = ({ product }) => {
             </CardContent>
         </Card>
     );
+};
+
+ProductCard.propTypes = {
+    product: PropTypes.object.isRequired,
 };
 
 export default ProductCard;
