@@ -39,82 +39,89 @@ const ProductDetails = () => {
                 justifyContent="center"
                 alignItems="center"
                 style={{ 
-                    borderRight: '155px solid transparent',
+                    borderRight: '100px solid transparent',
                 }}
                 >
-                
-                <Grid item xs={5} >
-                    <br/>
-                    <img 
-                        src={imageURL} 
-                        alt={"Product image"}
-                        style={{ width: "350px", height: "auto" }}
-                    />                    
-                </Grid>
+                    <Grid container item xs={9} spacing={0} 
+                        style={{ 
+                            border: '2px solid #312D4F',
+                            paddingBottom: '50px',
+                        }}
+                    >
+                        <Grid item xs={6} >
+                            <br/>
+                            <img 
+                                src={imageURL} 
+                                alt={"Product image"}
+                                style={{ width: "350px", height: "auto"}}
+                            />                    
+                        </Grid>
 
-                <Grid item xs={4}>       
-                    <div style={{ textAlign: 'left' }}>
-                        <h1 style={{ color: '#201B40' }}>{product.name}</h1>
-                        <hr/>
-                        <p style={{ color: '#201B40', fontSize: '16px' }}>
-                            Precio: <span style={{ color: '#E35358', fontSize: '20px', fontWeight: 'bold' }}> 
-                                        Q{product.price} 
-                                    </span>
-                        </p>
-                    </div>
+                        <Grid item xs={5}>       
+                            <div style={{ textAlign: 'left' }}>
+                                <h1 style={{ color: '#201B40' }}>{product.name}</h1>
+                                <hr />
+                                <p style={{ color: '#201B40', fontSize: '16px' }}>
+                                    Precio: <span style={{ color: '#E35358', fontSize: '20px', fontWeight: 'bold' }}> 
+                                                Q{product.price} 
+                                            </span>
+                                </p>
+                            </div>
 
-                    <div style={{ textAlign: 'left' }}>
-                        <FormControl >
-                            <FormLabel id="demo-radio-buttons-group-label" style={{ fontSize: '16px', color: '#201B40' }} >
-                                Talla
-                            </FormLabel>
-                                <RadioGroup
-                                    row
-                                    aria-labelledby="demo-radio-buttons-group-label"
-                                    defaultValue={product.sizes[1]}
-                                    name="radio-buttons-group"
-                                    style={{ fontSize: '12px' }} 
-                                    onChange={handleSelectSize}
+                            <div style={{ textAlign: 'left' }}>
+                                <FormControl >
+                                    <FormLabel id="demo-radio-buttons-group-label" style={{ fontSize: '16px', color: '#201B40' }} >
+                                        Talla
+                                    </FormLabel>
+                                        <RadioGroup
+                                            row
+                                            aria-labelledby="demo-radio-buttons-group-label"
+                                            defaultValue={product.sizes[1]}
+                                            name="radio-buttons-group"
+                                            style={{ fontSize: '12px' }} 
+                                            onChange={handleSelectSize}
+                                        >
+                                            {product.sizes.slice(1).map((talla) => (
+                                                <FormControlLabel
+                                                    key={talla}
+                                                    value={talla}
+                                                    control={<Radio 
+                                                        sx={{
+                                                            '& .MuiSvgIcon-root': {
+                                                            fontSize: 18,
+                                                            color: '#201B40',
+                                                            },
+                                                        }}
+                                                    
+                                                    />}
+                                                    label={talla.toString()}
+                                                />
+                                            ))}
+
+                                        </RadioGroup>
+                                    </FormControl>
+                                </div>
+                            <br />
+                            <br />
+                            <br />
+                            <Button
+                                    variant="contained"
+                                    sx={{   
+                                        backgroundColor: '#E35358', 
+                                        '&:hover': {
+                                            backgroundColor: '#201B40',
+                                        },
+                                        textTransform: 'none',
+                                        fontSize: '18px',
+                                    }}
+                                    onClick={handleAddToCart}
                                 >
-                                    {product.sizes.slice(1).map((talla) => (
-                                        <FormControlLabel
-                                            key={talla}
-                                            value={talla}
-                                            control={<Radio 
-                                                sx={{
-                                                    '& .MuiSvgIcon-root': {
-                                                    fontSize: 18,
-                                                    color: '#201B40',
-                                                    },
-                                                }}
-                                            
-                                            />}
-                                            label={talla.toString()}
-                                        />
-                                    ))}
-
-                                </RadioGroup>
-                            </FormControl>
-                        </div>
-                    <br />
-                    <br />
-                    <br />
-                    <Button
-                            variant="contained"
-                            sx={{   
-                                backgroundColor: '#E35358', 
-                                '&:hover': {
-                                    backgroundColor: '#201B40',
-                                },
-                                textTransform: 'none',
-                                fontSize: '18px',
-                            }}
-                            onClick={handleAddToCart}
-                        >
-                            Agregar al carrito ‎ 
-                            <AddShoppingCartIcon />
-                    </Button>   
-                </Grid>
+                                    Agregar al carrito ‎ 
+                                    <AddShoppingCartIcon />
+                            </Button>   
+                        </Grid>
+                    </Grid>
+                
             </Grid>
         </>
     );
