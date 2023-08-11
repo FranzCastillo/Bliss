@@ -20,6 +20,7 @@ export async function FetchProducts() {
 
     const products = productData.map((dato) => ({
         id: dato.id,
+        category: dato.categoria,
         name: dato.nombre,
         detail: dato.descripcion,
         code: dato.codigo,
