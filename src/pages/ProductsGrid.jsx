@@ -38,7 +38,7 @@ const ProductsGrid = ({ products }) => {
         const { data, error } = await supabase
           .from("usuarios")
           .select("rol_id")
-          .eq("email", userData.email); // Cambiar a userData.email
+          .eq("email", userData.data.user.email);
         if (data) {
           setSecurityLevel(data[0].rol_id);
         }
