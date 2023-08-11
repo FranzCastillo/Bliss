@@ -110,6 +110,7 @@ function PlaceOrder() {
                     pedido_id: orderId,
                     producto_id: item.id,
                     cantidad: item.quantity,
+                    talla: item.size,
                 },
             ]);
         });
@@ -316,6 +317,7 @@ function PlaceOrder() {
                                     key={item.id}
                                     id={item.id}
                                     quantity={item.quantity}
+                                    size={item.size}
                                 />
                             );
                         })}

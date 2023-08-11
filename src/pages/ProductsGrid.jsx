@@ -76,81 +76,55 @@ const ProductsGrid = ({ products }) => {
 
   return (
     <>
-      <div
-        className="principal"
-        style={{ height: "100px", display: "flex" }}
-      >
-        {isAdmin && <FloatingButton />}
-        <div
-          className="secondary"
-          style={{ width: "100%", display: "flex" }}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={6} textAlign="left">
-              <h1
-                style={{
-                  marginLeft: "26px",
-                  marginBottom: "30px",
-                  marginTop: "40px",
-                  textAlign: "left",
-                  color: "#201b40",
-                }}
-              >
-                Nuestros Productos
-              </h1>
-            </Grid>
-            <Grid item xs={3} marginTop="40px">
-              <PrimarySearchBar
-                search={search}
-                handleSearch={handleSearch}
-              />
-            </Grid>
-            <Grid item xs={2} marginTop="40px">
-              <FormControl fullWidth>
-                <InputLabel id="category-selection-label">
-                  Categoría
-                </InputLabel>
-                <Select
-                  labelId="category-selection-label"
-                  id="category-selection"
-                  label="Categoría"
-                  value={category}
-                  onChange={handleCategoryChange}
-                  style={{ backgroundColor: 'white' }}
-                >
-                  <MenuItem value="">Todas las categorías</MenuItem>
-                  {names.map((category) => (
-                    <MenuItem key={category.id} value={category.id}>
-                      {category.categoria}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-
-            {filteredProducts
-              .filter(
-                (product) =>
-                  product.name.toLowerCase().includes(search.toLowerCase()) ||
-                  product.categoryId === category
-              )
-              .map((product) => (
-                <Grid
-                  container
-                  direction="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                  marginBottom={5}
-                  item
-                  xs={12}
-                  sm={3}
-                  key={product.id}
-                >
-                  <ProductCard product={product} />
+        <div className="principal" style={{ height: "100px", display: "flex"}}>
+            {isAdmin && <FloatingButton />}
+            <div className="secondary" style={{ width: "100%", display: "flex" }}>
+                <Grid container spacing={2}>
+                    <Grid item xs={8} textAlign="left">
+                        <h1
+                            style={{
+                            marginLeft: "40px",
+                            marginBottom: "30px",
+                            marginTop: "40px",
+                            textAlign: "left",
+                            color: "#201b40",
+                            }}
+                        >
+                            Nuestros Productos
+                        </h1>
+                    </Grid>
+                    <Grid item xs={4} marginTop= "40px">
+                        <PrimarySearchBar search={search} handleSearch={handleSearch} />
+                    </Grid>
+                    
+                    {products
+                    .filter((product) =>
+                        product.name.toLowerCase().includes(search.toLowerCase())
+                    )
+                    .map((product) => (
+                        <Grid
+                          container
+                          direction="flex"
+                          justifyContent="center"
+                          alignItems="center
+                          "
+                          marginBottom={3}
+                          item
+                          xs={12}
+                          sm={3}
+                          key={product.id}
+                          style={{
+                            marginLeft: "40px",
+                          }}
+                        >
+                            <ProductCard product={product} />
+                        </Grid>
+                    ))}
                 </Grid>
-              ))}
-
-          </Grid>
+            </div>
+            <div className="third" style={{ width: "20%", display: "flex" }}>
+                <LateralCart />
+            </div>
         </div>
         <div
           className="third"
