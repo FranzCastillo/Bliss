@@ -85,18 +85,23 @@ function PlaceOrder() {
                 pago_id: paymentMethod,
                 vendedor_id: salesPerson,
             }]);
+        if (error) {
+            console.log(error);
+        }
 
         // Gets the id of the new registry
         let orderId = 0;
-        await supabase
+        const {data:orderData, error: orderError} = await supabase
             .from('pedidos')
             .select('id')
             .eq('usuario_id', userId)
             .order('id', { ascending: false })
             .limit(1)
-            .then((data) => {
-                orderId = data.data[0].id;
-            });
+        if (orderData){
+            orderId = orderData[0].id;
+        }else{
+            console.log(orderError)
+        }
 
         // saves the products in the database
         const promises = cart.items.map(async (item) => {
@@ -112,9 +117,32 @@ function PlaceOrder() {
         await Promise.all(promises);
     }
 
+    const clearCart = async () => {
+        const userData = await supabase.auth.getUser();
+        if(userData){
+            const { data:usrData, error:usrError } = await supabase
+            .from("usuarios")
+            .select("id")
+            .eq("email", userData.data.user.email);
+            if (usrData) {
+                const { error:cartError } = await supabase
+                .from("productos_en_carrito")
+                .delete()
+                .eq("usuario_id", usrData[0].id)
+                if(cartError){
+                    console.log(cartError)
+                }   
+            }
+        }
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        saveOrderInDB().then(r => navigate('/order-placed'));
+        saveOrderInDB().then(r => {
+            navigate('/order-placed')
+            cart.clearCart();
+            clearCart();
+        });
     };
 
     const handleSalesPersonCheckbox = (event) => {
