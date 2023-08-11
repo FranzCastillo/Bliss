@@ -12,6 +12,8 @@ export const ShoppingCartContext = createContext({
     clearCart: () => {
     },
     getTotal: () => {
+    },
+    addMultipleProducts: () => {
     }
 });
 
@@ -134,6 +136,19 @@ export default function ShoppingCartProvider({children}) {
         return total;
     }
 
+    async function addMultipleProducts(id, size, quantity) {
+        const prod = await getProductData(id)
+        setCartProducts(cartProducts=>[
+            ...cartProducts,
+            {
+                id: id,
+                quantity: quantity,
+                price: prod.price, 
+                size: size
+            }
+        ]);
+    }
+
     /**
      * The context value to be provided to the children. It contains the products in the cart, the functions to modify the cart and the total price.
      * @type {{removeOneProduct: removeOneProduct, removeProduct: removeProduct, addProduct: addProduct, clearCart: clearCart, getTotal: (function(): *), items: *[], getProductQuantity: ((function(*): (number|*))|*)}}
@@ -145,7 +160,8 @@ export default function ShoppingCartProvider({children}) {
         removeOneProduct,
         clearCart,
         getTotal,
-        getTotalQuantity
+        getTotalQuantity,
+        addMultipleProducts
     }
 
     return (

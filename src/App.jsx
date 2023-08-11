@@ -17,9 +17,12 @@ import Orders from './pages/Orders/Orders';
 import MyOrders from './pages/MyOrders';
 import ConfigProducts from './pages/ConfigProducts';
 import NotFound from './pages/404';
+import { ShoppingCartContext } from './contexts/ShoppingCartContext';
 import OrderDetails from "./pages/Orders/Details/OrderDetails.jsx";
 
+
 function App() {
+  const cart = React.useContext(ShoppingCartContext);
   const navigate = useNavigate()
   const location = useLocation()
   const [fetchedProducts, setFetchedProducts] = useState([]);
@@ -33,14 +36,36 @@ function App() {
     fetchData();
   }, []);
 
+  const getCartData = async () => {
+    const userData = await supabase.auth.getUser();
+    if(userData){
+      const { data:usrData, error:usrError } = await supabase
+      .from("usuarios")
+      .select("id")
+      .eq("email", userData.data.user.email);
+      if (usrData) {
+        const { data:cartData, error:cartError } = await supabase
+        .from("productos_en_carrito")
+        .select("producto_id, cantidad, talla")
+        .eq("usuario_id", usrData[0].id)
+        if(cartData){
+          cart.clearCart()
+          cartData.map((item) => {
+            cart.addMultipleProducts(item.producto_id, item.talla, item.cantidad)
+          })
+        }
+      }
+    }
+  }
+
   useEffect(()=>{
     const{data:authListener}=supabase.auth.onAuthStateChange((event,session) =>{
       if(!session){
-        console.log("Any -> Login.js")
         navigate('/login')
         setIsLoged(false)
       }else{
         setIsLoged(true)
+        getCartData()
       }
     })
     return () => {
@@ -74,9 +99,8 @@ function App() {
 
   return (
       <div className="App">
-        <ShoppingCartProvider>
-          {isLoged && (
-              <NavBarUser/>
+          {isLoged&&(
+            <NavBarUser/>
           )}
           <Routes>
             <Route path='/' element={<Home/>}/>
@@ -108,7 +132,6 @@ function App() {
             <Route path="/product/:id" element={<ProductDetails/>}/>
             <Route path='*' element={<NotFound/>}/>
           </Routes>
-        </ShoppingCartProvider>
       </div>
   );
 }

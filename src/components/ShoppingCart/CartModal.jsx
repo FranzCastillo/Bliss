@@ -3,6 +3,7 @@ import {Box, Button, Modal, Stack, Typography} from '@mui/material';
 import {ShoppingCartContext} from '../../contexts/ShoppingCartContext';
 import CartProductCard from "./CartProductCard/CartProductCard";
 import {useNavigate} from "react-router-dom";
+import SaveCartButton from "../SaveCart/SaveCartButton";
 
 function CartModal({open, handleClose}) {
     const modalStyle = {
@@ -96,7 +97,10 @@ function CartModal({open, handleClose}) {
                         No hay productos en el carrito.
                     </Typography>
                 )}
-                <Button onClick={handleClose} style={{paddingLeft: "25px"}}>Cerrar Carrito</Button>
+                <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+                    <SaveCartButton/>
+                    <Button onClick={handleClose} style={{marginRight: "25px", color:"Red"}}>Cerrar Carrito</Button>
+                </div>
             </Box>
         </Modal>
     );

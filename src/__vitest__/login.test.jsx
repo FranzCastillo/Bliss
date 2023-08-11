@@ -31,11 +31,32 @@ describe('login', () => {
         )
         const emailField = getByRole('textbox', { name: /email/i })
         const passwordField = getByLabelText(/Password/i)
-        await userEvent.type(emailField, 'test@gmail.com')
-        await userEvent.type(passwordField, 'test')
+        await userEvent.type(emailField, 'notuser@gmail.com')
+        await userEvent.type(passwordField, 'notpassword')
         await getByRole('button').click()
         await waitFor(() => {
             expect(getByText('*Invalid login credentials')).toBeInTheDocument
         })
+    })
+    test('should login user when credentials are valid', async () => {
+        const {getByRole, getByLabelText, getByText} = render(
+            <BrowserRouter>
+                <Login/>
+            </BrowserRouter>
+        )
+        const emailField = getByRole('textbox', { name: /email/i })
+        const passwordField = getByLabelText(/Password/i)
+        await userEvent.type(emailField, 'montoyaw1@gmail.com')
+        await userEvent.type(passwordField, '123456')
+        await getByRole('button').click()
+        let err = null
+        try {
+        await waitFor(() => {           
+                getByText('*Invalid login credentials')
+        })
+        } catch (error) {
+            err = error
+        }
+        expect(err).not.equal(null)
     })
 })
