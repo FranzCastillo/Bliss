@@ -34,13 +34,37 @@ function App() {
     fetchData();
   }, []);
 
+  const getCartData = async () => {
+    const userData = await supabase.auth.getUser();
+    if(userData){
+      const { data:usrData, error:usrError } = await supabase
+      .from("usuarios")
+      .select("id")
+      .eq("email", userData.data.user.email);
+      if (usrData) {
+        const { data:cartData, error:cartError } = await supabase
+        .from("productos_en_carrito")
+        .select("producto_id, cantidad, talla")
+        .eq("usuario_id", usrData[0].id)
+        if(cartData){
+          cart.clearCart()
+          cartData.map((item) => {
+            cart.addMultipleProducts(item.producto_id, item.talla, item.cantidad)
+          })
+        }
+      }
+    }
+  }
+
   useEffect(()=>{
+    console.log("si")
     const{data:authListener}=supabase.auth.onAuthStateChange((event,session) =>{
       if(!session){
         navigate('/login')
         setIsLoged(false)
       }else{
         setIsLoged(true)
+        getCartData()
       }
     })
     return () => {
@@ -74,7 +98,6 @@ function App() {
   
     return(
       <div className="App">
-        <ShoppingCartProvider>
           {isLoged&&(
             <NavBarUser/>
           )}
@@ -107,7 +130,6 @@ function App() {
             <Route path="/product/:id" element={<ProductDetails />} />
             <Route path='*' element={<NotFound/>}/>
           </Routes>
-        </ShoppingCartProvider>
       </div>
     )
 }

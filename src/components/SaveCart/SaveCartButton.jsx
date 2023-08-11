@@ -36,6 +36,8 @@ export default function SaveCartButton() {
                     .upsert(cartItems)
                     if(error){
                         console.log(error)
+                    }else{
+                        alert("Carrito guardado exitosamente")
                     }
                 }
             }
