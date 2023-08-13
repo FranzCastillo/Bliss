@@ -1,4 +1,4 @@
-import {createContext, useState} from "react";
+import {createContext, useEffect, useState} from "react";
 import {getProductData} from "../fetchProducts";
 
 export const ShoppingCartContext = createContext({
@@ -23,7 +23,11 @@ export const ShoppingCartContext = createContext({
  * @param children
  */
 export default function ShoppingCartProvider({children}) {
-    const [cartProducts, setCartProducts] = useState([]);
+    const [cartProducts, setCartProducts] = useState(JSON.parse(window.localStorage.getItem('cart')) || []);
+
+    useEffect(() => {
+        window.localStorage.setItem('cart', JSON.stringify(cartProducts));
+    }, [cartProducts]);
 
     /**
      * Returns the quantity of a product in the cart
