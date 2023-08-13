@@ -30,7 +30,9 @@ import front from '../media/Front.png';
     |---------------------------------------------------|
   */
 
+
 function Home() {
+
     return (
         <div>
           <br/> <br/>

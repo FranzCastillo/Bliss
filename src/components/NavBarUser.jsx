@@ -45,6 +45,9 @@ function NavBarUser() {
     const handleLogOut = async () => {
         try { 
             await supabase.auth.signOut().then(
+                window.localStorage.removeItem('cart'),
+                window.localStorage.removeItem('user'),
+                cart.clearCart(),
                 navigate("/login")
             );
         } catch (error) {

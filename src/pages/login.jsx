@@ -13,6 +13,8 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useNavigate, useLocation} from 'react-router-dom';
 import {supabase} from "../supabase/client.js"
 import { useEffect } from 'react';
+import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
+import { getProductData } from '../fetchProducts.jsx';
 
 /**
  *
@@ -39,9 +41,33 @@ const theme = createTheme();
  * @returns Signin form
  */
 export default function Login() {
+    const cart = React.useContext(ShoppingCartContext);
     const navigate = useNavigate();
     const location = useLocation()
     const [invalid, setInvalid] = React.useState();
+
+    const setUser=(user)=>{
+        window.localStorage.setItem('user', user)
+    }
+
+    const setCart= async (user)=>{
+        const { data:usrData, error:usrError } = await supabase
+          .from("usuarios")
+          .select("id")
+          .eq("email", user)
+        if (usrData) {
+            const { data:cartData, error:cartError } = await supabase
+            .from("productos_en_carrito")
+            .select("producto_id, cantidad, talla")
+            .eq("usuario_id", usrData[0].id)
+            if(cartData){
+              cartData.map((item) => {
+                cart.addMultipleProducts(item.producto_id, item.talla, item.cantidad)
+              })
+            }
+        }
+    }
+
     //Function that handles the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -51,10 +77,12 @@ export default function Login() {
                 supabase.auth.signInWithPassword({
                     email: data.get('email'),
                     password: data.get('password'),
-                }).then(async ({data, error}) => {
-                    if (error) {
-                        setInvalid(error.message)
+                }).then(async ({data:userData, error:userError}) => {
+                    if (userError) {
+                        setInvalid(userError.message)
                     } else {
+                        setUser(data.get('email'))
+                        setCart(data.get('email'))
                         navigate('/');
                     }
                 })

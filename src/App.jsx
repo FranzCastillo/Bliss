@@ -36,36 +36,16 @@ function App() {
     fetchData();
   }, []);
 
-  const getCartData = async () => {
-    const userData = await supabase.auth.getUser();
-    if(userData){
-      const { data:usrData, error:usrError } = await supabase
-      .from("usuarios")
-      .select("id")
-      .eq("email", userData.data.user.email);
-      if (usrData) {
-        const { data:cartData, error:cartError } = await supabase
-        .from("productos_en_carrito")
-        .select("producto_id, cantidad, talla")
-        .eq("usuario_id", usrData[0].id)
-        if(cartData){
-          cart.clearCart()
-          cartData.map((item) => {
-            cart.addMultipleProducts(item.producto_id, item.talla, item.cantidad)
-          })
-        }
-      }
-    }
-  }
-
   useEffect(()=>{
     const{data:authListener}=supabase.auth.onAuthStateChange((event,session) =>{
       if(!session){
+        window.localStorage.removeItem('cart')
+        window.localStorage.removeItem('user')
         navigate('/login')
         setIsLoged(false)
       }else{
         setIsLoged(true)
-        getCartData()
+        //getCartData()
       }
     })
     return () => {
