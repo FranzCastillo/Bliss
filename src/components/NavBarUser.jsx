@@ -86,33 +86,34 @@ function NavBarUser() {
                                 src={logo} alt="Logo" 
                                 style={{height: '50px'}}
                                 className="navbar-logo"
+                                id="home"
                             />
                             
                             <div style={{width: '70%'}}> </div>
 
                             {isAdmin &&(
-                                <Button onClick={() => navigate('/all-orders')} className="navbar-button">
+                                <Button onClick={() => navigate('/all-orders')} className="navbar-button" id ="ords" data-testid="ords">
                                     <Typography variant="h6" style={{}}>
                                         Ordenes
                                     </Typography>
                                 </Button>
                             )}
                             {isManager &&(
-                                <Button onClick={() => navigate('/all-orders')} className="navbar-button">
+                                <Button onClick={() => navigate('/all-orders')} className="navbar-button" id="ords" data-testid="ords">
                                     <Typography variant="h6" style={{}}>
                                         Ordenes
                                     </Typography>
                                 </Button>
                             )}
                             {isSeller &&(
-                                <Button onClick={() => navigate('/my-orders')} className="navbar-button">
+                                <Button onClick={() => navigate('/my-orders')} className="navbar-button" id="ords" data-testid="ords">
                                     <Typography variant="h6" style={{}}>
                                         Mis Ordenes
                                     </Typography>
                                 </Button>
                             )}
 
-                            <Button onClick={() => navigate('/grid')} className="navbar-button">
+                            <Button onClick={() => navigate('/grid')} className="navbar-button" id="prods" data-testid="prods">
                                 <Typography variant="h6" style={{}}>
                                     Productos
                                 </Typography>

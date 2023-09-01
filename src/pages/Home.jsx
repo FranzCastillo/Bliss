@@ -36,7 +36,7 @@ function Home() {
     return (
         <div>
           <br/> <br/>
-          <Carousel infiniteLoop={true} className='photo-carrousel'>
+          <Carousel infiniteLoop={true} className='photo-carrousel' id="slider">
             <div>
               <img src={p1} alt="Foto 1"/>
             </div>
