@@ -1,4 +1,4 @@
-import {createContext, useState} from "react";
+import {createContext, useEffect, useState} from "react";
 import {getProductData} from "../fetchProducts";
 
 export const ShoppingCartContext = createContext({
@@ -12,6 +12,8 @@ export const ShoppingCartContext = createContext({
     clearCart: () => {
     },
     getTotal: () => {
+    },
+    addMultipleProducts: () => {
     }
 });
 
@@ -21,7 +23,11 @@ export const ShoppingCartContext = createContext({
  * @param children
  */
 export default function ShoppingCartProvider({children}) {
-    const [cartProducts, setCartProducts] = useState([]);
+    const [cartProducts, setCartProducts] = useState(JSON.parse(window.localStorage.getItem('cart')) || []);
+
+    useEffect(() => {
+        window.localStorage.setItem('cart', JSON.stringify(cartProducts));
+    }, [cartProducts]);
 
     /**
      * Returns the quantity of a product in the cart
@@ -134,6 +140,19 @@ export default function ShoppingCartProvider({children}) {
         return total;
     }
 
+    async function addMultipleProducts(id, size, quantity) {
+        const prod = await getProductData(id)
+        setCartProducts(cartProducts=>[
+            ...cartProducts,
+            {
+                id: id,
+                quantity: quantity,
+                price: prod.price, 
+                size: size
+            }
+        ]);
+    }
+
     /**
      * The context value to be provided to the children. It contains the products in the cart, the functions to modify the cart and the total price.
      * @type {{removeOneProduct: removeOneProduct, removeProduct: removeProduct, addProduct: addProduct, clearCart: clearCart, getTotal: (function(): *), items: *[], getProductQuantity: ((function(*): (number|*))|*)}}
@@ -145,7 +164,8 @@ export default function ShoppingCartProvider({children}) {
         removeOneProduct,
         clearCart,
         getTotal,
-        getTotalQuantity
+        getTotalQuantity,
+        addMultipleProducts
     }
 
     return (

@@ -33,7 +33,7 @@ function Orders() {
                     fecha,
                     estado
                 `)
-                .order('id', {ascending: true});
+                .order('id', {ascending: false});
 
             if (error) {
                 throw new Error('Error fetching rows');

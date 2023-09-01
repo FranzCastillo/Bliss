@@ -17,8 +17,12 @@ import Orders from './pages/Orders/Orders';
 import MyOrders from './pages/MyOrders';
 import ConfigProducts from './pages/ConfigProducts';
 import NotFound from './pages/404';
+import { ShoppingCartContext } from './contexts/ShoppingCartContext';
+import OrderDetails from "./pages/Orders/Details/OrderDetails.jsx";
+
 
 function App() {
+  const cart = React.useContext(ShoppingCartContext);
   const navigate = useNavigate()
   const location = useLocation()
   const [fetchedProducts, setFetchedProducts] = useState([]);
@@ -35,11 +39,13 @@ function App() {
   useEffect(()=>{
     const{data:authListener}=supabase.auth.onAuthStateChange((event,session) =>{
       if(!session){
-        console.log("Any -> Login.js")
+        window.localStorage.removeItem('cart')
+        window.localStorage.removeItem('user')
         navigate('/login')
         setIsLoged(false)
       }else{
         setIsLoged(true)
+        //getCartData()
       }
     })
     return () => {
@@ -70,10 +76,9 @@ function App() {
     const isSeller = securityLevel === 2
     const isManager = securityLevel === 3
     const isAdmin = securityLevel === 4
-  
-    return(
+
+  return (
       <div className="App">
-        <ShoppingCartProvider>
           {isLoged&&(
             <NavBarUser/>
           )}
@@ -81,34 +86,34 @@ function App() {
             <Route path='/' element={<Home/>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path="/signup" element={<Signup/>}/>
-            <Route path="/grid" element={<ProductsGrid products={fetchedProducts} />} />
-            {isAdmin&&(
-              <>
-                <Route path="/config-product" element={<ConfigProducts/>}/>
-                <Route path="/all-orders" element={<Orders/>}/>
-                <Route path="/my-orders" element={<MyOrders/>}/>
-              </>
+            <Route path="/grid" element={<ProductsGrid products={fetchedProducts}/>}/>
+            {isAdmin && (
+                <>
+                  <Route path="/config-product" element={<ConfigProducts/>}/>
+                  <Route path="/all-orders" element={<Orders/>}/>
+                  <Route path="/my-orders" element={<MyOrders/>}/>
+                  <Route path={`/detalles-orden/:id`} element={<OrderDetails/>}/>
+                </>
             )}
-            {isManager&&(
-              <>
-                <Route path="/all-orders" element={<Orders/>}/>
-                <Route path="/my-orders" element={<MyOrders/>}/>
-              </>
+            {isManager && (
+                <>
+                  <Route path="/all-orders" element={<Orders/>}/>
+                  <Route path="/my-orders" element={<MyOrders/>}/>
+                </>
             )}
-            {isSeller&&(
-              <>
-                <Route path="/my-orders" element={<MyOrders/>}/>
-              </>
+            {isSeller && (
+                <>
+                  <Route path="/my-orders" element={<MyOrders/>}/>
+                </>
             )}
-            <Route path="/perfil" element={<Profile />} />
-            <Route path="/orders" element={<PlaceOrder />} />
-            <Route path="/order-placed" element={<OrderPlaced />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/perfil" element={<Profile/>}/>
+            <Route path="/orders" element={<PlaceOrder/>}/>
+            <Route path="/order-placed" element={<OrderPlaced/>}/>
+            <Route path="/product/:id" element={<ProductDetails/>}/>
             <Route path='*' element={<NotFound/>}/>
           </Routes>
-        </ShoppingCartProvider>
       </div>
-    )
+  );
 }
 
 export default App;

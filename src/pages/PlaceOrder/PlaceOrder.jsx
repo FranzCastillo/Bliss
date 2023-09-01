@@ -105,6 +105,7 @@ function PlaceOrder() {
                     pedido_id: orderId,
                     producto_id: item.id,
                     cantidad: item.quantity,
+                    talla: item.size,
                 },
             ]);
         });
@@ -112,8 +113,28 @@ function PlaceOrder() {
         await Promise.all(promises);
     }
 
+    const clearCartInDb = async () => {
+        const user = window.localStorage.getItem('user');
+        const {data:userData, error:userError} = await supabase
+        .from('usuarios')
+        .select('id')
+        .eq('email', user)
+        if (userData){
+            const {error:CartError} = await supabase
+            .from('productos_en_carrito')
+            .delete()
+            .eq('usuario_id', userData[0].id)
+            if (CartError){
+                console.log(CartError.message)
+            }
+        }
+    }
+
     const handleSubmit = (event) => {
-        event.preventDefault();
+        event.preventDefault()
+        cart.clearCart()
+        localStorage.removeItem('cart')
+        clearCartInDb()
         saveOrderInDB().then(r => navigate('/order-placed'));
     };
 
@@ -288,6 +309,7 @@ function PlaceOrder() {
                                     key={item.id}
                                     id={item.id}
                                     quantity={item.quantity}
+                                    size={item.size}
                                 />
                             );
                         })}
