@@ -86,39 +86,40 @@ function NavBarUser() {
                                 src={logo} alt="Logo" 
                                 style={{height: '50px'}}
                                 className="navbar-logo"
+                                id="home"
                             />
                             
                             <div style={{width: '70%'}}> </div>
 
                             {isAdmin &&(
-                                <Button onClick={() => navigate('/all-orders')} className="navbar-button">
+                                <Button onClick={() => navigate('/all-orders')} className="navbar-button" id ="ords" data-testid="ords">
                                     <Typography variant="h6" style={{}}>
                                         Ordenes
                                     </Typography>
                                 </Button>
                             )}
                             {isManager &&(
-                                <Button onClick={() => navigate('/all-orders')} className="navbar-button">
+                                <Button onClick={() => navigate('/all-orders')} className="navbar-button" id="ords" data-testid="ords">
                                     <Typography variant="h6" style={{}}>
                                         Ordenes
                                     </Typography>
                                 </Button>
                             )}
                             {isSeller &&(
-                                <Button onClick={() => navigate('/my-orders')} className="navbar-button">
+                                <Button onClick={() => navigate('/my-orders')} className="navbar-button" id="ords" data-testid="ords">
                                     <Typography variant="h6" style={{}}>
                                         Mis Ordenes
                                     </Typography>
                                 </Button>
                             )}
 
-                            <Button onClick={() => navigate('/grid')} className="navbar-button">
+                            <Button onClick={() => navigate('/grid')} className="navbar-button" id="prods" data-testid="prods">
                                 <Typography variant="h6" style={{}}>
                                     Productos
                                 </Typography>
                             </Button>
 
-                            <Button onClick={() => navigate('/')} className="navbar-button">
+                            <Button onClick={() => navigate('/')} className="navbar-button" id="home1">
                                 <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92">
                                 <path id="XMLID_100_" d="M88,49c-1,0-2-0.4-2.8-1.1L46,9.6L6.8,47.9c-1.6,1.5-4.1,1.5-5.7-0.1c-1.5-1.6-1.5-4.1,0.1-5.7l42-41
                                     c1.6-1.5,4-1.5,5.6,0l42,41c1.6,1.5,1.6,4.1,0.1,5.7C90.1,48.6,89,49,88,49z M79.2,88V48.9c0-2.2-1.8-4-4-4c-2.2,0-4,1.8-4,4V84
@@ -128,7 +129,7 @@ function NavBarUser() {
                             </Button>
                             
                             <StyledBadge badgeContent={totalQuantity} color='primary'>
-                                <Button onClick={handleOpen} className="navbar-button">
+                                <Button onClick={handleOpen} className="navbar-button" id="cart"> 
                                     <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92">
                                         <path id="XMLID_1732_" d="M91.8,27.3L81.1,61c-0.8,2.4-2.9,4-5.4,4H34.4c-2.4,0-4.7-1.5-5.5-3.7L13.1,19H4c-2.2,0-4-1.8-4-4
                                             s1.8-4,4-4h11.9c1.7,0,3.2,1.1,3.8,2.7L36,57h38l8.5-27H35.4c-2.2,0-4-1.8-4-4s1.8-4,4-4H88c1.3,0,2.5,0.7,3.2,1.7
@@ -151,7 +152,7 @@ function NavBarUser() {
                                 </svg>
                             </Button>
                             */}
-                            <Button onClick={handleLogOut} className="navbar-button">
+                            <Button onClick={handleLogOut} className="navbar-button" id="logout">
                                 <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92">
                                     <path d="M60,60.7V79c0,2.2-1.6,4-3.8,4H4c-2.2,0-4-1.8-4-4V13c0-2.2,1.8-4,4-4h52.2c2.2,0,3.8,1.8,3.8,4v18.3 c0,2.2-1.8,4-4,4s-4-1.8-4-4V17H8v58h44V60.7c0-2.2,1.8-4,4-4S60,58.5,60,60.7z M90.8,43L75.2,27.2c-1.6-1.6-4.1-1.6-5.7,0 c-1.6,1.6-1.6,4.1,0,5.7l8.9,9L29.9,42c-2.2,0-4,1.8-4,4c0,2.2,1.8,4,4,4c0,0,0,0,0,0l48.5-0.1l-8.9,9c-1.6,1.6-1.5,4.1,0,5.7 c0.8,0.8,1.8,1.2,2.8,1.2c1,0,2.1-0.4,2.8-1.2l15.7-15.8C92.4,47.1,92.4,44.6,90.8,43z"/>
                                 </svg>
