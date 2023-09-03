@@ -13,6 +13,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useNavigate, useLocation} from 'react-router-dom';
 import {supabase} from "../supabase/client.js"
 import { useEffect } from 'react';
+import { signUpUser } from "../supabase/supabaseUtils.js";
 
 /**
  *
@@ -40,32 +41,29 @@ const theme = createTheme();
  */
 export default function Signup() {
     const navigate = useNavigate();
-    const location = useLocation()
+    const location = useLocation();
     const [invalid, setInvalid] = React.useState();
 
-    //Function that handles the form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const {user, error} = await supabase.auth.signUp({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+        const { user, error } = await signUpUser(
+        data.get('firstName'),
+        data.get('lastName'),
+        data.get('email'),
+        data.get('phone'),
+        data.get('address'),
+        data.get('password')
+        );
+
         if (error) {
-            setInvalid(error.message)
+        setInvalid(error.message);
         } else {
-            await supabase
-                .from("usuarios")
-                .insert({
-                    nombre: data.get('firstName'),
-                    apellido: data.get('lastName'),
-                    email: data.get('email'),
-                    direccion: data.get('address'),
-                    telefono: data.get('phone'),
-                });
-            navigate("/")
+        navigate("/");
         }
     };
+
 
     useEffect(()=>{
         const {data:authListener} = supabase.auth.onAuthStateChange((event, session) => {

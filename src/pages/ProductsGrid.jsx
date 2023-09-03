@@ -3,20 +3,10 @@ import { Grid, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import ProductCard from "./ProductCard.jsx";
 import FloatingButton from "../components/FloatingButton/FloatingButton";
 import LateralCart from "../components/LateralCart/LateralCart";
-import { supabase } from "../supabase/client";
 import PrimarySearchBar from "../components/PrimarySearchBar/PrimarySearchBar";
 import PropTypes from "prop-types";
-
-const getCategories = async () => {
-  const { data, error } = await supabase.from("categorias").select("id, categoria");
-
-  if (error) {
-    console.error("Error fetching categories:", error.message);
-    return [];
-  } else {
-    return data.map((item) => ({ id: item.id, categoria: item.categoria }));
-  }
-};
+import { getCategories, getUserSecurityLevel } from "../supabase/supabaseUtils.js";
+import { supabase } from "../supabase/client";
 
 const ProductsGrid = ({ products }) => {
   const [names, setNames] = useState([]);
@@ -35,15 +25,9 @@ const ProductsGrid = ({ products }) => {
     async function getUserMail() {
       const userData = await supabase.auth.getUser();
       if (userData) {
-        const { data, error } = await supabase
-          .from("usuarios")
-          .select("rol_id")
-          .eq("email", userData.data.user.email);
-        if (data) {
-          setSecurityLevel(data[0].rol_id);
-        }
-        if (error) {
-          console.log(error);
+        const securityLevel = await getUserSecurityLevel(userData.data.user.email);
+        if (securityLevel !== null) {
+          setSecurityLevel(securityLevel);
         }
       }
     }
