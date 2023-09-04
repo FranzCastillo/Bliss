@@ -26,6 +26,7 @@ const ProductCard = ({ product }) => {
                         image={imageURL}
                         alt={product.name}
                         onClick={handleProductClick}
+                        id={product.id}
                     />
                 </Card>
             </div>
