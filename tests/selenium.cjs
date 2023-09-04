@@ -33,7 +33,7 @@ product_navigation_test = async () => {
         await driver.findElement(By.name("email")).sendKeys("cas21562@uvg.edu.gt", Key.TAB);
         await driver.findElement(By.name("password")).sendKeys("cas21562", Key.ENTER);
 
-        const productsTab = await driver.wait(until.elementLocated(By.id('navbar-button-products')), 10000);
+        const productsTab = await driver.wait(until.elementLocated(By.id('prods')), 10000);
         await driver.wait(until.elementIsVisible(productsTab), 10000);
         await productsTab.click();
         console.log("PRODUCTS TAB CLICKED");
