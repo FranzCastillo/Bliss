@@ -79,7 +79,7 @@ function NavBarUser() {
         <>
             <div>
                 <ThemeProvider theme={theme}>
-                    <AppBar position="static" className="navbar">
+                    <AppBar position="static" className="navbar" name={"navbar"}>
                         <Toolbar>
                             <img 
                                 onClick={() => navigate('/')}
@@ -112,7 +112,7 @@ function NavBarUser() {
                                 </Button>
                             )}
 
-                            <Button onClick={() => navigate('/grid')} className="navbar-button">
+                            <Button onClick={() => navigate('/grid')} className={"navbar-button"} id={"navbar-button-products"}>
                                 <Typography variant="h6" style={{}}>
                                     Productos
                                 </Typography>

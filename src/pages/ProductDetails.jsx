@@ -115,6 +115,7 @@ const ProductDetails = () => {
                                         fontSize: '18px',
                                     }}
                                     onClick={handleAddToCart}
+                                    id={"add-to-cart-button"}
                                 >
                                     Agregar al carrito ‎ 
                                     <AddShoppingCartIcon />
