@@ -7,6 +7,7 @@ import PrimarySearchBar from "../components/PrimarySearchBar/PrimarySearchBar";
 import PropTypes from "prop-types";
 import {getCategories, getUserSecurityLevel} from "../supabase/supabaseUtils.js";
 import {supabase} from "../supabase/client";
+import { CircularProgress } from "@mui/material";
 
 const ProductsGrid = ({products}) => {
     const [loading, setLoading] = useState(true);
@@ -24,16 +25,30 @@ const ProductsGrid = ({products}) => {
 
     useEffect(() => {
         async function getUserMail() {
-            const userData = await supabase.auth.getUser();
-            if (userData) {
-                const securityLevel = await getUserSecurityLevel(userData.data.user.email);
-                if (securityLevel !== null) {
-                    setSecurityLevel(securityLevel);
-                }
+          const userData = await supabase.auth.getUser();
+          if (userData) {
+            const securityLevel = await getUserSecurityLevel(userData.data.user.email);
+            if (securityLevel !== null) {
+              setSecurityLevel(securityLevel);
             }
-        ,
-            [category, products]
-        )
+          }
+        }
+    
+        getUserMail();
+      }, []);
+    
+      const isAdmin = securityLevel === 4;
+    
+      useEffect(() => {
+        if (category === "") {
+          setFilteredProducts(products);
+        } else {
+          const filtered = products.filter(
+            (product) => product.categoryId === category
+          );
+          setFilteredProducts(filtered);
+        }
+      }, [category, products]);
 
 
             const handleSearch = (event) => {
