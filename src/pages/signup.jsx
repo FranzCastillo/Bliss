@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useEffect} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,9 +10,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 import {supabase} from "../supabase/client.js"
-import {signUpUser} from "../supabase/supabaseUtils.js";
+import { useEffect } from 'react';
+import { signUpUser } from "../supabase/supabaseUtils.js";
 
 /**
  *
@@ -48,32 +48,33 @@ export default function Signup() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        const {user, error} = await signUpUser(
-            data.get('firstName'),
-            data.get('lastName'),
-            data.get('email'),
-            data.get('phone'),
-            data.get('address'),
-            data.get('password')
+        const { user, error } = await signUpUser(
+        data.get('firstName'),
+        data.get('lastName'),
+        data.get('email'),
+        data.get('phone'),
+        data.get('address'),
+        data.get('password')
         );
 
         if (error) {
-            setInvalid(error.message);
+        setInvalid(error.message);
         } else {
-            navigate("/");
+        navigate("/");
         }
     };
 
-    useEffect(() => {
-        const {data: authListener} = supabase.auth.onAuthStateChange((event, session) => {
+
+    useEffect(()=>{
+        const {data:authListener} = supabase.auth.onAuthStateChange((event, session) => {
             if (location.pathname === "/signup" && session) {
-                navigate('/');
+              navigate('/');
             }
-        });
+          });
         return () => {
             authListener.subscription.unsubscribe()
         };
-    }, [])
+      },[])
 
     return (
         <ThemeProvider theme={theme}>
@@ -166,7 +167,7 @@ export default function Signup() {
                         {/*Submit button*/}
                         {invalid && (
                             <Typography component="p" color="red">
-                                {"*" + invalid}
+                                {"*"+invalid} 
                             </Typography>
                         )}
                         <Button

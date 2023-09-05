@@ -29,7 +29,7 @@
 @media (max-width: 746px) {
 
   .search-bar-container {
-    width: 150px;
+    width: 150px !important;
   }
 
   .dropdown-container {
@@ -37,13 +37,13 @@
   }
 
   .textbox {
-    max-width: 60%;
-    margin-top: -10px;
+    max-width: 60% !important;
+    margin-top: -10px !important;
   }
   
   .dropdown {
-    max-width: 50%;
-    margin-top: -10px;
+    max-width: 50% !important;
+    margin-top: -10px !important;
   }
 
 }
