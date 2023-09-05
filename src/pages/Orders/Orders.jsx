@@ -26,13 +26,6 @@ function Orders() {
             type: 'actions',
             getActions: (params) => [
                 <GridActionsCellItem
-                    icon={<EditIcon/>}
-                    label="Editar"
-                    onClick={() => {
-                        navigate(`/orders/edit/${params.row.id}`);
-                    }}
-                />,
-                <GridActionsCellItem
                     icon={<DeleteIcon/>}
                     label={"Eliminar"}
                     onClick={() => {
