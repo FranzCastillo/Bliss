@@ -1,9 +1,9 @@
 const { By, Key, Builder, until } = require("selenium-webdriver");
 require("chromedriver");
-require('dotenv').config(); // Load environment variables from .env.local
+require('dotenv').config(); // Load environment variables from .env
 
-const user = process.env.USER;
-const pass = process.env.PASS;
+const user = import.meta.env.VITE_USER;
+const pass = import.meta.env.VITE_PASS;
 
 module.exports = {
     login_test: async function () {
@@ -61,5 +61,52 @@ module.exports = {
             driver.quit();
         }
         return { passed, error };
+    },
+
+    order_navigation_test: async function(){
+        let driver = new Builder().forBrowser("chrome").build();
+
+        try {
+            await driver.get("http://bliss-three.vercel.app/");
+            
+
+            await driver.wait(until.elementLocated(By.name("email")), 10000);
+            await driver.findElement(By.name("email")).sendKeys("cas21562@uvg.edu.gt", Key.TAB);
+            await driver.findElement(By.name("password")).sendKeys("cas21562", Key.ENTER);
+            
+            const order = await driver.wait(until.elementLocated(By.id("ords")), 10000)
+            await driver.wait(until.elementIsVisible(order), 10000)
+            await driver.findElement(By.id("ords")).click()
+    
+            passed = true;
+        } catch (e) {
+            error = e;
+        } finally {
+            driver.quit();
+        }
+        return { passed, error };
+    },
+
+    logout_functionality_test: async function () {
+        let driver = new Builder().forBrowser("chrome").build();
+
+    try {
+        await driver.get("http://bliss-three.vercel.app/");
+
+        await driver.wait(until.elementLocated(By.name("email")), 10000);
+        await driver.findElement(By.name("email")).sendKeys("cas21562@uvg.edu.gt", Key.TAB);
+        await driver.findElement(By.name("password")).sendKeys("cas21562", Key.ENTER);
+
+        const logoutBut = await driver.wait(until.elementLocated(By.id('logout')), 10000);
+        await driver.wait(until.elementIsVisible(logoutBut), 10000);
+        await driver.findElement(By.id("logout")).click()
+
+        passed = true;
+    } catch (e) {
+        error = e;
+    } finally {
+        driver.quit();
     }
+    return { passed, error };
+}
 };
