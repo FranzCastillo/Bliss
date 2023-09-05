@@ -1,3 +1,4 @@
+import '../styles/grid.scss';
 import { useState, useEffect } from "react";
 import { Grid, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import ProductCard from "./ProductCard.jsx";
@@ -83,13 +84,13 @@ const ProductsGrid = ({ products }) => {
                 Nuestros Productos
               </h1>
             </Grid>
-            <Grid item xs={3} marginTop="40px">
+            <Grid item xs={3} marginTop="40px" className='textbox'>
               <PrimarySearchBar
                 search={search}
                 handleSearch={handleSearch}
               />
             </Grid>
-            <Grid item xs={2} marginTop="40px">
+            <Grid item xs={3} marginTop="40px" className='dropdown'>
               <FormControl fullWidth>
                 <InputLabel id="category-selection-label">
                   Categoría
@@ -100,7 +101,7 @@ const ProductsGrid = ({ products }) => {
                   label="Categoría"
                   value={category}
                   onChange={handleCategoryChange}
-                  style={{ backgroundColor: 'white' }}
+                  style={{ backgroundColor: 'white', width: '218px'}}
                 >
                   <MenuItem value="">Todas las categorías</MenuItem>
                   {names.map((category) => (

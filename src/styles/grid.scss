@@ -1,5 +1,5 @@
 .search-bar-container {
-  width: 305px;
+  width: 198px;
   height: 40px;
   background-color: white;
   display: flex;
@@ -24,6 +24,20 @@
     color: #201B40;
     font-size: large;
   }
+}
+
+@media (max-width: 746px) {
+
+  .textbox {
+    max-width: 60%;
+    margin-top: -10px;
+  }
+  
+  .dropdown {
+    max-width: 50%;
+    margin-top: -10px;
+  }
+
 }
 
 

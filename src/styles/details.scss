@@ -1,0 +1,38 @@
+// Definir mixins para breakpoints
+@mixin breakpoint($size) {
+    @if $size == s {
+      @media (max-width: 746px) {
+        @content;
+      }
+    }
+  }
+
+  /* Cuando la pantalla se hace pequeña */
+
+@media (max-width: 746px) {
+    .principal {
+
+        .secondary {
+            .container {
+                display: flex;
+                flex-direction: column; 
+            }
+            .image {
+                order: 1; 
+                
+                img {
+                    max-width: 190%; 
+                    height: auto; 
+                }
+            }
+            .details {
+                order: 2;
+                max-width: 90%; 
+            }
+        }
+    
+        .third {
+            display: none !important;
+        }
+    }
+}
