@@ -1,5 +1,5 @@
 import '../styles/details.scss';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
