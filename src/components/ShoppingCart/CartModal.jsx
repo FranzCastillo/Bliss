@@ -41,7 +41,7 @@ function CartModal({open, handleClose}) {
     const navigate = useNavigate();
 
     const handleButtonClick = () => {
-        navigate('/orders', { replace: true });
+        navigate('/orders', {replace: true});
         handleClose();
     };
 
@@ -97,9 +97,9 @@ function CartModal({open, handleClose}) {
                         No hay productos en el carrito.
                     </Typography>
                 )}
-                <div style={{display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+                <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                     <SaveCartButton/>
-                    <Button onClick={handleClose} style={{marginRight: "25px", color:"Red"}}>Cerrar Carrito</Button>
+                    <Button onClick={handleClose} style={{marginRight: "25px", color: "Red"}}>Cerrar Carrito</Button>
                 </div>
             </Box>
         </Modal>

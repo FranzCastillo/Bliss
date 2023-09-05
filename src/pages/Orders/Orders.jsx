@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {supabase} from '../../supabase/client.js';
-import {DataGrid} from '@mui/x-data-grid';
-import { useNavigate } from "react-router-dom";
+import {DataGrid, GridActionsCellItem} from '@mui/x-data-grid';
+import {useNavigate} from "react-router-dom";
 import DetailsButton from './Components/DetailsButton.jsx';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Orders() {
     const navigate = useNavigate();
@@ -19,6 +20,20 @@ function Orders() {
             sortable: false,
             filterable: false,
         },
+        {
+            field: 'actions',
+            type: 'actions',
+            getActions: (params) => [
+                <GridActionsCellItem
+                    icon={<DeleteIcon/>}
+                    label={"Eliminar"}
+                    onClick={() => {
+                        deleteRow(params.row.id);
+                    }}
+                />
+            ],
+            width: 100,
+        }
     ];
 
     const [rows, setRows] = useState([]);
@@ -61,6 +76,26 @@ function Orders() {
 
         fetchData();
     }, []);
+
+    const deleteRow = async (id) => {
+        try {
+            const {data, error} = await supabase
+                .from('pedidos')
+                .delete()
+                .match({id: id});
+
+            if (error) {
+                throw new Error('Error deleting row');
+            }
+
+            // Update rows state
+            const newRows = rows.filter((row) => row.id !== id);
+            setRows(newRows);
+        } catch (error) {
+            console.error(error);
+            // Handle error here, if needed
+        }
+    }
 
     return (
         <div id={'orders'}>

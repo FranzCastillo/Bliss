@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,11 +11,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {useNavigate, useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {supabase} from "../supabase/client.js"
-import { useEffect } from 'react';
 import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
-import { getProductData } from '../fetchProducts.jsx';
 
 /**
  *
@@ -46,24 +45,24 @@ export default function Login() {
     const location = useLocation()
     const [invalid, setInvalid] = React.useState();
 
-    const setUser=(user)=>{
+    const setUser = (user) => {
         window.localStorage.setItem('user', user)
     }
 
-    const setCart= async (user)=>{
-        const { data:usrData, error:usrError } = await supabase
-          .from("usuarios")
-          .select("id")
-          .eq("email", user)
+    const setCart = async (user) => {
+        const {data: usrData, error: usrError} = await supabase
+            .from("usuarios")
+            .select("id")
+            .eq("email", user)
         if (usrData) {
-            const { data:cartData, error:cartError } = await supabase
-            .from("productos_en_carrito")
-            .select("producto_id, cantidad, talla")
-            .eq("usuario_id", usrData[0].id)
-            if(cartData){
-              cartData.map((item) => {
-                cart.addMultipleProducts(item.producto_id, item.talla, item.cantidad)
-              })
+            const {data: cartData, error: cartError} = await supabase
+                .from("productos_en_carrito")
+                .select("producto_id, cantidad, talla")
+                .eq("usuario_id", usrData[0].id)
+            if (cartData) {
+                cartData.map((item) => {
+                    cart.addMultipleProducts(item.producto_id, item.talla, item.cantidad)
+                })
             }
         }
     }
@@ -71,13 +70,13 @@ export default function Login() {
     //Function that handles the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget); 
+        const data = new FormData(event.currentTarget);
         try {
             if ((data.get('email').trim() !== '') || (data.get('password').trim() !== '')) {
                 supabase.auth.signInWithPassword({
                     email: data.get('email'),
                     password: data.get('password'),
-                }).then(async ({data:userData, error:userError}) => {
+                }).then(async ({data: userData, error: userError}) => {
                     if (userError) {
                         setInvalid(userError.message)
                     } else {
@@ -86,23 +85,23 @@ export default function Login() {
                         navigate('/');
                     }
                 })
-            } else{
+            } else {
                 setInvalid("Email and password are required")
             }
         } catch (error) {
             console.log(error)
         }
     };
-    useEffect(()=>{
-        const {data:authListener} = supabase.auth.onAuthStateChange((event, session) => {
+    useEffect(() => {
+        const {data: authListener} = supabase.auth.onAuthStateChange((event, session) => {
             if (location.pathname === "/login" && session) {
-              navigate('/');
+                navigate('/');
             }
-          });
+        });
         return () => {
             authListener.subscription.unsubscribe()
         };
-      },[])
+    }, [])
 
     return (
         <ThemeProvider theme={theme}>
@@ -157,7 +156,7 @@ export default function Login() {
                         </Grid>
                         {invalid && (
                             <Typography component="p" color="red">
-                                {"*"+invalid} 
+                                {"*" + invalid}
                             </Typography>
                         )}
                         {/*Submit button*/}
@@ -173,7 +172,8 @@ export default function Login() {
                         {/*Sign up redirect*/}
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link onClick={() => navigate('/signup')} sx={{cursor: 'pointer'}} variant="body2" name="to-register">
+                                <Link onClick={() => navigate('/signup')} sx={{cursor: 'pointer'}} variant="body2"
+                                      name="to-register">
                                     Not have an account? Sign up
                                 </Link>
                             </Grid>
