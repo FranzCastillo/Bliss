@@ -105,14 +105,14 @@ function NavBarUser() {
                                 </Button>
                             )}
                             {isSeller &&(
-                                <Button onClick={() => navigate('/my-orders')} className="navbar-button">
+                                <Button onClick={() => navigate('/my-orders')} className="navbar-button" id="prods" data-testid="prods">
                                     <Typography variant="h6" style={{}}>
                                         Mis Ordenes
                                     </Typography>
                                 </Button>
                             )}
 
-                            <Button onClick={() => navigate('/grid')} className="navbar-button">
+                            <Button onClick={() => navigate('/grid')} className="navbar-button" id="prods">
                                 <Typography variant="h6" style={{}}>
                                     Productos
                                 </Typography>
