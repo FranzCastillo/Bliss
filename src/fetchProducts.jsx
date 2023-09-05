@@ -1,14 +1,14 @@
-import { supabase } from './supabase/client.js';
+import {supabase} from './supabase/client.js';
 
 export async function FetchProducts() {
     try {
-        const { data: productData, error } = await supabase.rpc('getproducts');
+        const {data: productData, error} = await supabase.rpc('getproducts');
         if (error) {
             console.error('Error fetching product data:', error);
             return [];
         }
 
-        const { data: productSizes, error: sizeError } = await supabase
+        const {data: productSizes, error: sizeError} = await supabase
             .from("disponibilidad_de_producto")
             .select("producto_id, talla");
         if (sizeError) {
@@ -18,7 +18,7 @@ export async function FetchProducts() {
 
         const grupos = {};
         productSizes.forEach((dato) => {
-            const { producto_id, talla } = dato;
+            const {producto_id, talla} = dato;
             if (!grupos[producto_id]) {
                 grupos[producto_id] = [talla];
             } else {

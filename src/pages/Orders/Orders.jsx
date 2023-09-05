@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {supabase} from '../../supabase/client.js';
-import {DataGrid} from '@mui/x-data-grid';
-import { useNavigate } from "react-router-dom";
+import {DataGrid, GridActionsCellItem} from '@mui/x-data-grid';
+import {useNavigate} from "react-router-dom";
 import DetailsButton from './Components/DetailsButton.jsx';
+import DeleteIcon from '@mui/icons-material/Delete';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 function Orders() {
     const navigate = useNavigate();
@@ -19,6 +22,20 @@ function Orders() {
             sortable: false,
             filterable: false,
         },
+        {
+            field: 'actions',
+            type: 'actions',
+            getActions: (params) => [
+                <GridActionsCellItem
+                    icon={<DeleteIcon/>}
+                    label={"Eliminar"}
+                    onClick={() => {
+                        deleteRow(params.row.id);
+                    }}
+                />
+            ],
+            width: 100,
+        }
     ];
 
     const [rows, setRows] = useState([]);
@@ -62,19 +79,48 @@ function Orders() {
         fetchData();
     }, []);
 
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (rows.length > 0) {
+            setLoading(false);
+        }
+    }, [rows]);
+
+    const deleteRow = async (id) => {
+        try {
+            const {data, error} = await supabase
+                .from('pedidos')
+                .delete()
+                .match({id: id});
+
+            if (error) {
+                throw new Error('Error deleting row');
+            }
+
+            // Update rows state
+            const newRows = rows.filter((row) => row.id !== id);
+            setRows(newRows);
+        } catch (error) {
+            console.error(error);
+            // Handle error here, if needed
+        }
+    }
+
     return (
-        <div id={'orders'}>
-            <h1>Todas las Ordenes</h1>
-            <div style={{height: 500, width: '90%', paddingLeft: '25px', paddingRight: '25px'}}>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    sx={{borderWidth: '1px', borderColor: 'divider'}}
-                />
+        loading ? <CircularProgress/> :
+            <div id={'orders'}>
+                <h1>Todas las Ordenes</h1>
+                <div style={{height: 500, width: '90%', paddingLeft: '25px', paddingRight: '25px'}}>
+                    <DataGrid
+                        rows={rows}
+                        columns={columns}
+                        pageSize={5}
+                        rowsPerPageOptions={[5]}
+                        sx={{borderWidth: '1px', borderColor: 'divider'}}
+                    />
+                </div>
             </div>
-        </div>
     );
 }
 
