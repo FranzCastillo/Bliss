@@ -1,29 +1,32 @@
 .navbar {
-    background-color: #FFFFFF !important;
-    color: #201B40 !important;
+  background-color: #FFFFFF !important;
+  color: #201B40 !important;
+  position: fixed !important;
+  z-index: 100 !important;
 }
 
 .navbar-button {
-    text-decoration: none;
-    color: #201B40 !important;
-    text-transform: none !important;
-    background-color: transparent !important;
+  text-decoration: none;
+  color: #201B40 !important;
+  text-transform: none !important;
+  background-color: transparent !important;
 }
-
 .navbar-button:hover {
-    color: #E35358 !important;
-    background-color: transparent !important;
+  color: #E35358 !important;
+  background-color: transparent !important;
 }
-
-.navbar-button:hover svg{
-    fill: #E35358 !important;
-    background-color: transparent !important;
+.navbar-button:hover svg {
+  fill: #E35358 !important;
+  background-color: transparent !important;
 }
-
 .navbar-button:active {
-    color: transparent !important;
+  color: transparent !important;
 }
 
 .navbar-logo {
-    cursor: pointer;
+  cursor: pointer;
 }
+
+.separator {
+  height: 50px;
+}/*# sourceMappingURL=navbar.css.map */

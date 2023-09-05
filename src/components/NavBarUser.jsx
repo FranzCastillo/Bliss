@@ -1,11 +1,10 @@
 import '../styles/navbar.scss';
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {Button, Badge} from "@mui/material";
-import { styled } from '@mui/material/styles';
+import {createTheme, styled, ThemeProvider} from '@mui/material/styles';
+import {Badge, Button} from "@mui/material";
 import logo from '../media/Logo.png';
 import CartModal from './ShoppingCart/CartModal';
 import {useNavigate} from 'react-router-dom';
@@ -24,14 +23,14 @@ function NavBarUser() {
     const cart = React.useContext(ShoppingCartContext);
     const totalQuantity = cart.getTotalQuantity();
 
-    const StyledBadge = styled(Badge)(({ theme }) => ({
+    const StyledBadge = styled(Badge)(({theme}) => ({
         '& .MuiBadge-badge': {
-          right: 15,
-          top: 5,
-          border: `2px solid ${theme.palette.background.paper}`,
-          padding: '0 4px',
+            right: 15,
+            top: 5,
+            border: `2px solid ${theme.palette.background.paper}`,
+            padding: '0 4px',
         },
-      }));
+    }));
 
     const theme = createTheme({
         typography: {
@@ -43,7 +42,7 @@ function NavBarUser() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleLogOut = async () => {
-        try { 
+        try {
             await supabase.auth.signOut().then(
                 window.localStorage.removeItem('cart'),
                 window.localStorage.removeItem('user'),
@@ -55,18 +54,21 @@ function NavBarUser() {
         }
 
     }
-    const [securityLevel, setSecurityLevel] = useState() 
-    useEffect(()=>{
+    const [securityLevel, setSecurityLevel] = useState()
+    useEffect(() => {
         async function getUserMail() {
             const userData = await supabase.auth.getUser()
-            if(userData){
-                const {data,error} = await supabase.from("usuarios").select("rol_id").eq("email",userData.data.user.email)
-                if(data){
+            if (userData) {
+                const {
+                    data,
+                    error
+                } = await supabase.from("usuarios").select("rol_id").eq("email", userData.data.user.email)
+                if (data) {
                     setSecurityLevel(data[0].rol_id)
                 }
-                if(error){
+                if (error) {
                     console.log(error)
-                } 
+                }
             }
         }
 
@@ -79,11 +81,11 @@ function NavBarUser() {
         <>
             <div>
                 <ThemeProvider theme={theme}>
-                    <AppBar position="static" className="navbar">
+                    <AppBar position="static" className="navbar" name={"navbar"}>
                         <Toolbar>
-                            <img 
+                            <img
                                 onClick={() => navigate('/')}
-                                src={logo} alt="Logo" 
+                                src={logo} alt="Logo"
                                 style={{height: '50px'}}
                                 className="navbar-logo"
                                 id="home"
@@ -91,23 +93,26 @@ function NavBarUser() {
                             
                             <div style={{width: '80%'}}> </div>
 
-                            {isAdmin &&(
-                                <Button onClick={() => navigate('/all-orders')} className="navbar-button" id ="ords" data-testid="ords">
+                            {isAdmin && (
+                                <Button onClick={() => navigate('/all-orders')} className="navbar-button" id="ords"
+                                        data-testid="ords">
                                     <Typography variant="h6" style={{}}>
                                         Ordenes
                                     </Typography>
                                 </Button>
                             )}
-                            {isManager &&(
-                                <Button onClick={() => navigate('/all-orders')} className="navbar-button" id="ords" data-testid="ords">
+                            {isManager && (
+                                <Button onClick={() => navigate('/all-orders')} className="navbar-button" id="ords"
+                                        data-testid="ords">
                                     <Typography variant="h6" style={{}}>
                                         Ordenes
                                     </Typography>
                                 </Button>
                             )}
-                            {isSeller &&(
-                                <Button onClick={() => navigate('/my-orders')} className="navbar-button" id="ords" data-testid="ords">
-                                    <Typography variant="h6" style={{width:'140px'}}>
+                            {isSeller && (
+                                <Button onClick={() => navigate('/my-orders')} className="navbar-button" id="ords"
+                                        data-testid="ords">
+                                    <Typography variant="h6" style={{}}>
                                         Mis Ordenes
                                     </Typography>
                                 </Button>
@@ -132,7 +137,7 @@ function NavBarUser() {
                             {/*
                             <Button onClick={() => navigate('/')} className="navbar-button" id="home1">
                                 <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92">
-                                <path id="XMLID_100_" d="M88,49c-1,0-2-0.4-2.8-1.1L46,9.6L6.8,47.9c-1.6,1.5-4.1,1.5-5.7-0.1c-1.5-1.6-1.5-4.1,0.1-5.7l42-41
+                                    <path id="XMLID_100_" d="M88,49c-1,0-2-0.4-2.8-1.1L46,9.6L6.8,47.9c-1.6,1.5-4.1,1.5-5.7-0.1c-1.5-1.6-1.5-4.1,0.1-5.7l42-41
                                     c1.6-1.5,4-1.5,5.6,0l42,41c1.6,1.5,1.6,4.1,0.1,5.7C90.1,48.6,89,49,88,49z M79.2,88V48.9c0-2.2-1.8-4-4-4c-2.2,0-4,1.8-4,4V84
                                     H58.7V62.6c0-2.9-2.4-5.3-5.3-5.3H38.6c-2.9,0-5.3,2.4-5.3,5.3V84H20.8V48.9c0-2.2-1.8-4-4-4s-4,1.8-4,4V88c0,2.2,1.8,4,4,4h20.5
                                     c2.2,0,4-1.8,4-4V65.3h9.5V88c0,2.2,1.8,4,4,4h20.5C77.5,92,79.2,90.2,79.2,88z"/>
@@ -141,7 +146,7 @@ function NavBarUser() {
                             */}
                             
                             <StyledBadge badgeContent={totalQuantity} color='primary'>
-                                <Button onClick={handleOpen} className="navbar-button" id="cart"> 
+                                <Button onClick={handleOpen} className="navbar-button" id="cart">
                                     <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92">
                                         <title>Carrito</title>
                                         <path id="XMLID_1732_" d="M91.8,27.3L81.1,61c-0.8,2.4-2.9,4-5.4,4H34.4c-2.4,0-4.7-1.5-5.5-3.7L13.1,19H4c-2.2,0-4-1.8-4-4
@@ -175,7 +180,7 @@ function NavBarUser() {
                     </AppBar>
                     <CartModal open={open} handleClose={handleClose}/>
                 </ThemeProvider>
-                <div className='separator'> </div>
+                <div className='separator'></div>
             </div>
         </>
     )
