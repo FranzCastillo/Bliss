@@ -1,3 +1,4 @@
+import './CartModal.scss';
 import React from 'react';
 import {Box, Button, Modal, Stack, Typography} from '@mui/material';
 import {ShoppingCartContext} from '../../contexts/ShoppingCartContext';
@@ -21,6 +22,7 @@ function CartModal({open, handleClose}) {
         overflowY: 'auto',
         padding: 0
     };
+
     const titleStyle = {
         position: "sticky",
         top: "0",
@@ -48,7 +50,7 @@ function CartModal({open, handleClose}) {
 
     return (
         <Modal keepMounted open={open} onClose={handleClose}>
-            <Box sx={modalStyle}>
+            <Box sx={modalStyle} className='container'>
                 <div style={titleStyle}>
                     <div className={"text"}>
                         <Typography
