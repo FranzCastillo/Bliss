@@ -1,6 +1,7 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import Link from '@mui/material/Link';
+
 function NotFound() {
     const navigate = useNavigate()
     return (

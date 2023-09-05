@@ -3,7 +3,6 @@ import {supabase} from '../../supabase/client.js';
 import {DataGrid, GridActionsCellItem} from '@mui/x-data-grid';
 import {useNavigate} from "react-router-dom";
 import DetailsButton from './Components/DetailsButton.jsx';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function Orders() {
