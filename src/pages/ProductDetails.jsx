@@ -81,7 +81,7 @@ const ProductDetails = () => {
                                             style={{ fontSize: '12px' }} 
                                             onChange={handleSelectSize}
                                         >
-                                            {product.sizes.slice(1).map((talla) => (
+                                            {product.sizes.map((talla) => (
                                                 <FormControlLabel
                                                     key={talla}
                                                     value={talla}
