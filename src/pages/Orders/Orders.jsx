@@ -3,8 +3,9 @@ import {supabase} from '../../supabase/client.js';
 import {DataGrid, GridActionsCellItem} from '@mui/x-data-grid';
 import {useNavigate} from "react-router-dom";
 import DetailsButton from './Components/DetailsButton.jsx';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 function Orders() {
     const navigate = useNavigate();
@@ -78,6 +79,14 @@ function Orders() {
         fetchData();
     }, []);
 
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (rows.length > 0) {
+            setLoading(false);
+        }
+    }, [rows]);
+
     const deleteRow = async (id) => {
         try {
             const {data, error} = await supabase
@@ -99,6 +108,7 @@ function Orders() {
     }
 
     return (
+        loading ? <CircularProgress/> :
         <div id={'orders'}>
             <h1>Todas las Ordenes</h1>
             <div style={{height: 500, width: '90%', paddingLeft: '25px', paddingRight: '25px'}}>

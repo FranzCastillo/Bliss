@@ -1,8 +1,19 @@
-import React, {  useState } from 'react'
-import { Container, Box, Grid, TextField, Button, FormControl, InputLabel, Select, MenuItem, Typography } from '@mui/material'
+import React, {useState} from 'react'
+import {
+    Box,
+    Button,
+    Container,
+    FormControl,
+    Grid,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+    Typography
+} from '@mui/material'
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import { supabase } from '../supabase/client'; 
-import { FetchProducts } from '../fetchProducts';
+import {supabase} from '../supabase/client';
+import {FetchProducts} from '../fetchProducts';
 
 function ConfigProducts() {
 
@@ -14,43 +25,43 @@ function ConfigProducts() {
     const [filename, setFilename] = useState('')
     const [file, setFile] = useState(null)
 
-    const handleNewCategory = (event) =>{
+    const handleNewCategory = (event) => {
         setCategory(event.target.value)
     }
 
-    async function insertNewProduct(id){
+    async function insertNewProduct(id) {
         const image = filename.split('.')
 
         const {error} = await supabase
-        .from('producto')
-        .insert({id: id, categoria_id: category, nombre: name, descripcion: desc, imagen: image[0], codigo: code})
+            .from('producto')
+            .insert({id: id, categoria_id: category, nombre: name, descripcion: desc, imagen: image[0], codigo: code})
 
-        if (error){
+        if (error) {
             console.log('produ')
-            console.log( error)
+            console.log(error)
         }
-            
+
     }
 
-    async function relatePrice(id){
+    async function relatePrice(id) {
         const {error} = await supabase
-        .from('precio_del_producto')
-        .insert({producto_id: id, precio: price})
+            .from('precio_del_producto')
+            .insert({producto_id: id, precio: price})
 
-        if (error){
+        if (error) {
             console.log('price')
-            console.log( + error)
+            console.log(+error)
         }
-            
+
     }
 
     async function handleNewSubmit(e) {
         e.preventDefault()
-        
+
         const {data, error} = await supabase
-        .storage
-        .from('images')
-        .upload('product_img/' + filename, file)
+            .storage
+            .from('images')
+            .upload('product_img/' + filename, file)
 
         console.log("hizo la query")
         if (data) {
@@ -58,72 +69,65 @@ function ConfigProducts() {
             insertNewProduct(products.length + 1)
             setTimeout(relatePrice(products.length + 1), 10000)
             setTimeout(relateDisponibility(products.length + 1), 10000)
-        }
-        else{
+        } else {
             console.log('insert')
             console.log(error)
         }
-    };
+    }
 
-    async function getDisponibilityLength(){
+    async function getDisponibilityLength() {
         const {data, error} = await supabase
-        .from('disponibilidad_de_producto')
-        .select()
-        if(data){
+            .from('disponibilidad_de_producto')
+            .select()
+        if (data) {
             setDispo(data.length + 1)
-        }
-        else{
+        } else {
             console.log('getdispo')
-            console.log( error)
+            console.log(error)
         }
     }
 
-    async function relateDisponibility(id){
+    async function relateDisponibility(id) {
         const {data, fail} = await supabase
-        .from('disponibilidad_de_producto')
-        .select()
+            .from('disponibilidad_de_producto')
+            .select()
 
-        if(data){
+        if (data) {
             const talla = Math.floor(Math.random() * (44 - 39 + 1) + 39);
             const {error} = await supabase
-            .from('disponibilidad_de_producto')
-            .insert({id: (data.length + 1), producto_id: id, cantidad: 100, talla: talla})
-    
-            if(error){
+                .from('disponibilidad_de_producto')
+                .insert({id: (data.length + 1), producto_id: id, cantidad: 100, talla: talla})
+
+            if (error) {
                 console.log('dispo')
                 console.log(error)
             }
-        }
-        else{
+        } else {
             console.log(fail)
         }
-
-        
-           
 
 
     }
 
-    async function prueba(e){
+    async function prueba(e) {
         const {data, error} = await supabase
-        .storage
-        .from('images')
-        .upload('product_img/' + e.target.files[0].name, e.target.files[0])
+            .storage
+            .from('images')
+            .upload('product_img/' + e.target.files[0].name, e.target.files[0])
 
         console.log("hizo la query")
         if (data) {
             console.log("si")
-        }
-        else{
+        } else {
             console.log(error)
         }
     }
 
-    const handleNewFilename = async (e) =>{
+    const handleNewFilename = async (e) => {
         setFilename(e.target.files[0].name)
         setFile(e.target.files[0])
 
-        
+
     }
 
     return (
@@ -132,7 +136,7 @@ function ConfigProducts() {
             <Typography component="h1" variant="h5">
                 Agregar Un Producto
             </Typography>
-            <Box component="form" noValidate onSubmit={(e) => handleNewSubmit(e)}  sx={{mt: 3}}>
+            <Box component="form" noValidate onSubmit={(e) => handleNewSubmit(e)} sx={{mt: 3}}>
                 <div className='new-prod'>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
@@ -199,16 +203,16 @@ function ConfigProducts() {
                         </Grid>
 
                         <Grid item xs={12}>
-                        <Button
-                            component="label"
-                            variant="outlined"
-                            startIcon={<UploadFileIcon />}
-                            sx={{ marginRight: "1rem" }}
-                            onChange={(e) => handleNewFilename(e)}
-                        >
-                            Subir Imagen
-                            <input type="file" accept="image/png" hidden  />
-                        </Button>
+                            <Button
+                                component="label"
+                                variant="outlined"
+                                startIcon={<UploadFileIcon/>}
+                                sx={{marginRight: "1rem"}}
+                                onChange={(e) => handleNewFilename(e)}
+                            >
+                                Subir Imagen
+                                <input type="file" accept="image/png" hidden/>
+                            </Button>
                         </Grid>
                     </Grid>
                     <Button

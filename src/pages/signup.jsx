@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,7 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {useNavigate, useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {supabase} from "../supabase/client.js"
 import { useEffect } from 'react';
 import { signUpUser } from "../supabase/supabaseUtils.js";
@@ -64,17 +65,16 @@ export default function Signup() {
         }
     };
 
-
-    useEffect(()=>{
-        const {data:authListener} = supabase.auth.onAuthStateChange((event, session) => {
+    useEffect(() => {
+        const {data: authListener} = supabase.auth.onAuthStateChange((event, session) => {
             if (location.pathname === "/signup" && session) {
-              navigate('/');
+                navigate('/');
             }
-          });
+        });
         return () => {
             authListener.subscription.unsubscribe()
         };
-      },[])
+    }, [])
 
     return (
         <ThemeProvider theme={theme}>
@@ -167,7 +167,7 @@ export default function Signup() {
                         {/*Submit button*/}
                         {invalid && (
                             <Typography component="p" color="red">
-                                {"*"+invalid} 
+                                {"*" + invalid}
                             </Typography>
                         )}
                         <Button

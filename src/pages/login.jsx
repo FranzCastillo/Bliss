@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useEffect} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,9 +11,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {useNavigate, useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {supabase} from "../supabase/client.js"
-import { useEffect } from 'react';
 import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
 import { signInWithEmailAndPassword, getUserDataByEmail, getCartDataByUserId} from "../supabase/supabaseUtils.js";
 
@@ -160,7 +160,7 @@ export default function Login() {
                         </Grid>
                         {invalid && (
                             <Typography component="p" color="red">
-                                {"*"+invalid} 
+                                {"*" + invalid}
                             </Typography>
                         )}
                         {/*Submit button*/}
@@ -176,7 +176,8 @@ export default function Login() {
                         {/*Sign up redirect*/}
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link onClick={() => navigate('/signup')} sx={{cursor: 'pointer'}} variant="body2" name="to-register">
+                                <Link onClick={() => navigate('/signup')} sx={{cursor: 'pointer'}} variant="body2"
+                                      name="to-register">
                                     Not have an account? Sign up
                                 </Link>
                             </Grid>
