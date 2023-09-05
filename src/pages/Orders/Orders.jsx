@@ -109,18 +109,18 @@ function Orders() {
 
     return (
         loading ? <CircularProgress/> :
-        <div id={'orders'}>
-            <h1>Todas las Ordenes</h1>
-            <div style={{height: 500, width: '90%', paddingLeft: '25px', paddingRight: '25px'}}>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    sx={{borderWidth: '1px', borderColor: 'divider'}}
-                />
+            <div id={'orders'}>
+                <h1>Todas las Ordenes</h1>
+                <div style={{height: 500, width: '90%', paddingLeft: '25px', paddingRight: '25px'}}>
+                    <DataGrid
+                        rows={rows}
+                        columns={columns}
+                        pageSize={5}
+                        rowsPerPageOptions={[5]}
+                        sx={{borderWidth: '1px', borderColor: 'divider'}}
+                    />
+                </div>
             </div>
-        </div>
     );
 }
 

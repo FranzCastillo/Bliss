@@ -13,8 +13,7 @@ import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {supabase} from "../supabase/client.js"
-import { useEffect } from 'react';
-import { signUpUser } from "../supabase/supabaseUtils.js";
+import {signUpUser} from "../supabase/supabaseUtils.js";
 
 /**
  *
@@ -49,19 +48,19 @@ export default function Signup() {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
 
-        const { user, error } = await signUpUser(
-        data.get('firstName'),
-        data.get('lastName'),
-        data.get('email'),
-        data.get('phone'),
-        data.get('address'),
-        data.get('password')
+        const {user, error} = await signUpUser(
+            data.get('firstName'),
+            data.get('lastName'),
+            data.get('email'),
+            data.get('phone'),
+            data.get('address'),
+            data.get('password')
         );
 
         if (error) {
-        setInvalid(error.message);
+            setInvalid(error.message);
         } else {
-        navigate("/");
+            navigate("/");
         }
     };
 

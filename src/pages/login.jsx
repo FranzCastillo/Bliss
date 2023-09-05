@@ -14,7 +14,7 @@ import {createTheme, ThemeProvider} from '@mui/material/styles';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {supabase} from "../supabase/client.js"
 import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
-import { signInWithEmailAndPassword, getUserDataByEmail, getCartDataByUserId} from "../supabase/supabaseUtils.js";
+import {getCartDataByUserId, getUserDataByEmail, signInWithEmailAndPassword} from "../supabase/supabaseUtils.js";
 
 /**
  *
@@ -23,88 +23,89 @@ import { signInWithEmailAndPassword, getUserDataByEmail, getCartDataByUserId} fr
  */
 function Copyright(props) {
     return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://catalogodigital.co/app/app/bliss_guatemala_/calzado_?fbclid=IwAR2HhULr6oFCv6I1jJAQYJx0BmpIIMU20_VEcwOZ_feHVKjFV7UaCSFy-AA">
-          Bliss
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
+        <Typography variant="body2" color="text.secondary" align="center" {...props}>
+            {'Copyright © '}
+            <Link color="inherit"
+                  href="https://catalogodigital.co/app/app/bliss_guatemala_/calzado_?fbclid=IwAR2HhULr6oFCv6I1jJAQYJx0BmpIIMU20_VEcwOZ_feHVKjFV7UaCSFy-AA">
+                Bliss
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
     );
-  }
-  
+}
+
 const theme = createTheme();
 /**
  *
  * @returns Signin form
- */ 
+ */
 export default function Login() {
     const cart = React.useContext(ShoppingCartContext);
     const navigate = useNavigate();
     const location = useLocation();
     const [invalid, setInvalid] = React.useState();
-  
+
     const setUser = (user) => {
-      window.localStorage.setItem('user', user);
+        window.localStorage.setItem('user', user);
     }
-  
+
     const setCart = async (user) => {
-      try {
-        const { data: userDataByEmail, error: userError } = await getUserDataByEmail(user);
-        if (userDataByEmail) {
-          const userId = userDataByEmail[0].id;
-  
-          const { data: cartData } = await getCartDataByUserId(userId);
-          if (cartData) {
-            cartData.forEach((item) => {
-              cart.addMultipleProducts(item.producto_id, item.talla, item.cantidad);
-            });
-          }
+        try {
+            const {data: userDataByEmail, error: userError} = await getUserDataByEmail(user);
+            if (userDataByEmail) {
+                const userId = userDataByEmail[0].id;
+
+                const {data: cartData} = await getCartDataByUserId(userId);
+                if (cartData) {
+                    cartData.forEach((item) => {
+                        cart.addMultipleProducts(item.producto_id, item.talla, item.cantidad);
+                    });
+                }
+            }
+        } catch (error) {
+            console.error(error);
         }
-      } catch (error) {
-        console.error(error);
-      }
     }
-  
+
     const handleSubmit = async (event) => {
-      event.preventDefault();
-      const data = new FormData(event.currentTarget);
-  
-      try {
-        if (data.get("email").trim() !== "" || data.get("password").trim() !== "") {
-          const email = data.get("email");
-          const password = data.get("password");
-  
-          const { data: userData, error: userError } = await signInWithEmailAndPassword(
-            email,
-            password
-          );
-  
-          if (userError) {
-            setInvalid(userError.message);
-          } else {
-            setUser(email);
-            setCart(email);
-            navigate('/');
-          }
-        } else {
-          setInvalid("Email and password are required");
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+
+        try {
+            if (data.get("email").trim() !== "" || data.get("password").trim() !== "") {
+                const email = data.get("email");
+                const password = data.get("password");
+
+                const {data: userData, error: userError} = await signInWithEmailAndPassword(
+                    email,
+                    password
+                );
+
+                if (userError) {
+                    setInvalid(userError.message);
+                } else {
+                    setUser(email);
+                    setCart(email);
+                    navigate('/');
+                }
+            } else {
+                setInvalid("Email and password are required");
+            }
+        } catch (error) {
+            console.error(error);
         }
-      } catch (error) {
-        console.error(error);
-      }
     };
-  
+
     useEffect(() => {
-      const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-        if (location.pathname === "/login" && session) {
-          navigate('/');
-        }
-      });
-      return () => {
-        authListener.subscription.unsubscribe();
-      };
+        const {data: authListener} = supabase.auth.onAuthStateChange((event, session) => {
+            if (location.pathname === "/login" && session) {
+                navigate('/');
+            }
+        });
+        return () => {
+            authListener.subscription.unsubscribe();
+        };
     }, []);
 
     return (

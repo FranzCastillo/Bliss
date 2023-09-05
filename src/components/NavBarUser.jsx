@@ -91,28 +91,32 @@ function NavBarUser() {
                                 id="home"
                             />
 
-                            {isAdmin &&(
-                                <Button onClick={() => navigate('/all-orders')} className="navbar-button" id ="ords" data-testid="ords">
+                            {isAdmin && (
+                                <Button onClick={() => navigate('/all-orders')} className="navbar-button" id="ords"
+                                        data-testid="ords">
                                     <Typography variant="h6" style={{}}>
                                         Ordenes
                                     </Typography>
                                 </Button>
                             )}
-                            {isManager &&(
-                                <Button onClick={() => navigate('/all-orders')} className="navbar-button" id="ords" data-testid="ords">
+                            {isManager && (
+                                <Button onClick={() => navigate('/all-orders')} className="navbar-button" id="ords"
+                                        data-testid="ords">
                                     <Typography variant="h6" style={{}}>
                                         Ordenes
                                     </Typography>
                                 </Button>
                             )}
-                            {isSeller &&(
-                                <Button onClick={() => navigate('/my-orders')} className="navbar-button" id="ords" data-testid="ords">
+                            {isSeller && (
+                                <Button onClick={() => navigate('/my-orders')} className="navbar-button" id="ords"
+                                        data-testid="ords">
                                     <Typography variant="h6" style={{}}>
                                         Mis Ordenes
                                     </Typography>
                                 </Button>
                             )}
-                            <Button onClick={() => navigate('/grid')} className="navbar-button" id="prods" data-testid="prods">
+                            <Button onClick={() => navigate('/grid')} className="navbar-button" id="prods"
+                                    data-testid="prods">
                                 <Typography variant="h6" style={{}}>
                                     Productos
                                 </Typography>
@@ -128,7 +132,7 @@ function NavBarUser() {
                             </Button>
 
                             <StyledBadge badgeContent={totalQuantity} color='primary'>
-                                <Button onClick={handleOpen} className="navbar-button" id="cart"> 
+                                <Button onClick={handleOpen} className="navbar-button" id="cart">
                                     <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92">
                                         <path id="XMLID_1732_" d="M91.8,27.3L81.1,61c-0.8,2.4-2.9,4-5.4,4H34.4c-2.4,0-4.7-1.5-5.5-3.7L13.1,19H4c-2.2,0-4-1.8-4-4
                                             s1.8-4,4-4h11.9c1.7,0,3.2,1.1,3.8,2.7L36,57h38l8.5-27H35.4c-2.2,0-4-1.8-4-4s1.8-4,4-4H88c1.3,0,2.5,0.7,3.2,1.7
