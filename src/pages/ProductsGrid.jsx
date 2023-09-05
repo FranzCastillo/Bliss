@@ -94,13 +94,13 @@ const ProductsGrid = ({products}) => {
                                             Nuestros Productos
                                         </h1>
                                     </Grid>
-                                    <Grid item xs={3} marginTop="40px">
+                                    <Grid item xs={3} marginTop="40px" className='textbox'>
                                         <PrimarySearchBar
                                             search={search}
                                             handleSearch={handleSearch}
                                         />
                                     </Grid>
-                                    <Grid item xs={2} marginTop="40px">
+                                    <Grid item xs={2} marginTop="40px" className='dropdown'>
                                         <FormControl fullWidth>
                                             <InputLabel id="category-selection-label">
                                                 Categoría
@@ -111,6 +111,7 @@ const ProductsGrid = ({products}) => {
                                                 label="Categoría"
                                                 value={category}
                                                 onChange={handleCategoryChange}
+                                                className='dropdown-container'
                                                 style={{backgroundColor: 'white'}}
                                             >
                                                 <MenuItem value="">Todas las categorías</MenuItem>
