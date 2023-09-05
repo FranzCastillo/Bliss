@@ -89,7 +89,7 @@ function NavBarUser() {
                                 id="home"
                             />
                             
-                            <div style={{width: '70%'}}> </div>
+                            <div style={{width: '80%'}}> </div>
 
                             {isAdmin &&(
                                 <Button onClick={() => navigate('/all-orders')} className="navbar-button" id ="ords" data-testid="ords">
@@ -107,18 +107,29 @@ function NavBarUser() {
                             )}
                             {isSeller &&(
                                 <Button onClick={() => navigate('/my-orders')} className="navbar-button" id="ords" data-testid="ords">
-                                    <Typography variant="h6" style={{}}>
+                                    <Typography variant="h6" style={{width:'140px'}}>
                                         Mis Ordenes
                                     </Typography>
                                 </Button>
                             )}
 
+                            {/*
                             <Button onClick={() => navigate('/grid')} className="navbar-button" id="prods" data-testid="prods">
                                 <Typography variant="h6" style={{}}>
                                     Productos
                                 </Typography>
                             </Button>
+                            */}
 
+                            <Button onClick={() => navigate('/grid')} className="navbar-button" id="prods" data-testid="prods">
+                                <svg width="28px" height="28px" viewBox="0 0 24 24">
+                                    <title>Productos</title>
+                                    <path d="M21.6167,9.0879l-1.4287-5A1.5067,1.5067,0,0,0,18.7456,3H5.2544A1.5067,1.5067,0,0,0,3.812,4.0879l-1.4287,5A1.5,1.5,0,0,0,3.8257,11H4v7.5A2.503,2.503,0,0,0,6.5,21h7a.5.5,0,0,0,0-1h-7A1.5017,1.5017,0,0,1,5,18.5V11H19v3.5a.5.5,0,0,0,1,0V11h.1743a1.5,1.5,0,0,0,1.4424-1.9121Zm-1.043.7134A.4969.4969,0,0,1,20.1743,10H3.8257a.4993.4993,0,0,1-.48-.6377l1.4287-5A.5011.5011,0,0,1,5.2544,4H18.7456a.5011.5011,0,0,1,.48.3623l1.4287,5A.4961.4961,0,0,1,20.5737,9.8013Z" stroke="#201B40" strokeWidth="0.8"></path> 
+                                    <path d="M19.3535,19.6465l-1.77-1.77a2.5074,2.5074,0,1,0-.707.707l1.77,1.77a.5.5,0,0,0,.707-.707ZM14,16.5a1.5,1.5,0,1,1,2.5709,1.0471c-.0043.004-.01.0053-.0143.0095s-.0055.01-.0095.0143A1.4977,1.4977,0,0,1,14,16.5Z" stroke="#201B40" strokeWidth="0.8"></path> 
+                                </svg>
+                            </Button>                            
+
+                            {/*
                             <Button onClick={() => navigate('/')} className="navbar-button" id="home1">
                                 <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92">
                                 <path id="XMLID_100_" d="M88,49c-1,0-2-0.4-2.8-1.1L46,9.6L6.8,47.9c-1.6,1.5-4.1,1.5-5.7-0.1c-1.5-1.6-1.5-4.1,0.1-5.7l42-41
@@ -127,10 +138,12 @@ function NavBarUser() {
                                     c2.2,0,4-1.8,4-4V65.3h9.5V88c0,2.2,1.8,4,4,4h20.5C77.5,92,79.2,90.2,79.2,88z"/>
                                 </svg>
                             </Button>
+                            */}
                             
                             <StyledBadge badgeContent={totalQuantity} color='primary'>
                                 <Button onClick={handleOpen} className="navbar-button" id="cart"> 
                                     <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92">
+                                        <title>Carrito</title>
                                         <path id="XMLID_1732_" d="M91.8,27.3L81.1,61c-0.8,2.4-2.9,4-5.4,4H34.4c-2.4,0-4.7-1.5-5.5-3.7L13.1,19H4c-2.2,0-4-1.8-4-4
                                             s1.8-4,4-4h11.9c1.7,0,3.2,1.1,3.8,2.7L36,57h38l8.5-27H35.4c-2.2,0-4-1.8-4-4s1.8-4,4-4H88c1.3,0,2.5,0.7,3.2,1.7
                                             C92,24.7,92.2,26.1,91.8,27.3z M36.4,70.3c-1.7,0-3.4,0.7-4.6,1.9c-1.2,1.2-1.9,2.9-1.9,4.6c0,1.7,0.7,3.4,1.9,4.6
@@ -154,6 +167,7 @@ function NavBarUser() {
                             */}
                             <Button onClick={handleLogOut} className="navbar-button" id="logout">
                                 <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92">
+                                    <title>Cerrar Sesión</title>
                                     <path d="M60,60.7V79c0,2.2-1.6,4-3.8,4H4c-2.2,0-4-1.8-4-4V13c0-2.2,1.8-4,4-4h52.2c2.2,0,3.8,1.8,3.8,4v18.3 c0,2.2-1.8,4-4,4s-4-1.8-4-4V17H8v58h44V60.7c0-2.2,1.8-4,4-4S60,58.5,60,60.7z M90.8,43L75.2,27.2c-1.6-1.6-4.1-1.6-5.7,0 c-1.6,1.6-1.6,4.1,0,5.7l8.9,9L29.9,42c-2.2,0-4,1.8-4,4c0,2.2,1.8,4,4,4c0,0,0,0,0,0l48.5-0.1l-8.9,9c-1.6,1.6-1.5,4.1,0,5.7 c0.8,0.8,1.8,1.2,2.8,1.2c1,0,2.1-0.4,2.8-1.2l15.7-15.8C92.4,47.1,92.4,44.6,90.8,43z"/>
                                 </svg>
                             </Button>

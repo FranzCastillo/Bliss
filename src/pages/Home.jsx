@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import p1 from '../media/Photo1.jpg';
 import p2 from '../media/Photo2.png';
 import p3 from '../media/Photo3.png';
+import p4 from '../media/Photo4.png';
 import front from '../media/Front.png';
 
 /*
@@ -36,7 +37,7 @@ function Home() {
     return (
         <div>
           <br/> <br/>
-          <Carousel infiniteLoop={true} className='photo-carrousel' id="slider">
+          <Carousel autoPlay={true} infiniteLoop={true} interval={3000} className='photo-carrousel' id="slider">
             <div>
               <img src={p1} alt="Foto 1"/>
             </div>
@@ -44,7 +45,7 @@ function Home() {
               <img src={p2} alt="Foto 2"/>
             </div>
             <div>
-              <img src={p3} alt="Foto 3"/>
+              <img src={p4} alt="Foto 4"/>
             </div>
           </Carousel>
           

@@ -18,7 +18,12 @@
 
     &:hover svg {
         fill: #E35358 !important;
+        stroke: #E35358 !important;
         background-color: transparent !important;
+    }   
+
+    &:hover svg path {
+        stroke: #E35358 !important;
     }
 
     &:active {

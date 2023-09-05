@@ -133,6 +133,7 @@ const ProductsGrid = ({ products }) => {
                   <ProductCard product={product} />
                 </Grid>
               ))}
+              <div><p>ㅤ</p></div>
 
           </Grid>
         </div>
@@ -143,6 +144,7 @@ const ProductsGrid = ({ products }) => {
           <LateralCart />
         </div>
       </div>
+      
     </>
   );
 };
