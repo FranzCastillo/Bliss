@@ -13,9 +13,8 @@ import {
 } from '@mui/material'
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import {supabase} from '../supabase/client';
-import {FetchProducts} from '../fetchProducts';
 
-function ConfigProducts() {
+function ConfigProducts({products}) {
 
     const [name, setName] = useState('')
     const [desc, setDesc] = useState('')
@@ -24,6 +23,7 @@ function ConfigProducts() {
     const [category, setCategory] = useState(0)
     const [filename, setFilename] = useState('')
     const [file, setFile] = useState(null)
+    const [productFlag, setProductFlag] = useState(true)
 
     const handleNewCategory = (event) => {
         setCategory(event.target.value)
@@ -35,10 +35,10 @@ function ConfigProducts() {
         const {error} = await supabase
             .from('producto')
             .insert({id: id, categoria_id: category, nombre: name, descripcion: desc, imagen: image[0], codigo: code})
-
+        setProductFlag(false)
         if (error) {
-            console.log('produ')
             console.log(error)
+            setProductFlag(True)
         }
 
     }
@@ -49,8 +49,7 @@ function ConfigProducts() {
             .insert({producto_id: id, precio: price})
 
         if (error) {
-            console.log('price')
-            console.log(+error)
+            console.log(error)
         }
 
     }
@@ -62,27 +61,16 @@ function ConfigProducts() {
             .storage
             .from('images')
             .upload('product_img/' + filename, file)
-
-        console.log("hizo la query")
         if (data) {
-            const products = await FetchProducts()
-            insertNewProduct(products.length + 1)
+            cont = 1
+            while (productFlag){
+                insertNewProduct(products.length + cont)
+                cont++
+            }
             setTimeout(relatePrice(products.length + 1), 10000)
             setTimeout(relateDisponibility(products.length + 1), 10000)
         } else {
             console.log('insert')
-            console.log(error)
-        }
-    }
-
-    async function getDisponibilityLength() {
-        const {data, error} = await supabase
-            .from('disponibilidad_de_producto')
-            .select()
-        if (data) {
-            setDispo(data.length + 1)
-        } else {
-            console.log('getdispo')
             console.log(error)
         }
     }
@@ -107,20 +95,6 @@ function ConfigProducts() {
         }
 
 
-    }
-
-    async function prueba(e) {
-        const {data, error} = await supabase
-            .storage
-            .from('images')
-            .upload('product_img/' + e.target.files[0].name, e.target.files[0])
-
-        console.log("hizo la query")
-        if (data) {
-            console.log("si")
-        } else {
-            console.log(error)
-        }
     }
 
     const handleNewFilename = async (e) => {
