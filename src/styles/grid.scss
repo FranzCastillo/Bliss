@@ -28,6 +28,14 @@
 
 @media (max-width: 746px) {
 
+  .search-bar-container {
+    width: 150px;
+  }
+
+  .dropdown-container {
+    width: 170px !important;
+  }
+
   .textbox {
     max-width: 60%;
     margin-top: -10px;

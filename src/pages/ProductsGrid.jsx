@@ -101,6 +101,7 @@ const ProductsGrid = ({ products }) => {
                   label="Categoría"
                   value={category}
                   onChange={handleCategoryChange}
+                  className='dropdown-container'
                   style={{ backgroundColor: 'white', width: '218px'}}
                 >
                   <MenuItem value="">Todas las categorías</MenuItem>
