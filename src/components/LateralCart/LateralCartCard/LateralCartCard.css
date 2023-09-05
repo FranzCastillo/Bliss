@@ -1,0 +1,51 @@
+.card-container {
+  background-color: lightgrey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.card-container .img-container {
+  justify-content: center;
+  display: table-row;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.card-container .product-image {
+  width: 85%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.card-container .product-info-l {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  -o-object-fit: contain;
+     object-fit: contain;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.card-container h1 {
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.card-container h4 {
+  color: gray;
+  font-size: 60%;
+  margin: 0;
+}
+.card-container .quantity-l {
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+.card-container .product-total-l {
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}/*# sourceMappingURL=LateralCartCard.css.map */

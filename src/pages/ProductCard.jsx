@@ -1,38 +1,39 @@
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useContext} from 'react';
+import {useNavigate} from 'react-router-dom';
 import '../styles/productcard.scss';
-import { Card, CardMedia, CardContent, Typography} from "@mui/material";
-import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
+import {Card, CardContent, CardMedia, Typography} from "@mui/material";
+import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
 
-const ProductCard = ({ product }) => {
-    
+const ProductCard = ({product}) => {
+
     const imageURL = import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"
     const cart = useContext(ShoppingCartContext);
     const navigate = useNavigate();
 
     const handleProductClick = () => {
-        navigate(`/product/${product.id}`, { state: { product } });
+        navigate(`/product/${product.id}`, {state: {product}});
     };
 
     return (
-        <Card sx={{ width: '250px', height: '100%' }}>
+        <Card sx={{width: '250px', height: '100%'}}>
             <br/>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Card className='img-card' sx={{ boxShadow: 'none', width: '200px' }}>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <Card className='img-card' sx={{boxShadow: 'none', width: '200px'}}>
                     <CardMedia
                         component="img"
                         className='product-img'
-                        sx={{ objectFit: 'contain' }}
+                        sx={{objectFit: 'contain'}}
                         image={imageURL}
                         alt={product.name}
                         onClick={handleProductClick}
+                        id={product.id}
                     />
                 </Card>
             </div>
             <br/>
             <CardContent>
                 <Typography gutterBottom variant="h6" component="div" align='left'>
-                    {product.name}    
+                    {product.name}
                 </Typography>
                 <Typography gutterBottom variant="subtitle2" component="div" align='left'>
                     {product.detail}

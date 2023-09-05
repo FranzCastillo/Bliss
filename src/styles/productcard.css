@@ -1,12 +1,13 @@
 .img-card {
-    height: 130px;
-    display: flex;
-    justify-content: center;
-    box-shadow: none;
+  height: 130px;
+  display: flex;
+  justify-content: center;
+  box-shadow: none;
 }
 
 .product-img {
-    margin-top: 5px;
-    width: 80%;
-    object-fit: contain;
-}
+  margin-top: 5px;
+  width: 80%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}/*# sourceMappingURL=productcard.css.map */
