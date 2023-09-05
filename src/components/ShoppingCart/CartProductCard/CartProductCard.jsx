@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {getProductData} from "../../../fetchProducts";
 import Container from "@mui/material/Container";
 import "./CartProductCard.scss"
 import Button from "@mui/material/Button";
 import {ShoppingCartContext} from "../../../contexts/ShoppingCartContext";
+import {useEffect, useState} from 'react';
 
 const CartProductCard = ({id, quantity, size}) => {
     const [product, setProduct] = useState([]);
@@ -13,11 +14,10 @@ const CartProductCard = ({id, quantity, size}) => {
             const fetchedProduct = await getProductData(id)
             setProduct(fetchedProduct)
         }
-
         fetchData()
     }, []);
 
-    useEffect(() => {
+    useEffect(() =>{
         const img = import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"
         setImage(img)
     }, [product]);
@@ -70,9 +70,9 @@ const CartProductCard = ({id, quantity, size}) => {
     return (
         <Container fixed minWidth={"sm"} sx={cardStyle} disableGutters={true}>
             <div className='img-container'>
-                <img
-                    className={"product-image"}
-                    src={imageURL}
+                <img 
+                    className={"product-image"} 
+                    src={imageURL} 
                     alt={"Product image"}
                 />
             </div>

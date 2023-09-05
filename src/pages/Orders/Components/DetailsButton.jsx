@@ -1,6 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import EditIcon from "@mui/icons-material/Edit";
 import * as React from "react";
 
 const DetailsButton = ({id}) => {

@@ -57,7 +57,7 @@ export default function ShoppingCartProvider({children}) {
     /**
      * Adds a product to the cart. If the product is already in the cart, it increases the quantity by 1.
      * @param id the id of the product
-     *
+     * 
      */
     async function addOneProduct(id, size) {
         const quantity = getProductQuantity(id);
@@ -68,7 +68,7 @@ export default function ShoppingCartProvider({children}) {
                 {
                     id: id,
                     quantity: 1,
-                    price: prod.price,
+                    price: prod.price, 
                     size: size
                 }
             ]);
@@ -134,7 +134,7 @@ export default function ShoppingCartProvider({children}) {
         let total = 0;
         cartProducts.forEach((product) => {
             total += product.price * product.quantity
-        });
+        }); 
         // Format Total to 2 decimals
         total = Math.round(total * 100) / 100;
         return total;
@@ -142,12 +142,12 @@ export default function ShoppingCartProvider({children}) {
 
     async function addMultipleProducts(id, size, quantity) {
         const prod = await getProductData(id)
-        setCartProducts(cartProducts => [
+        setCartProducts(cartProducts=>[
             ...cartProducts,
             {
                 id: id,
                 quantity: quantity,
-                price: prod.price,
+                price: prod.price, 
                 size: size
             }
         ]);

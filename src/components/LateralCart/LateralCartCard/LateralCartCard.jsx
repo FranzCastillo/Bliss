@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {getProductData} from "../../../fetchProducts";
 import "./LateralCartCard.scss"
+import {useEffect, useState} from 'react';
 
 const CartProductCard = ({id, quantity, size}) => {
     const [product, setProduct] = useState([]);
@@ -10,18 +11,17 @@ const CartProductCard = ({id, quantity, size}) => {
             const fetchedProduct = await getProductData(id)
             setProduct(fetchedProduct)
         }
-
         fetchData()
     }, []);
 
     const imageURL = import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"
 
     return (
-        <div className='card-container'>
+        <div className='card-container' >
             <div className='img-container'>
-                <img
-                    className={"product-image"}
-                    src={imageURL}
+                <img 
+                    className={"product-image"} 
+                    src={imageURL} 
                     alt={"Product image"}
                 />
             </div>
@@ -35,7 +35,7 @@ const CartProductCard = ({id, quantity, size}) => {
             </div>
 
             <div className="quantity-l">
-                <h1>Cantidad: {quantity}</h1>
+                <h1>Cantidad:  {quantity}</h1>
             </div>
             <div className="product-total-l">
                 {/*Formats to 2 decimals*/}
