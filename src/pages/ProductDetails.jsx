@@ -1,4 +1,4 @@
-import {useContext, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {useLocation} from 'react-router-dom';
 import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -12,6 +12,8 @@ const ProductDetails = () => {
     const [selectedSize, setSelectedSize] = useState(product.sizes[1]);
     const imageURL = import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"
 
+    const [loading, setLoading] = useState(true);
+
     const handleAddToCart = () => {
         cart.addOneProduct(product.id, selectedSize);
     };
@@ -23,6 +25,14 @@ const ProductDetails = () => {
     if (!product) {
         return <div>No se encontró información del producto</div>;
     }
+
+    useEffect(() => {
+        if (product) {
+            setLoading(false);
+        } else {
+            setLoading(true);
+        }
+    }, [product]);
 
     return (
         <>

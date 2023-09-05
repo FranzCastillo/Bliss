@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../../supabase/client.js';
 import { useNavigate, useParams } from 'react-router-dom';
 import './OrderDetails.scss';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function OrderDetails() {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ function OrderDetails() {
 
     const [order, setOrder] = useState(null);
     const [products, setProducts] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchOrder() {
@@ -71,7 +73,14 @@ function OrderDetails() {
         fetchProducts();
     }, [id]);
 
+    useEffect(() => {
+        if (order && products) {
+            setLoading(false);
+        }
+    }, [order, products]);
+
     return (
+        loading ?  <CircularProgress /> :
         <div id="order-details">
             {order ? (
                 <>
