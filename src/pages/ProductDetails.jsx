@@ -66,7 +66,7 @@ const ProductDetails = () => {
                                 <img 
                                     src={imageURL} 
                                     alt={"Product image"}
-                                    style={{ width: "350px", height: "auto"}}
+                                    style={{ width: "80%", height: "auto"}}
                                 />                    
                             </Grid>
 
