@@ -1,5 +1,5 @@
 import '../styles/details.scss';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -66,7 +66,7 @@ const ProductDetails = () => {
                                 <img 
                                     src={imageURL} 
                                     alt={"Product image"}
-                                    style={{ width: "350px", height: "auto"}}
+                                    style={{ width: "80%", height: "auto"}}
                                 />                    
                             </Grid>
 

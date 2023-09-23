@@ -37,37 +37,24 @@ function Home() {
                     </a>
                 </div>
 
-
-                <div className='widgets'>
-                    <div className='catalogue'>
-                        <a href='https://issuu.com/feresq/docs/catologo_2' style={{textDecoration: 'none'}}>
-                            <img src={front} alt="Portada"/>
-                            <Typography variant="h6" style={{color: 'white'}}>
-                                Ver catálogo
-                            </Typography>
-                        </a>
-                    </div>
-
-
-                    <div className='map'>
-                        <Typography variant="h5" fontWeight="bold" className='animated-text'>
+                <div className='map'>
+                    <Typography variant="h5" fontWeight="bold" className='animated-text'>
                             ¿Cómo llegar?
-                        </Typography>
-                        <br/>
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.243990283568!2d-90.54599919098213!3d14.585168177398794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8589a140f3bb9a39%3A0xea8d5ae5bc8792cc!2s23%20Avenida%203410%2C%20Cdad.%20de%20Guatemala!5e0!3m2!1ses!2sgt!4v1684815547009!5m2!1ses!2sgt"
-                            width="450"
-                            height="450"
-                            style={{border: '0'}}
-                            allowfullscreen=""
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
-                            className='mapita'>
-                        </iframe>
-                    </div>
+                    </Typography>
+                    <br/>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.243990283568!2d-90.54599919098213!3d14.585168177398794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8589a140f3bb9a39%3A0xea8d5ae5bc8792cc!2s23%20Avenida%203410%2C%20Cdad.%20de%20Guatemala!5e0!3m2!1ses!2sgt!4v1684815547009!5m2!1ses!2sgt"
+                        width="450"
+                        height="450"
+                        style={{border: '0'}}
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        className='mapita'>
+                    </iframe>
                 </div>
-                <br/> <br/>
             </div>
+                <br/> <br/>
         </div>
     )
 }
