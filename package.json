@@ -28,7 +28,8 @@
     "react-router-dom": "^6.14.2",
     "sass": "^1.64.2",
     "selenium-webdriver": "^4.12.0",
-    "supabase": "^1.82.6"
+    "supabase": "^1.82.6",
+    "sweetalert2": "^11.7.28"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.17.0",

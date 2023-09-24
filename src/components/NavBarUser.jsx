@@ -10,6 +10,7 @@ import CartModal from './ShoppingCart/CartModal';
 import {useNavigate} from 'react-router-dom';
 import {supabase} from '../supabase/client';
 import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
+import Swal from "sweetalert2";
 
 
 function NavBarUser() {
@@ -42,17 +43,34 @@ function NavBarUser() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleLogOut = async () => {
-        try {
-            await supabase.auth.signOut().then(
-                window.localStorage.removeItem('cart'),
-                window.localStorage.removeItem('user'),
-                cart.clearCart(),
-                navigate("/login")
-            );
-        } catch (error) {
-            console.log('Error signing out:', error.message);
-        }
-
+        Swal.fire({
+            title: 'Estás a punto de cerrar sesión',
+            text: "¿Estás seguro que quieres cerrar sesión?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#201b40',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, cerrar sesión',
+            cancelButtonText: 'Cancelar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                Swal.fire(
+                    'Sesión cerrada',
+                    'Tu sesión ha sido cerrada',
+                    'success'
+                )
+                try {
+                    await supabase.auth.signOut().then(
+                        window.localStorage.removeItem('cart'),
+                        window.localStorage.removeItem('user'),
+                        cart.clearCart(),
+                        navigate("/login")
+                    );
+                } catch (error) {
+                    console.log('Error signing out:', error.message);
+                }
+            }
+        })
     }
     const [securityLevel, setSecurityLevel] = useState()
     useEffect(() => {
