@@ -3,7 +3,7 @@ import { useContext, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import {Button, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup} from '@mui/material/';
+import {Button, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, InputLabel, MenuItem, Select } from '@mui/material/';
 import LateralCart from "../components/LateralCart/LateralCart";
 
 const ProductDetails = () => {
@@ -14,11 +14,19 @@ const ProductDetails = () => {
     const imageURL = import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"
 
     const [loading, setLoading] = useState(true);
+    const [quantity, setQuantity] = useState(1);
 
     const handleAddToCart = () => {
-        cart.addOneProduct(product.id, selectedSize);
+          cart.addMultipleProducts(product.id, selectedSize, quantity);
     };
 
+    const quantities = [1,2,3,4,5,6,7,8,9,10];
+
+    const handleQuantityChange = (event) => {
+        const selectedQuantity = event.target.value;
+        setQuantity(selectedQuantity);
+    };
+    
     const handleSelectSize = (event) => {
         setSelectedSize(event.target.value);
     };
@@ -86,51 +94,75 @@ const ProductDetails = () => {
                                         <FormLabel id="demo-radio-buttons-group-label" style={{ fontSize: '16px', color: '#201B40' }} >
                                             Talla
                                         </FormLabel>
-                                            <RadioGroup
-                                                row
-                                                aria-labelledby="demo-radio-buttons-group-label"
-                                                defaultValue={product.sizes[1]}
-                                                name="radio-buttons-group"
-                                                style={{ fontSize: '12px' }} 
-                                                onChange={handleSelectSize}
-                                            >
-                                                {product.sizes.map((talla) => (
-                                                    <FormControlLabel
-                                                        key={talla}
-                                                        value={talla}
-                                                        control={<Radio 
-                                                            sx={{
-                                                                '& .MuiSvgIcon-root': {
-                                                                fontSize: 18,
-                                                                color: '#201B40',
-                                                                },
-                                                            }}
+                                        <RadioGroup
+                                            row
+                                            aria-labelledby="demo-radio-buttons-group-label"
+                                            defaultValue={product.sizes[1]}
+                                            name="radio-buttons-group"
+                                            style={{ fontSize: '12px' }} 
+                                            onChange={handleSelectSize}
+                                        >
+                                            {product.sizes.map((talla) => (
+                                                <FormControlLabel
+                                                    key={talla}
+                                                    value={talla}
+                                                    control={<Radio 
+                                                        sx={{
+                                                            '& .MuiSvgIcon-root': {
+                                                            fontSize: 18,
+                                                            color: '#201B40',
+                                                            },
+                                                        }}
                                                             
-                                                        />}
-                                                        label={talla.toString()}
-                                                    />
-                                                ))}
+                                                    />}
+                                                    label={talla.toString()}
+                                                />
+                                            ))}
+                                        </RadioGroup>
+                                    </FormControl>
+                                </div>
+                                <br/>
 
-                                            </RadioGroup>
+                                <div style={{ textAlign: 'left' }}>
+                                    <FormControl fullWidth>
+                                        <InputLabel id="quantity-selection-label">
+                                            Cantidad
+                                        </InputLabel>
+                                            <Select
+                                                labelId="quantity-selection-label"
+                                                id="quantity-selection"
+                                                label="Cantidad"
+                                                value={quantity}
+                                                onChange={handleQuantityChange}
+                                                className='dropdown-container'
+                                                style={{backgroundColor: 'white', width: '110px', height: '40px'}}
+                                            >
+                                                {quantities.map((q) => (
+                                                    <MenuItem key={q} value={q}>
+                                                        {q}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
                                         </FormControl>
-                                    </div>
+                                </div>
+
                                 <br />
                                 <br />
                                 <br />
                                 <Button
-                                        variant="contained"
-                                        sx={{   
-                                            backgroundColor: '#E35358', 
-                                            '&:hover': {
-                                                backgroundColor: '#201B40',
-                                            },
-                                            textTransform: 'none',
-                                            fontSize: '18px',
-                                        }}
-                                        onClick={handleAddToCart}
-                                    >
-                                        Agregar al carrito ‎ 
-                                        <AddShoppingCartIcon />
+                                    variant="contained"
+                                    sx={{   
+                                        backgroundColor: '#E35358', 
+                                        '&:hover': {
+                                            backgroundColor: '#201B40',
+                                        },
+                                        textTransform: 'none',
+                                        fontSize: '18px',
+                                    }} 
+                                    onClick={handleAddToCart}
+                                >
+                                    Agregar al carrito ‎ 
+                                    <AddShoppingCartIcon />
                                 </Button>   
                             </Grid>
                         </Grid>
