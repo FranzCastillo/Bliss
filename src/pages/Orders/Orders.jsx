@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import DetailsButton from './Components/DetailsButton.jsx';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CircularProgress from '@mui/material/CircularProgress';
+import Swal from 'sweetalert2';
 
 
 function Orders() {
@@ -30,7 +31,25 @@ function Orders() {
                     icon={<DeleteIcon/>}
                     label={"Eliminar"}
                     onClick={() => {
-                        deleteRow(params.row.id);
+                        Swal.fire({
+                            title: 'Estás apunto de eliminar una orden',
+                            text: "No podrás revertir esta acción",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            cancelButtonText: "Cancelar",
+                            confirmButtonText: 'Sí, eliminar'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                Swal.fire(
+                                    '¡Eliminado!',
+                                    'La orden ha sido eliminada.',
+                                    'success'
+                                )
+                                deleteRow(params.row.id);
+                            }
+                        })
                     }}
                 />
             ],
