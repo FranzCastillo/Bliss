@@ -3,14 +3,56 @@ import '../styles/home.scss';
 import {Carousel} from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Typography from '@mui/material/Typography';
+import Carrusel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import { Card, CardMedia } from "@mui/material";
+import PropTypes from "prop-types";
+import {useNavigate} from 'react-router-dom';
 
 import p1 from '../media/Photo1.jpg';
 import p2 from '../media/Photo2.png';
 import p3 from '../media/Photo3.png';
 import p4 from '../media/Photo4.png';
+import sample from '../media/sample.jpg';
 import front from '../media/Front.png';
 
-function Home() {
+function Home({products}) {
+
+    const navigate = useNavigate();
+
+    const handleProductClick = (product) => {
+        navigate(`/product/${product.id}`, {state: {product}});
+    };
+
+    function shuffleArray(array) {
+        const shuffledArray = [...array];
+        for (let i = shuffledArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+        }
+        return shuffledArray;
+    }
+    
+    // Obtén una copia de la lista original y mézclala aleatoriamente
+    const shuffledProducts = shuffleArray(products).slice(0, 8);
+
+      const responsive = {
+        desktop: {
+          breakpoint: { max: 3000, min: 1024 },
+          items: 4,
+          slidesToSlide: 3 // optional, default to 1.
+        },
+        tablet: {
+          breakpoint: { max: 1024, min: 464 },
+          items: 2,
+          slidesToSlide: 2 // optional, default to 1.
+        },
+        mobile: {
+          breakpoint: { max: 464, min: 0 },
+          items: 1,
+          slidesToSlide: 1 // optional, default to 1.
+        }
+      };
 
     return (
         <div>
@@ -55,8 +97,67 @@ function Home() {
                 </div>
             </div>
                 <br/> <br/>
+
+            <h2
+                style={{
+                    marginLeft: "30px",
+                    marginBottom: "10px",
+                    marginTop: "40px",
+                    textAlign: "left",
+                    color: "#201b40",
+                }}
+            >
+                Te podría gustar
+            </h2>
+
+            <Carrusel responsive={responsive} className='products-carrousel'>
+                {shuffledProducts 
+                .map((product) => (
+                    <>
+                        <div 
+                            style={{
+                                display: 'flex', 
+                                alignItems: 'center',
+                                justifyContent: 'center', 
+                                backgroundColor: 'white',
+                                height: '70%', 
+                                }}>
+                            <Card className='img-card'
+                                sx={{
+                                    boxShadow: 'none', 
+                                    width: '80%', 
+                                    height: '80%', 
+                                    cursor: 'pointer',
+                                    backgroundColor: '#E8E3E1',
+                                    alignItems: 'center',
+                                    }}>
+                                <CardMedia
+                                    component="img"
+                                    className='product-img'
+                                    sx={{objectFit: 'contain', height: '75%',}}
+                                    image={import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"}
+                                    alt={product.name}
+                                    onClick={() => handleProductClick(product)}
+                                    id={product.id}
+                                />
+                            </Card>
+                        </div>
+                    </>
+                ))}
+            </Carrusel>
         </div>
     )
 }
+
+Home.propTypes = {
+    products: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+            categoryId: PropTypes.number.isRequired,
+        })
+    ).isRequired,
+};
+
 
 export default Home
