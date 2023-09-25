@@ -1,5 +1,5 @@
 .search-bar-container {
-  width: 198px;
+  width: 113%;
   height: 40px;
   background-color: white;
   display: flex;
@@ -37,13 +37,13 @@
   }
 
   .textbox {
-    max-width: 60% !important;
-    margin-top: -10px !important;
+    max-width: 50% !important;
+    margin-left: 10px !important;
   }
   
   .dropdown {
     max-width: 50% !important;
-    margin-top: -10px !important;
+    margin-left: 10px !important;
   }
 
 }

@@ -81,11 +81,11 @@ const ProductsGrid = ({products}) => {
                                 style={{width: "100%", display: "flex"}}
                             >
                                 <Grid container spacing={2}>
-                                    <Grid item xs={6} textAlign="left">
+                                    <Grid item xs={7} textAlign="left">
                                         <h1
                                             style={{
                                                 marginLeft: "26px",
-                                                marginBottom: "30px",
+                                                marginBottom: "0px",
                                                 marginTop: "40px",
                                                 textAlign: "left",
                                                 color: "#201b40",
@@ -94,13 +94,14 @@ const ProductsGrid = ({products}) => {
                                             Nuestros Productos
                                         </h1>
                                     </Grid>
-                                    <Grid item xs={3} marginTop="40px" className='textbox'>
+                                    <Grid item xs={6} marginLeft="-25px" marginTop="15px" marginBottom="30px" className='textbox'>
                                         <PrimarySearchBar
+                                            style={{backgroundColor: 'red !important'}}
                                             search={search}
                                             handleSearch={handleSearch}
                                         />
                                     </Grid>
-                                    <Grid item xs={2} marginTop="40px" className='dropdown'>
+                                    <Grid item xs={5} marginLeft="45px" marginTop="15px" marginBottom="30px" className='dropdown'>
                                         <FormControl fullWidth>
                                             <InputLabel id="category-selection-label">
                                                 Categoría
@@ -112,7 +113,8 @@ const ProductsGrid = ({products}) => {
                                                 value={category}
                                                 onChange={handleCategoryChange}
                                                 className='dropdown-container'
-                                                style={{backgroundColor: 'white'}}
+                                                style={{backgroundColor: 'white', width: '111%'}}
+                                                
                                             >
                                                 <MenuItem value="">Todas las categorías</MenuItem>
                                                 {names.map((category) => (
@@ -139,8 +141,9 @@ const ProductsGrid = ({products}) => {
                                                 marginBottom={5}
                                                 item
                                                 xs={12}
-                                                sm={3}
+                                                sm={2.6}
                                                 key={product.id}
+                                                marginLeft={3.7}
                                             >
                                                 <ProductCard product={product}/>
                                             </Grid>
