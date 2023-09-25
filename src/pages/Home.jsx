@@ -13,7 +13,6 @@ import p1 from '../media/Photo1.jpg';
 import p2 from '../media/Photo2.png';
 import p3 from '../media/Photo3.png';
 import p4 from '../media/Photo4.png';
-import sample from '../media/sample.jpg';
 import front from '../media/Front.png';
 
 function Home({products}) {
