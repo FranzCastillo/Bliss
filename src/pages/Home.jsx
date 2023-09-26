@@ -68,6 +68,56 @@ function Home({products}) {
                 </div>
             </Carousel>
 
+            <div>
+                <h2
+                    style={{
+                        marginLeft: "30px",
+                        marginBottom: "10px",
+                        marginTop: "40px",
+                        textAlign: "left",
+                        color: "#201b40",
+                    }}
+                >
+                    Te podría gustar
+                </h2>
+
+                <Carrusel responsive={responsive} className='products-carrousel'>
+                    {shuffledProducts 
+                    .map((product) => (
+                        <>
+                            <div 
+                                style={{
+                                    display: 'flex', 
+                                    alignItems: 'center',
+                                    justifyContent: 'center', 
+                                    backgroundColor: 'white',
+                                    height: '70%', 
+                                    }}>
+                                <Card className='img-card'
+                                    sx={{
+                                        boxShadow: 'none', 
+                                        width: '80%', 
+                                        height: '80%', 
+                                        cursor: 'pointer',
+                                        backgroundColor: '#E8E3E1',
+                                        alignItems: 'center',
+                                        }}>
+                                    <CardMedia
+                                        component="img"
+                                        className='product-img'
+                                        sx={{objectFit: 'contain', height: '75%',}}
+                                        image={import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"}
+                                        alt={product.name}
+                                        onClick={() => handleProductClick(product)}
+                                        id={product.id}
+                                    />
+                                </Card>
+                            </div>
+                        </>
+                    ))}
+                </Carrusel>
+            </div>
+
             <div className='widgets'>
                 <div className='catalogue'>
                     <a href='https://issuu.com/feresq/docs/catologo_2' style={{textDecoration: 'none'}}>
@@ -97,53 +147,7 @@ function Home({products}) {
             </div>
                 <br/> <br/>
 
-            <h2
-                style={{
-                    marginLeft: "30px",
-                    marginBottom: "10px",
-                    marginTop: "40px",
-                    textAlign: "left",
-                    color: "#201b40",
-                }}
-            >
-                Te podría gustar
-            </h2>
-
-            <Carrusel responsive={responsive} className='products-carrousel'>
-                {shuffledProducts 
-                .map((product) => (
-                    <>
-                        <div 
-                            style={{
-                                display: 'flex', 
-                                alignItems: 'center',
-                                justifyContent: 'center', 
-                                backgroundColor: 'white',
-                                height: '70%', 
-                                }}>
-                            <Card className='img-card'
-                                sx={{
-                                    boxShadow: 'none', 
-                                    width: '80%', 
-                                    height: '80%', 
-                                    cursor: 'pointer',
-                                    backgroundColor: '#E8E3E1',
-                                    alignItems: 'center',
-                                    }}>
-                                <CardMedia
-                                    component="img"
-                                    className='product-img'
-                                    sx={{objectFit: 'contain', height: '75%',}}
-                                    image={import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"}
-                                    alt={product.name}
-                                    onClick={() => handleProductClick(product)}
-                                    id={product.id}
-                                />
-                            </Card>
-                        </div>
-                    </>
-                ))}
-            </Carrusel>
+            
         </div>
     )
 }
