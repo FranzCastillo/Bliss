@@ -83,7 +83,7 @@ function App() {
             <NavBarUser/>
           )}
           <Routes>
-            <Route path='/' element={<Home/>}/>
+            <Route path='/' element={<Home products={fetchedProducts}/>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path="/signup" element={<Signup/>}/>
             <Route path="/grid" element={<ProductsGrid products={fetchedProducts}/>}/>

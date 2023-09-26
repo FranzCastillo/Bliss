@@ -57,7 +57,7 @@ export default function ShoppingCartProvider({children}) {
     /**
      * Adds a product to the cart. If the product is already in the cart, it increases the quantity by 1.
      * @param id the id of the product
-     *
+     * @param size the size of the product
      */
     async function addOneProduct(id, size) {
         const quantity = getProductQuantity(id);
@@ -79,6 +79,42 @@ export default function ShoppingCartProvider({children}) {
                         return {
                             ...product,
                             quantity: product.quantity + 1,
+                            price: product.price,
+                            size: size
+                        };
+                    }
+                    return product;
+                })
+            );
+        }
+    }
+
+    /**
+     * Adds a specific quantity of a product to the cart.
+     * @param id the id of the product
+     * @param size the size of the product
+     * @param n the quantity of products
+     */
+    async function addMultipleProducts(id, size, n) {
+        const quantity = getProductQuantity(id);
+        const prod = await getProductData(id)
+        if (quantity === 0) {
+            setCartProducts([
+                ...cartProducts,
+                {
+                    id: id,
+                    quantity: n,
+                    price: prod.price,
+                    size: size
+                }
+            ]);
+        } else {
+            setCartProducts(
+                cartProducts.map((product) => {
+                    if (product.id === id) {
+                        return {
+                            ...product,
+                            quantity: product.quantity + n,
                             price: product.price,
                             size: size
                         };
@@ -138,19 +174,6 @@ export default function ShoppingCartProvider({children}) {
         // Format Total to 2 decimals
         total = Math.round(total * 100) / 100;
         return total;
-    }
-
-    async function addMultipleProducts(id, size, quantity) {
-        const prod = await getProductData(id)
-        setCartProducts(cartProducts => [
-            ...cartProducts,
-            {
-                id: id,
-                quantity: quantity,
-                price: prod.price,
-                size: size
-            }
-        ]);
     }
 
     /**
