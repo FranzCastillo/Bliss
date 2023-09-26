@@ -36,7 +36,7 @@ function Orders() {
                             text: "No podrás revertir esta acción",
                             icon: 'warning',
                             showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
+                            confirmButtonColor: '#201b40',
                             cancelButtonColor: '#d33',
                             cancelButtonText: "Cancelar",
                             confirmButtonText: 'Sí, eliminar'
