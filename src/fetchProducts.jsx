@@ -39,6 +39,7 @@ export async function FetchProducts() {
             sizes: tallas[dato.id - 1] || [],
         }));
 
+        console.log(products);
         return products;
     } catch (error) {
         console.error('Error in FetchProducts:', error);

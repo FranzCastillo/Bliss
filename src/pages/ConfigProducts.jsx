@@ -23,25 +23,11 @@ function ConfigProducts({products}) {
     const [category, setCategory] = useState(0)
     const [filename, setFilename] = useState('')
     const [file, setFile] = useState(null)
-    const [productFlag, setProductFlag] = useState(true)
 
     const handleNewCategory = (event) => {
         setCategory(event.target.value)
     }
 
-    async function insertNewProduct(id) {
-        const image = filename.split('.')
-
-        const {error} = await supabase
-            .from('producto')
-            .insert({id: id, categoria_id: category, nombre: name, descripcion: desc, imagen: image[0], codigo: code})
-        setProductFlag(false)
-        if (error) {
-            console.log(error)
-            setProductFlag(True)
-        }
-
-    }
 
     async function relatePrice(id) {
         const {error} = await supabase
@@ -62,13 +48,19 @@ function ConfigProducts({products}) {
             .from('images')
             .upload('product_img/' + filename, file)
         if (data) {
-            cont = 1
-            while (productFlag){
-                insertNewProduct(products.length + cont)
-                cont++
+
+            const image = filename.split('.')
+            const {data, error} = await supabase
+            .rpc('insertar_producto', {categoria_id: category, nombre: name, descripcion: desc, imagen: image[0], codigo: code})
+            if (error) {
+                console.log(error)
             }
-            setTimeout(relatePrice(products.length + 1), 10000)
-            setTimeout(relateDisponibility(products.length + 1), 10000)
+            if (data) {
+                console.log(data)
+                relatePrice(data)
+                relateDisponibility(data)
+            }
+
         } else {
             console.log('insert')
             console.log(error)
@@ -84,7 +76,7 @@ function ConfigProducts({products}) {
             const talla = Math.floor(Math.random() * (44 - 39 + 1) + 39);
             const {error} = await supabase
                 .from('disponibilidad_de_producto')
-                .insert({id: (data.length + 1), producto_id: id, cantidad: 100, talla: talla})
+                .insert({producto_id: id, cantidad: 100, talla: talla})
 
             if (error) {
                 console.log('dispo')
