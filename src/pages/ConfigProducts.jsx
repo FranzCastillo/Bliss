@@ -23,9 +23,23 @@ function ConfigProducts({products}) {
     const [category, setCategory] = useState(0)
     const [filename, setFilename] = useState('')
     const [file, setFile] = useState(null)
+    const [selectedImage, setSelectedImage] = useState(null)
 
     const handleNewCategory = (event) => {
         setCategory(event.target.value)
+        
+    }
+
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            setSelectedImage(e.target.result);
+        };
+        reader.readAsDataURL(file);
+        }
     }
 
 
@@ -176,8 +190,14 @@ function ConfigProducts({products}) {
                                 onChange={(e) => handleNewFilename(e)}
                             >
                                 Subir Imagen
-                                <input type="file" accept="image/png" hidden/>
+                                <input type="file" accept="image/png" hidden onChange={(e)=>handleImageChange(e)}/>
                             </Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography>
+                                Image Preview:
+                            </Typography>
+                            {selectedImage && <img src={selectedImage} alt="" width="50%"/>}
                         </Grid>
                     </Grid>
                     <Button
