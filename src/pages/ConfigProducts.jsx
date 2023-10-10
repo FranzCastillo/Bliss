@@ -56,7 +56,6 @@ function ConfigProducts({products}) {
                 console.log(error)
             }
             if (data) {
-                console.log(data)
                 relatePrice(data)
                 relateDisponibility(data)
             }
