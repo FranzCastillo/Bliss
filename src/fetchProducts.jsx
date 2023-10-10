@@ -36,9 +36,8 @@ export async function FetchProducts() {
             code: dato.codigo,
             price: dato.precio,
             imageUrl: dato.imagen,
-            sizes: tallas[dato.id - 1] || [],
+            sizes: tallas.shift() || [],
         }));
-
         return products;
     } catch (error) {
         console.error('Error in FetchProducts:', error);
