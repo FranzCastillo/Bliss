@@ -1,27 +1,5 @@
 import jsPDF from "jspdf";
-
-// Creates a HTML table for it to be used in the PDF
-const createTable = ({headers, data}) => {
-    let table = '<table style="border-collapse: collapse; width: 100%;">';
-    table += '<thead>';
-    table += '<tr>';
-    headers.forEach(header => {
-        table += `<th style="border: 1px solid #000;">${header}</th>`;
-    });
-    table += '</tr>';
-    table += '</thead>';
-    table += '<tbody>';
-    data.forEach(row => {
-        table += '<tr>';
-        row.forEach(cell => {
-            table += `<td style="border: 1px solid #000;">${cell}</td>`;
-        });
-        table += '</tr>';
-    });
-    table += '</tbody>';
-    table += '</table>';
-    return table;
-}
+import autoTable from 'jspdf-autotable'
 
 const createFile = ({id}) => {
     const doc = new jsPDF('p', 'pt', 'a4');
@@ -31,25 +9,60 @@ const createFile = ({id}) => {
         left: 40,
         width: 522
     };
-    const headers = ['Código', 'Nombre', 'Categoría', 'Cantidad', 'Precio Unitario'];
+    const headers = [['ID', 'Name', 'Price', 'Quantity', 'Total']];
     const data = [
-        ['1', 'Producto 1', 'Categoría 1', '10', '$100'],
-        ['2', 'Producto 2', 'Categoría 2', '20', '$200'],
-        ['3', 'Producto 3', 'Categoría 3', '30', '$300'],
+        [1, 'Product 1', 100, 2, 200],
+        [2, 'Product 2', 200, 1, 200],
+        [3, 'Product 3', 300, 1, 300],
+        [4, 'Product 4', 400, 1, 400],
     ];
-    const table = createTable({headers, data});
-    doc.html(
-        createTable({headers, data}),
-        {
-            callback: function (doc) {
-                doc.save(`order-${id}.pdf`);
-            },
-            x: margins.left,
-            y: margins.top,
-            width: margins.width
+    doc.setFontSize(20);
+    doc.text(40, 40, 'Order Details');
+    doc.setFontSize(10);
+    doc.text(40, 60, 'Order ID: ' + id);
+    autoTable(doc, {
+        head: headers,
+        body: data,
+        startY: 80,
+        margin: margins,
+        tableWidth: 'auto',
+        columnWidth: 'auto',
+        styles: {
+            fontSize: 10,
+            cellPadding: 5,
+            overflow: 'linebreak',
+            halign: 'left',
+            valign: 'middle',
+            columnWidth: 'auto',
+            tableWidth: 'auto',
         },
-        margins
-    );
+        headerStyles: {
+            fillColor: '#201b40',
+            textColor: '#ffffff',
+            fontStyle: 'bold',
+        },
+        bodyStyles: {
+            fillColor: '#f3f3f3',
+        },
+        alternateRowStyles: {
+            fillColor: '#ffffff',
+        },
+        didDrawPage: function (data) {
+            // Header
+            doc.setFontSize(20);
+            doc.text(40, 40, 'Order Details');
+            doc.setFontSize(10);
+            doc.text(40, 60, 'Order ID: ' + id);
+            // Footer
+            doc.setFontSize(10);
+            doc.text(
+                'Page ' + data.pageCount,
+                data.settings.margin.left,
+                doc.internal.pageSize.height - 30
+            );
+        }
+    });
+    doc.save('order.pdf');
 }
 
 export default createFile;
