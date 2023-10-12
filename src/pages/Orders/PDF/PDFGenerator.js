@@ -1,7 +1,9 @@
 import jsPDF from "jspdf";
 import autoTable from 'jspdf-autotable'
+import {getOrderDetails} from "../Queries/OrderQueries.js";
 
-const createFile = ({id}) => {
+const createFile = async ({id}) => {
+    const {data, error} = await getOrderDetails(id);
     const doc = new jsPDF('p', 'pt', 'a4');
     const margins = {
         top: 80,
@@ -10,19 +12,20 @@ const createFile = ({id}) => {
         width: 522
     };
     const headers = [['ID', 'Name', 'Price', 'Quantity', 'Total']];
-    const data = [
+    const rows = [
         [1, 'Product 1', 100, 2, 200],
         [2, 'Product 2', 200, 1, 200],
         [3, 'Product 3', 300, 1, 300],
         [4, 'Product 4', 400, 1, 400],
     ];
     doc.setFontSize(20);
-    doc.text(40, 40, 'Order Details');
+    doc.text(40, 40, 'Detalles de la Orden');
     doc.setFontSize(10);
-    doc.text(40, 60, 'Order ID: ' + id);
+    doc.text(40, 60, '# de Orden:' + id);
+    doc.text(40, 80, 'Cliente:' + 'Cliente');
     autoTable(doc, {
         head: headers,
-        body: data,
+        body: rows,
         startY: 80,
         margin: margins,
         tableWidth: 'auto',
@@ -50,9 +53,9 @@ const createFile = ({id}) => {
         didDrawPage: function (data) {
             // Header
             doc.setFontSize(20);
-            doc.text(40, 40, 'Order Details');
+            doc.text(40, 40, 'Detalles de la Orden');
             doc.setFontSize(10);
-            doc.text(40, 60, 'Order ID: ' + id);
+            doc.text(40, 60, '# de Orden: ' + id);
             // Footer
             doc.setFontSize(10);
             doc.text(
