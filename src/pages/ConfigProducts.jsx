@@ -13,6 +13,7 @@ import {
 } from '@mui/material'
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import {supabase} from '../supabase/client';
+import Swal from 'sweetalert2';
 
 function ConfigProducts({products}) {
 
@@ -23,9 +24,32 @@ function ConfigProducts({products}) {
     const [category, setCategory] = useState(0)
     const [filename, setFilename] = useState('')
     const [file, setFile] = useState(null)
+    const [selectedImage, setSelectedImage] = useState(null)
+
+    const raiseErrorAlert = (error) => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error,
+        })
+    }
+
 
     const handleNewCategory = (event) => {
         setCategory(event.target.value)
+        
+    }
+
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            setSelectedImage(e.target.result);
+        };
+        reader.readAsDataURL(file);
+        }
     }
 
 
@@ -35,7 +59,7 @@ function ConfigProducts({products}) {
             .insert({producto_id: id, precio: price})
 
         if (error) {
-            console.log(error)
+            raiseErrorAlert(error.message)
         }
 
     }
@@ -53,16 +77,29 @@ function ConfigProducts({products}) {
             const {data, error} = await supabase
             .rpc('insertar_producto', {categoria_id: category, nombre: name, descripcion: desc, imagen: image[0], codigo: code})
             if (error) {
-                console.log(error)
+                raiseErrorAlert(error.message)
             }
             if (data) {
-                relatePrice(data)
-                relateDisponibility(data)
+                relatePrice(data).then(()=>{
+                    relateDisponibility(data).then(()=>{
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Producto agregado',
+                            confirmButtonText: 'Ok',
+                            showConfirmButton: true,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }else{
+                                window.location.reload();
+                            }
+                        })
+                    })
+                })
             }
 
         } else {
-            console.log('insert')
-            console.log(error)
+            raiseErrorAlert(error.message)
         }
     }
 
@@ -78,11 +115,10 @@ function ConfigProducts({products}) {
                 .insert({producto_id: id, cantidad: 100, talla: talla})
 
             if (error) {
-                console.log('dispo')
-                console.log(error)
+                raiseErrorAlert(error.message)
             }
         } else {
-            console.log(fail)
+            raiseErrorAlert(fail.message)
         }
 
 
@@ -101,7 +137,7 @@ function ConfigProducts({products}) {
             <Typography component="h1" variant="h5">
                 Agregar Un Producto
             </Typography>
-            <Box component="form" noValidate onSubmit={(e) => handleNewSubmit(e)} sx={{mt: 3}}>
+            <Box component="form" onSubmit={(e) => handleNewSubmit(e)} sx={{mt: 3}}>
                 <div className='new-prod'>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
@@ -176,8 +212,14 @@ function ConfigProducts({products}) {
                                 onChange={(e) => handleNewFilename(e)}
                             >
                                 Subir Imagen
-                                <input type="file" accept="image/png" hidden/>
+                                <input type="file" accept="image/png" hidden onChange={(e)=>handleImageChange(e)}/>
                             </Button>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography>
+                                Previsualización de la imagen:
+                            </Typography>
+                            {selectedImage && <img src={selectedImage} alt="" width="50%"/>}
                         </Grid>
                     </Grid>
                     <Button
