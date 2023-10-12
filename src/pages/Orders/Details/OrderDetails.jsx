@@ -3,6 +3,7 @@ import {supabase} from '../../../supabase/client.js';
 import {useNavigate, useParams} from 'react-router-dom';
 import './OrderDetails.scss';
 import CircularProgress from '@mui/material/CircularProgress';
+import {getOrderDetails} from "../Queries/OrderQueries.js";
 
 function OrderDetails() {
     const navigate = useNavigate();
@@ -15,27 +16,7 @@ function OrderDetails() {
 
     useEffect(() => {
         async function fetchOrder() {
-            const {data, error} = await supabase
-                .from('pedidos')
-                .select(`
-                    id,
-                    usuarios (
-                        id,
-                        nombre,
-                        apellido,
-                        email,
-                        telefono
-                    ),
-                    fecha,
-                    estado,
-                    direccion,
-                    tipos_de_pago (
-                        id,
-                        tipo
-                    )
-                `)
-                .eq('id', id)
-                .single();
+            const {data, error} = await getOrderDetails(id);
             if (error) {
                 console.log(error);
                 return;
