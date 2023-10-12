@@ -3,7 +3,7 @@ import autoTable from 'jspdf-autotable'
 import {getOrderDetails} from "../Queries/OrderQueries.js";
 
 const createFile = async ({id}) => {
-    const {data, error} = await getOrderDetails(id);
+    // const {data, error} = await getOrderDetails(id);
     const doc = new jsPDF('p', 'pt', 'a4');
     const margins = {
         top: 80,
@@ -11,22 +11,18 @@ const createFile = async ({id}) => {
         left: 40,
         width: 522
     };
-    const headers = [['ID', 'Name', 'Price', 'Quantity', 'Total']];
+    const headers = [['Código', 'Nombre', 'Categoría', 'Cantidad', 'Precio Unitario']];
     const rows = [
         [1, 'Product 1', 100, 2, 200],
         [2, 'Product 2', 200, 1, 200],
         [3, 'Product 3', 300, 1, 300],
         [4, 'Product 4', 400, 1, 400],
+        [{content: 'Total', colSpan: 4, styles: {halign: 'left', fontStyle: 'bold'}}, 1100],
     ];
-    doc.setFontSize(20);
-    doc.text(40, 40, 'Detalles de la Orden');
-    doc.setFontSize(10);
-    doc.text(40, 60, '# de Orden:' + id);
-    doc.text(40, 80, 'Cliente:' + 'Cliente');
     autoTable(doc, {
         head: headers,
         body: rows,
-        startY: 80,
+        startY: 120,
         margin: margins,
         tableWidth: 'auto',
         columnWidth: 'auto',
@@ -56,16 +52,20 @@ const createFile = async ({id}) => {
             doc.text(40, 40, 'Detalles de la Orden');
             doc.setFontSize(10);
             doc.text(40, 60, '# de Orden: ' + id);
+            doc.text(40, 70, 'Fecha de colocación: ' + '2021-05-05');
+            doc.text(40, 80, 'Estado: ' + 'Pendiente');
+            doc.text(40, 90, 'Dirección: ' + 'Calle 123');
+            doc.text(40, 100, 'Tipo de Pago: ' + 'Efectivo');
             // Footer
             doc.setFontSize(10);
             doc.text(
-                'Page ' + data.pageCount,
+                'Página ' + data.pageCount,
                 data.settings.margin.left,
                 doc.internal.pageSize.height - 30
             );
         }
     });
-    doc.save('order.pdf');
+    doc.save(`DetallesOrden#${id}.pdf`);
 }
 
 export default createFile;
