@@ -3,7 +3,6 @@ import {supabase} from '../../supabase/client.js';
 import {DataGrid, GridActionsCellItem} from '@mui/x-data-grid';
 import {useNavigate} from "react-router-dom";
 import DetailsButton from './Components/DetailsButton.jsx';
-import FileButton from './Components/FileButton.jsx';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CircularProgress from '@mui/material/CircularProgress';
 import Swal from 'sweetalert2';
@@ -19,23 +18,14 @@ function Orders() {
         {
             field: 'detalles',
             headerName: 'Detalles',
-            renderCell: (params) => <DetailsButton id={params.row.id}/>,
-            width: 100,
-            sortable: false,
-            filterable: false,
-        },
-        {
-            field: 'fileDownload',
-            headerName: 'Descargar',
-            renderCell: (params) => <FileButton id={params.row.id}/>,
-            width: 100,
+            renderCell: (params) => <DetailsButton path={"universidades"} id={params.row.id}/>,
+            width: 200,
             sortable: false,
             filterable: false,
         },
         {
             field: 'actions',
             type: 'actions',
-            headerName: 'Acciones',
             getActions: (params) => [
                 <GridActionsCellItem
                     icon={<DeleteIcon/>}
