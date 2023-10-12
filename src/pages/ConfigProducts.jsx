@@ -40,6 +40,12 @@ function ConfigProducts({products}) {
         
     }
 
+    const [selectedOptions, setSelectedOptions] = useState([]);
+
+    const handleNewSizes = (event) => {
+        setSelectedOptions(event.target.value);
+    };
+
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -199,6 +205,26 @@ function ConfigProducts({products}) {
                                     <MenuItem value={3}>Niño</MenuItem>
                                     <MenuItem value={4}>Niña</MenuItem>
                                     <MenuItem value={5}>Juvenil</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <FormControl fullWidth required>
+                                <InputLabel id="demo-simple-select-label">Tallas</InputLabel>
+                                <Select
+                                    labelId="size-label"
+                                    id="size"
+                                    multiple
+                                    value={selectedOptions}
+                                    label="Tallas"
+                                    onChange={handleNewSizes}
+                                >
+                                    <MenuItem value={1}>30</MenuItem>
+                                    <MenuItem value={2}>31</MenuItem>
+                                    <MenuItem value={3}>32</MenuItem>
+                                    <MenuItem value={4}>33</MenuItem>
+                                    <MenuItem value={5}>34</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
