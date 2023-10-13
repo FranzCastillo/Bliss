@@ -14,7 +14,7 @@ import PlaceOrder from "./pages/PlaceOrder/PlaceOrder";
 import OrderPlaced from "./pages/OrderPlaced/OrderPlaced";
 import ProductDetails from "./pages/ProductDetails";
 import Orders from './pages/Orders/Orders';
-import MyOrders from './pages/MyOrders';
+import MyOrders from './pages/Orders/MyOrders';
 import ConfigProducts from './pages/ConfigProducts';
 import NotFound from './pages/404';
 import { ShoppingCartContext } from './contexts/ShoppingCartContext';
@@ -99,11 +99,13 @@ function App() {
                 <>
                   <Route path="/all-orders" element={<Orders/>}/>
                   <Route path="/my-orders" element={<MyOrders/>}/>
+                  <Route path={`/detalles-orden/:id`} element={<OrderDetails/>}/>
                 </>
             )}
             {isSeller && (
                 <>
                   <Route path="/my-orders" element={<MyOrders/>}/>
+                  <Route path={`/detalles-orden/:id`} element={<OrderDetails/>}/>
                 </>
             )}
             <Route path="/perfil" element={<Profile/>}/>
