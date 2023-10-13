@@ -10,7 +10,7 @@ const ProductDetails = () => {
     const cart = useContext(ShoppingCartContext);
     const location = useLocation();
     const product = location.state?.product;
-    const [selectedSize, setSelectedSize] = useState(product.sizes[1]);
+    const [selectedSize, setSelectedSize] = useState(product.availability[0][0]);
     const imageURL = import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"
 
     const [loading, setLoading] = useState(true);
@@ -97,15 +97,15 @@ const ProductDetails = () => {
                                         <RadioGroup
                                             row
                                             aria-labelledby="demo-radio-buttons-group-label"
-                                            defaultValue={product.sizes[1]}
+                                            defaultValue={product.availability[0][0]}
                                             name="radio-buttons-group"
                                             style={{ fontSize: '12px' }} 
                                             onChange={handleSelectSize}
                                         >
-                                            {product.sizes.map((talla) => (
+                                            {product.availability.map((disponibilidad) => (
                                                 <FormControlLabel
-                                                    key={talla}
-                                                    value={talla}
+                                                    key={disponibilidad[0]}
+                                                    value={disponibilidad[0]}
                                                     control={<Radio 
                                                         sx={{
                                                             '& .MuiSvgIcon-root': {
@@ -115,7 +115,8 @@ const ProductDetails = () => {
                                                         }}
                                                             
                                                     />}
-                                                    label={talla.toString()}
+                                                    label={disponibilidad[0].toString()}
+                                                    disabled={disponibilidad[1] === 0}
                                                 />
                                             ))}
                                         </RadioGroup>

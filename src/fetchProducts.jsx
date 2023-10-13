@@ -51,8 +51,6 @@ export async function FetchProducts() {
         const tallas = Object.values(grupos);
         const disponibilidad = Object.values(grupos2);
 
-        console.log(tallas[0])
-
         const products = productData.map((dato) => ({
             id: dato.id,
             categoryId: dato.categoria_id,
