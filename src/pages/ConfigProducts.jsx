@@ -109,6 +109,90 @@ function ConfigProducts({products}) {
         }
     }
 
+    function handleDelete(e){
+        e.preventDefault()
+        console.log(products)
+        products.forEach((prod) =>{
+            if (code != ''){
+                console.log(code)
+                if (prod.code == code){
+                    const id = prod.id
+                    console.log(id)
+                    Delete(id,1)
+                    console.log(1)
+                    setTimeout(2000)
+                    Delete(id,2)
+                    console.log(2)
+                    setTimeout(2000)
+                    Delete(id,3)
+                    console.log(3)
+                    setTimeout(2000)
+                    Delete(id,4)
+                    console.log(4)
+                    setTimeout(2000)
+                    Delete(id,5)
+                    console.log(5)
+                    setTimeout(2000)
+                }
+            }
+        })
+        
+    }
+
+    async function Delete(prodid,table){
+        if(table == 1){
+            const { error } = await supabase
+            .from('disponibilidad_de_producto')
+            .delete()
+            .eq('producto_id', prodid)
+
+            if(error){
+                console.log(error)
+            }
+        }
+        if(table == 2){
+            const { error } = await supabase
+            .from('precio_del_producto')
+            .delete()
+            .eq('producto_id', prodid)
+
+            if(error){
+                console.log(error)
+            }
+        }
+        if(table == 3){
+            const { error } = await supabase
+            .from('productos_del_pedido')
+            .delete()
+            .eq('producto_id', prodid)
+
+            if(error){
+                console.log(error)
+            }
+        }
+        if(table == 4){
+            const { error } = await supabase
+            .from('productos_en_carrito')
+            .delete()
+            .eq('producto_id', prodid)
+
+            if(error){
+                console.log(error)
+            }
+        }
+        if(table == 5){
+            const { error } = await supabase
+            .from('producto')
+            .delete()
+            .eq('id', prodid)
+
+            if(error){
+                console.log(error)
+            }
+        }
+    }
+
+
     async function relateDisponibility(id) {
         const {data, fail} = await supabase
             .from('disponibilidad_de_producto')
@@ -260,6 +344,35 @@ function ConfigProducts({products}) {
             </Box>
 
             <br></br>
+
+            <Typography component="h1" variant="h5">
+                Agregar Un Producto
+            </Typography>
+            <Box component="form" onSubmit={(e) => handleDelete(e)} sx={{mt: 3}}>
+                <div>
+                    <Grid container spacing={2} justifyContent="center">
+                        <Grid item xs={6}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="codedel"
+                                label="Código: "
+                                name="codedel"
+                                onChange={(event) => setCode(event.target.value)}
+                                value={code}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{mt: 3, mb: 2}}
+                    >
+                        Eliminar Producto
+                    </Button>
+                </div>
+            </Box>
         </Container>
     )
 }
