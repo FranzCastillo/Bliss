@@ -9,20 +9,31 @@ import PropTypes from "prop-types";
 import {getCategories, getUserSecurityLevel} from "../supabase/supabaseUtils.js";
 import {supabase} from "../supabase/client";
 import { CircularProgress } from "@mui/material";
+import { FetchProducts } from '../fetchProducts';
 
-const ProductsGrid = ({products}) => {
+const ProductsGrid = () => {
     const [loading, setLoading] = useState(true);
     const [names, setNames] = useState([]);
     const [category, setCategory] = useState("");
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [securityLevel, setSecurityLevel] = useState();
     const [search, setSearch] = useState("");
+    const [products, setProducts] = useState([])
 
     useEffect(() => {
         getCategories().then((categoriesNames) => {
             setNames(categoriesNames);
         });
     }, []);
+
+
+    useEffect(() => {
+        async function fetchData() {
+          const fetchedData = await FetchProducts();
+          setProducts(fetchedData);
+        }
+        fetchData();
+      }, []);
 
     useEffect(() => {
         async function getUserMail() {
