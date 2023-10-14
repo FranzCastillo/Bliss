@@ -20,6 +20,7 @@ function ConfigProducts({products}) {
     const [name, setName] = useState('')
     const [desc, setDesc] = useState('')
     const [code, setCode] = useState('')
+    const [codedel, setCodedel] = useState('')
     const [price, setPrice] = useState(0)
     const [category, setCategory] = useState(0)
     const [filename, setFilename] = useState('')
@@ -109,6 +110,90 @@ function ConfigProducts({products}) {
         }
     }
 
+    function handleDelete(e){
+        e.preventDefault()
+        console.log(products)
+        products.forEach((prod) =>{
+            if (codedel != ''){
+                console.log(code)
+                if (prod.code == codedel){
+                    const id = prod.id
+                    console.log(id)
+                    Delete(id,1)
+                    console.log(1)
+                    setTimeout(2000)
+                    Delete(id,2)
+                    console.log(2)
+                    setTimeout(2000)
+                    Delete(id,3)
+                    console.log(3)
+                    setTimeout(2000)
+                    Delete(id,4)
+                    console.log(4)
+                    setTimeout(2000)
+                    Delete(id,5)
+                    console.log(5)
+                    setTimeout(2000)
+                }
+            }
+        })
+        
+    }
+
+    async function Delete(prodid,table){
+        if(table == 1){
+            const { error } = await supabase
+            .from('disponibilidad_de_producto')
+            .delete()
+            .eq('producto_id', prodid)
+
+            if(error){
+                console.log(error)
+            }
+        }
+        if(table == 2){
+            const { error } = await supabase
+            .from('precio_del_producto')
+            .delete()
+            .eq('producto_id', prodid)
+
+            if(error){
+                console.log(error)
+            }
+        }
+        if(table == 3){
+            const { error } = await supabase
+            .from('productos_del_pedido')
+            .delete()
+            .eq('producto_id', prodid)
+
+            if(error){
+                console.log(error)
+            }
+        }
+        if(table == 4){
+            const { error } = await supabase
+            .from('productos_en_carrito')
+            .delete()
+            .eq('producto_id', prodid)
+
+            if(error){
+                console.log(error)
+            }
+        }
+        if(table == 5){
+            const { error } = await supabase
+            .from('producto')
+            .delete()
+            .eq('id', prodid)
+
+            if(error){
+                console.log(error)
+            }
+        }
+    }
+
+
     async function relateDisponibility(id) {
         const {data, fail} = await supabase
             .from('disponibilidad_de_producto')
@@ -139,6 +224,35 @@ function ConfigProducts({products}) {
 
     return (
         <Container component='main' maxWidth='xs'>
+            <br></br>
+             <Typography component="h1" variant="h5">
+                Eliminar Un Producto
+            </Typography>
+            <Box component="form" onSubmit={(e) => handleDelete(e)} sx={{mt: 3}}>
+                <div>
+                    <Grid container spacing={2} justifyContent="center">
+                        <Grid item xs={6}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="codedel"
+                                label="Código: "
+                                name="codedel"
+                                onChange={(event) => setCodedel(event.target.value)}
+                                value={codedel}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{mt: 3, mb: 2}}
+                    >
+                        Eliminar Producto
+                    </Button>
+                </div>
+            </Box>
             <br></br>
             <Typography component="h1" variant="h5">
                 Agregar Un Producto
@@ -258,8 +372,6 @@ function ConfigProducts({products}) {
                     </Button>
                 </div>
             </Box>
-
-            <br></br>
         </Container>
     )
 }
