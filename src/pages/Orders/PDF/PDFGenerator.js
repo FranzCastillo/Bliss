@@ -1,9 +1,10 @@
 import jsPDF from "jspdf";
 import autoTable from 'jspdf-autotable'
-import {getOrderDetails} from "../Queries/OrderQueries.js";
+import {getOrderDetails, getOrderProducts} from "../Queries/OrderQueries.js";
 
 const createFile = async ({id}) => {
-    // const {data, error} = await getOrderDetails(id);
+    const {data, error} = await getOrderDetails(id);
+    const {data: productsData, error: productsError} = await getOrderProducts(id);
     const doc = new jsPDF('p', 'pt', 'a4');
     const margins = {
         top: 80,
@@ -12,13 +13,20 @@ const createFile = async ({id}) => {
         width: 522
     };
     const headers = [['Código', 'Nombre', 'Categoría', 'Cantidad', 'Precio Unitario']];
-    const rows = [
-        [1, 'Product 1', 100, 2, 200],
-        [2, 'Product 2', 200, 1, 200],
-        [3, 'Product 3', 300, 1, 300],
-        [4, 'Product 4', 400, 1, 400],
-        [{content: 'Total', colSpan: 4, styles: {halign: 'left', fontStyle: 'bold'}}, 1100],
-    ];
+    const rows = productsData.map(product => {
+        return [
+            product.producto.codigo,
+            product.producto.nombre,
+            product.producto.categorias.categoria,
+            product.cantidad,
+            'Q.' + product.producto.precio.precio
+        ];
+    });
+    const total = productsData.reduce((acc, product) => {
+        return acc + (product.cantidad * product.producto.precio.precio);
+    }, 0);
+    rows.push([{content: 'Total', colSpan: 4, styles: {halign: 'left', fontStyle: 'bold'}}, 'Q.' + total]);
+
     autoTable(doc, {
         head: headers,
         body: rows,
@@ -46,21 +54,21 @@ const createFile = async ({id}) => {
         alternateRowStyles: {
             fillColor: '#ffffff',
         },
-        didDrawPage: function (data) {
+        didDrawPage: function (pageData) {
             // Header
             doc.setFontSize(20);
             doc.text(40, 40, 'Detalles de la Orden');
             doc.setFontSize(10);
-            doc.text(40, 60, '# de Orden: ' + id);
-            doc.text(40, 70, 'Fecha de colocación: ' + '2021-05-05');
-            doc.text(40, 80, 'Estado: ' + 'Pendiente');
-            doc.text(40, 90, 'Dirección: ' + 'Calle 123');
-            doc.text(40, 100, 'Tipo de Pago: ' + 'Efectivo');
+            doc.text('# de Orden: ' + id, 40, 60);
+            doc.text('Fecha de colocación: ' + data.fecha, 40, 70);
+            doc.text('Estado: ' + data.estado, 40, 80,);
+            doc.text('Dirección: ' + data.direccion, 40, 90);
+            doc.text('Tipo de Pago: ' + data.tipos_de_pago.tipo, 40, 100);
             // Footer
             doc.setFontSize(10);
             doc.text(
-                'Página ' + data.pageCount,
-                data.settings.margin.left,
+                'Página ' + pageData.pageCount,
+                pageData.settings.margin.left,
                 doc.internal.pageSize.height - 30
             );
         }
