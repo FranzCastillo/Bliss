@@ -20,6 +20,7 @@ function ConfigProducts({products}) {
     const [name, setName] = useState('')
     const [desc, setDesc] = useState('')
     const [code, setCode] = useState('')
+    const [codedel, setCodedel] = useState('')
     const [price, setPrice] = useState(0)
     const [category, setCategory] = useState(0)
     const [filename, setFilename] = useState('')
@@ -113,9 +114,9 @@ function ConfigProducts({products}) {
         e.preventDefault()
         console.log(products)
         products.forEach((prod) =>{
-            if (code != ''){
+            if (codedel != ''){
                 console.log(code)
-                if (prod.code == code){
+                if (prod.code == codedel){
                     const id = prod.id
                     console.log(id)
                     Delete(id,1)
@@ -223,6 +224,35 @@ function ConfigProducts({products}) {
 
     return (
         <Container component='main' maxWidth='xs'>
+            <br></br>
+             <Typography component="h1" variant="h5">
+                Eliminar Un Producto
+            </Typography>
+            <Box component="form" onSubmit={(e) => handleDelete(e)} sx={{mt: 3}}>
+                <div>
+                    <Grid container spacing={2} justifyContent="center">
+                        <Grid item xs={6}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="codedel"
+                                label="Código: "
+                                name="codedel"
+                                onChange={(event) => setCodedel(event.target.value)}
+                                value={codedel}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{mt: 3, mb: 2}}
+                    >
+                        Eliminar Producto
+                    </Button>
+                </div>
+            </Box>
             <br></br>
             <Typography component="h1" variant="h5">
                 Agregar Un Producto
@@ -339,37 +369,6 @@ function ConfigProducts({products}) {
                         sx={{mt: 3, mb: 2}}
                     >
                         Agregar Producto
-                    </Button>
-                </div>
-            </Box>
-
-            <br></br>
-
-            <Typography component="h1" variant="h5">
-                Agregar Un Producto
-            </Typography>
-            <Box component="form" onSubmit={(e) => handleDelete(e)} sx={{mt: 3}}>
-                <div>
-                    <Grid container spacing={2} justifyContent="center">
-                        <Grid item xs={6}>
-                            <TextField
-                                required
-                                fullWidth
-                                id="codedel"
-                                label="Código: "
-                                name="codedel"
-                                onChange={(event) => setCode(event.target.value)}
-                                value={code}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{mt: 3, mb: 2}}
-                    >
-                        Eliminar Producto
                     </Button>
                 </div>
             </Box>

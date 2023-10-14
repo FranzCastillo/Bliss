@@ -86,7 +86,7 @@ function App() {
             <Route path='/' element={<Home products={fetchedProducts}/>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path="/signup" element={<Signup/>}/>
-            <Route path="/grid" element={<ProductsGrid products={fetchedProducts}/>}/>
+            <Route path="/grid" element={<ProductsGrid/>}/>
             {isAdmin && (
                 <>
                   <Route path="/config-product" element={<ConfigProducts products={fetchedProducts}/>}/>
