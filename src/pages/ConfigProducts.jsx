@@ -260,34 +260,6 @@ function ConfigProducts({products}) {
             </Box>
 
             <br></br>
-            <Typography component="h1" variant="h5">
-                Eliminar un Producto
-            </Typography>
-            <Box component="form" noValidate onSubmit={(e) => handleNewSubmit(e)} sx={{mt: 3}}>
-                <div className='new-prod'>
-                    <Grid container spacing={2}>
-                        <Grid item xs={6}>
-                            <TextField
-                                required
-                                fullWidth
-                                id="code"
-                                label="Código: "
-                                name="code"
-                                onChange={(event) => setCode(event.target.value)}
-                                value={code}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        sx={{mt: 3, mb: 2}}
-                    >
-                        Eliminar Producto
-                    </Button>
-                </div>
-            </Box>
         </Container>
     )
 }
