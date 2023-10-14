@@ -16,6 +16,14 @@ export async function FetchProducts() {
             return [];
         }
 
+        const {data: productAvailability, error: availabilityError} = await supabase
+            .from("disponibilidad_de_producto")
+            .select("producto_id, talla, cantidad");
+        if (sizeError) {
+            console.error('Error fetching product availability:', availabilityError);
+            return [];
+        }
+
         const grupos = {};
         productSizes.forEach((dato) => {
             const {producto_id, talla} = dato;
@@ -26,7 +34,22 @@ export async function FetchProducts() {
             }
         });
 
+        const grupos2 = {};
+        productAvailability.forEach((dato) => {
+            const {producto_id, talla, cantidad} = dato;
+            const arr = [];
+            arr.push(talla);
+            arr.push(cantidad);
+
+            if (!grupos2[producto_id]) {
+                grupos2[producto_id] = [arr];
+            } else {
+                grupos2[producto_id].push(arr);
+            }
+        });
+
         const tallas = Object.values(grupos);
+        const disponibilidad = Object.values(grupos2);
 
         const products = productData.map((dato) => ({
             id: dato.id,
@@ -37,6 +60,7 @@ export async function FetchProducts() {
             price: dato.precio,
             imageUrl: dato.imagen,
             sizes: tallas.shift() || [],
+            availability: disponibilidad.shift() || [],
         }));
         return products;
     } catch (error) {

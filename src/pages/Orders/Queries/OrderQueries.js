@@ -18,7 +18,8 @@ const getOrderDetails = async (id) => {
                     tipos_de_pago (
                         id,
                         tipo
-                    )
+                    ),
+                    vendedor_id
                 `)
         .eq('id', id)
         .single();
