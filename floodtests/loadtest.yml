@@ -1,0 +1,22 @@
+config:
+  target: "https://ckkaecwxisjrvxbobyek.supabase.co"
+  phases:
+    - duration: 60
+      arrivalRate: 20
+  defaults:
+    headers:
+      Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNra2FlY3d4aXNqcnZ4Ym9ieWVrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MTk1NjI1MCwiZXhwIjoxOTk3NTMyMjUwfQ.BosJv4irFnXCo0ZlDJwOCkhoT-metM0fJ-Qv5UQKFf8"
+scenarios:
+  - name: "Read and write operations"
+    flow:
+      - post:
+          url: "/rest/v1/usuarios"
+          json:
+            nombre: "John Doe"
+            apellido: "Doe"
+            email: "john.doe@example.com"
+            direccion: "123 Main St"
+            telefono: "1234567890"
+            rol_id: 1
+      - get:
+          url: "/rest/v1/usuarios?id=eq.1"

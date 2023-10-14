@@ -1,0 +1,22 @@
+config:
+  target: 'https://bliss-three.vercel.app'
+  phases:
+    - duration: 30
+      arrivalRate: 5
+
+scenarios:
+  - flow:
+      - get:
+          url: '/login'
+
+      - think: 2 
+      - post:
+          url: '/login'
+          json:
+
+            username: 'cas21562@uvg.edu.gt'
+            password: 'cas21562'
+
+      - think: 5 
+      - get:
+          url: '/'
