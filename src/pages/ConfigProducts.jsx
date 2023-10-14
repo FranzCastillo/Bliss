@@ -284,7 +284,7 @@ function ConfigProducts({products}) {
                         variant="contained"
                         sx={{mt: 3, mb: 2}}
                     >
-                        Agregar Producto
+                        Eliminar Producto
                     </Button>
                 </div>
             </Box>
