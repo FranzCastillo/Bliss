@@ -12,5 +12,9 @@ export default defineConfig({
     coverage: {
       provider: 'istanbul'
     },
+  },
+  server: {
+    host: '0.0.0.0',
+    port: 5173,
   }
 })

@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  react-app:
+    build:
+      context: .
+      dockerfile: Dockerfile   
+    ports:
+      - "5173:5173"  
+
+  supabase:
+    image: supabase/supabase-dev:latest
+    ports:
+      - "8000:8000"
+    environment:
+      VITE_DB_URL: https://ckkaecwxisjrvxbobyek.supabase.co
+      VITE_DB_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNra2FlY3d4aXNqcnZ4Ym9ieWVrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY4MTk1NjI1MCwiZXhwIjoxOTk3NTMyMjUwfQ.BosJv4irFnXCo0ZlDJwOCkhoT-metM0fJ-Qv5UQKFf8
+      VITE_STORAGE_URL: https://ckkaecwxisjrvxbobyek.supabase.co/storage/v1/object/public/images/product_img/
