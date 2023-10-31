@@ -17,6 +17,7 @@
     "@mui/icons-material": "^5.14.3",
     "@mui/material": "^5.14.3",
     "@mui/x-data-grid": "^6.11.0",
+    "@pulumi/pulumi": "^3.91.1",
     "@supabase/supabase-js": "^2.31.0",
     "@testing-library/user-event": "^14.4.3",
     "chromedriver": "^116.0.0",

@@ -1,0 +1,5 @@
+config:
+  Bliss:Pulumi.prod.yaml: ""
+  aws:accessKey: AKIA2SXWK4LUH642UUG2
+  aws:region: us-west-2
+  aws:secretKey: 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
