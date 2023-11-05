@@ -7,6 +7,7 @@ import {
     Grid,
     InputLabel,
     MenuItem,
+    Modal,
     Select,
     TextField,
     Typography
@@ -14,6 +15,8 @@ import {
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import {supabase} from '../supabase/client';
 import Swal from 'sweetalert2';
+import {v4} from 'uuid'
+import LoadingIcon from '../../assets/icons/LoadingIcon.jsx'
 
 function ConfigProducts({products}) {
 
@@ -26,6 +29,7 @@ function ConfigProducts({products}) {
     const [filename, setFilename] = useState('')
     const [file, setFile] = useState(null)
     const [selectedImage, setSelectedImage] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
 
     const raiseErrorAlert = (error) => {
         Swal.fire({
@@ -73,22 +77,35 @@ function ConfigProducts({products}) {
 
     async function handleNewSubmit(e) {
         e.preventDefault()
+        setIsLoading(true)
+        if (filename === '' || !file) {
+            raiseErrorAlert('Por favor, suba una imagen')
+            return
+        }
+
+        const uid = v4()
+
+        const fileParts = filename.split('.')
+
+        const parsedImageName = fileParts[0] + "_" + uid
+
+        const parsedImageNameMime = parsedImageName + "." + fileParts[1]
 
         const {data, error} = await supabase
             .storage
             .from('images')
-            .upload('product_img/' + filename, file)
+            .upload('product_img/' + parsedImageNameMime , file)
         if (data) {
 
-            const image = filename.split('.')
             const {data, error} = await supabase
-            .rpc('insertar_producto', {categoria_id: category, nombre: name, descripcion: desc, imagen: image[0], codigo: code})
+            .rpc('insertar_producto', {categoria_id: category, nombre: name, descripcion: desc, imagen: parsedImageName, codigo: code})
             if (error) {
                 raiseErrorAlert(error.message)
             }
             if (data) {
                 relatePrice(data).then(()=>{
                     relateDisponibility(data).then(()=>{
+                        setIsLoading(false)
                         Swal.fire({
                             icon: 'success',
                             title: 'Producto agregado',
@@ -107,6 +124,7 @@ function ConfigProducts({products}) {
 
         } else {
             raiseErrorAlert(error.message)
+            setIsLoading(false)
         }
     }
 
@@ -224,6 +242,9 @@ function ConfigProducts({products}) {
 
     return (
         <Container component='main' maxWidth='xs'>
+            <Modal open={isLoading}>
+                <LoadingIcon/>
+            </Modal>
             
             <br></br>
             <Typography component="h1" variant="h5">
@@ -285,6 +306,7 @@ function ConfigProducts({products}) {
                                     value={category}
                                     label="Categoría"
                                     onChange={handleNewCategory}
+                                    required
                                 >
                                     <MenuItem value={1}>Dama</MenuItem>
                                     <MenuItem value={2}>Caballero</MenuItem>
@@ -305,6 +327,7 @@ function ConfigProducts({products}) {
                                     value={selectedOptions}
                                     label="Tallas"
                                     onChange={handleNewSizes}
+                                    required
                                 >
                                     <MenuItem value={1}>30</MenuItem>
                                     <MenuItem value={2}>31</MenuItem>
@@ -324,7 +347,7 @@ function ConfigProducts({products}) {
                                 onChange={(e) => handleNewFilename(e)}
                             >
                                 Subir Imagen
-                                <input type="file" accept="image/png" hidden onChange={(e)=>handleImageChange(e)}/>
+                                <input type="file" accept="image/png" hidden onChange={(e)=>handleImageChange(e)} />
                             </Button>
                         </Grid>
                         <Grid item xs={12}>

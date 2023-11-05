@@ -33,7 +33,8 @@
     "sass": "^1.64.2",
     "selenium-webdriver": "^4.12.0",
     "supabase": "^1.82.6",
-    "sweetalert2": "^11.7.28"
+    "sweetalert2": "^11.7.28",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.17.0",
