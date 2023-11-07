@@ -5,6 +5,7 @@ import {
     Container,
     FormControl,
     Grid,
+    InputAdornment,
     InputLabel,
     MenuItem,
     Modal,
@@ -245,8 +246,15 @@ function ConfigProducts({products}) {
 
     return (
         <Container component='main' maxWidth='xs'>
-            <Modal open={isLoading}>
-                <LoadingIcon/>
+            <Modal 
+                open={isLoading}
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <LoadingIcon width="100px"/>
             </Modal>
             
             <br></br>
@@ -298,6 +306,9 @@ function ConfigProducts({products}) {
                                 name="price"
                                 onChange={(event) => setPrice(event.target.value)}
                                 value={price}
+                                InputProps={{
+                                    startAdornment: <InputAdornment position="start">Q</InputAdornment>,
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
