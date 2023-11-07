@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 function MyOrders() {
     const columns = [
         {field: 'id', headerName: 'ID', width: 70, type: 'number'},
-        {field: 'cliente', headerName: 'Cliente', width: 225},
+        {field: 'cliente', headerName: 'Vendedor', width: 225},
         {field: 'fecha', headerName: 'Fecha', width: 200},
         {field: 'estado', headerName: 'Estado', width: 130},
         {
