@@ -129,29 +129,32 @@ function ConfigProducts({products}) {
     }
 
     function handleDelete(e){
+        setIsLoading(true)
         e.preventDefault()
-        console.log(products)
         products.forEach((prod) =>{
             if (codedel != ''){
-                console.log(code)
                 if (prod.code == codedel){
                     const id = prod.id
-                    console.log(id)
                     Delete(id,1)
-                    console.log(1)
-                    setTimeout(2000)
                     Delete(id,2)
-                    console.log(2)
-                    setTimeout(2000)
                     Delete(id,3)
-                    console.log(3)
-                    setTimeout(2000)
                     Delete(id,4)
-                    console.log(4)
-                    setTimeout(2000)
                     Delete(id,5)
-                    console.log(5)
-                    setTimeout(2000)
+                    setTimeout(() => {
+                        setIsLoading(false)
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Producto eliminado',
+                            confirmButtonText: 'Ok',
+                            showConfirmButton: true,
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.reload();
+                            }else{
+                                window.location.reload();
+                            }
+                        })
+                    }, 10000)
                 }
             }
         })
