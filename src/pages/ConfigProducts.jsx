@@ -48,6 +48,11 @@ function ConfigProducts({products}) {
 
     const [selectedOptions, setSelectedOptions] = useState([]);
 
+    const handleDelcode = (event) =>{
+        const pcode = event.target.value;
+        setCodedel(pcode);
+    }
+
     const handleNewSizes = (event) => {
         setSelectedOptions(event.target.value);
     };
@@ -389,15 +394,25 @@ function ConfigProducts({products}) {
                 <div>
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={6}>
-                            <TextField
-                                required
-                                fullWidth
-                                id="codedel"
-                                label="Código: "
-                                name="codedel"
-                                onChange={(event) => setCodedel(event.target.value)}
-                                value={codedel}
-                            />
+                            <FormControl fullWidth required>
+                                <InputLabel id="delcode-selection-label">
+                                    Código
+                                </InputLabel>
+                                <Select
+                                    labelId="delcode-selection-label"
+                                    id="delcode-selection"
+                                    label="Código"
+                                    value={codedel}
+                                    onChange={handleDelcode}
+                                    required
+                                    >
+                                    {products.map((product) => (
+                                        <MenuItem key={product.code} value={product.code}>
+                                            {product.code}
+                                        </MenuItem>
+                                    ))}
+                                    </Select>
+                            </FormControl>
                         </Grid>
                     </Grid>
                     <Button
