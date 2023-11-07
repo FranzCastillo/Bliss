@@ -31,6 +31,7 @@ function ConfigProducts({products}) {
     const [file, setFile] = useState(null)
     const [selectedImage, setSelectedImage] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
+    const [amount, setAmount] = useState(100)
 
     const raiseErrorAlert = (error) => {
         Swal.fire({
@@ -231,7 +232,7 @@ function ConfigProducts({products}) {
             const talla = Math.floor(Math.random() * (44 - 39 + 1) + 39);
             const {error} = await supabase
                 .from('disponibilidad_de_producto')
-                .insert({producto_id: id, cantidad: 100, talla: talla})
+                .insert({producto_id: id, cantidad: amount, talla: talla})
 
             if (error) {
                 raiseErrorAlert(error.message)
@@ -337,7 +338,7 @@ function ConfigProducts({products}) {
                             </FormControl>
                         </Grid>
 
-                        <Grid item xs={12}>
+                        <Grid item xs={6}>
                             <FormControl fullWidth required>
                                 <InputLabel id="demo-simple-select-label">Tallas</InputLabel>
                                 <Select
@@ -356,6 +357,18 @@ function ConfigProducts({products}) {
                                     <MenuItem value={5}>34</MenuItem>
                                 </Select>
                             </FormControl>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="amount"
+                                label="Cantidad: "
+                                name="amount"
+                                onChange={(event) => setAmount(event.target.value)}
+                                value={amount}
+                            />
                         </Grid>
 
                         <Grid item xs={12}>
