@@ -70,3 +70,19 @@ export async function signUpUser(firstName, lastName, email, phone, address, pas
         return {error: error.message};
     }
 }
+
+export async function getUserId(){
+    const session = supabase.auth.getSession();
+    const email = (await session).data.session.user.email;
+    const {data, error} = await supabase
+        .from("usuarios")
+        .select("id")
+        .eq("email", email);
+
+    if (error) {
+        console.error("Error fetching user id:", error.message);
+        return null;
+    } else {
+        return data[0].id;
+    }
+}

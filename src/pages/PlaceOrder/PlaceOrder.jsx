@@ -83,7 +83,7 @@ function PlaceOrder() {
                 estado: 'Pendiente',
                 direccion: address,
                 pago_id: paymentMethod,
-                vendedor_id: salesPerson,
+                    vendedor_id: salesPerson,
             }]);
 
         // Gets the id of the new registry
