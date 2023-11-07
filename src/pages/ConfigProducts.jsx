@@ -145,8 +145,9 @@ function ConfigProducts({products}) {
                     Delete(id,2)
                     Delete(id,3)
                     Delete(id,4)
-                    Delete(id,5)
+                    
                     setTimeout(() => {
+                        Delete(id,5)
                         setIsLoading(false)
                         Swal.fire({
                             icon: 'success',
@@ -160,7 +161,7 @@ function ConfigProducts({products}) {
                                 window.location.reload();
                             }
                         })
-                    }, 10000)
+                    }, 2000)
                 }
             }
         })
