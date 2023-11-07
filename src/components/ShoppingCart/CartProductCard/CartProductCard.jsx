@@ -5,7 +5,7 @@ import "./CartProductCard.scss"
 import Button from "@mui/material/Button";
 import {ShoppingCartContext} from "../../../contexts/ShoppingCartContext";
 
-const CartProductCard = ({id, quantity, size}) => {
+const CartProductCard = ({id, quantity, size, style}) => {
     const [product, setProduct] = useState([]);
     const [imageURL, setImage] = useState(' ')
     useEffect(() => {
@@ -68,7 +68,7 @@ const CartProductCard = ({id, quantity, size}) => {
     const cart = React.useContext(ShoppingCartContext);
 
     return (
-        <Container fixed minWidth={"sm"} sx={cardStyle} disableGutters={true}>
+        <Container fixed minWidth={"sm"} className={style} disableGutters={true}>
             <div className='img-container'>
                 <img
                     className={"product-image"}

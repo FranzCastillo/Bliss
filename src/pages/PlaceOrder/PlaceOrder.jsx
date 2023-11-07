@@ -310,6 +310,7 @@ function PlaceOrder() {
                                     id={item.id}
                                     quantity={item.quantity}
                                     size={item.size}
+                                    style="order"
                                 />
                             );
                         })}

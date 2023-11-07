@@ -87,6 +87,7 @@ function CartModal({open, handleClose}) {
                                         id={item.id}
                                         quantity={item.quantity}
                                         size={item.size}
+                                        style="cart"
                                     />
                                 );
                             })}
