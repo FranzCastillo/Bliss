@@ -42,21 +42,21 @@ function Home({products}) {
           slidesToSlide: 3 // optional, default to 1.
         },
         tablet: {
-          breakpoint: { max: 1024, min: 464 },
+          breakpoint: { max: 1024, min: 550 },
           items: 2,
           slidesToSlide: 2 // optional, default to 1.
         },
         mobile: {
-          breakpoint: { max: 464, min: 0 },
+          breakpoint: { max: 550, min: 0 },
           items: 1,
           slidesToSlide: 1 // optional, default to 1.
         }
       };
 
     return (
-        <div>
+        <div className="container">
             <br/> <br/>
-            <Carousel infiniteLoop={true} className='photo-carrousel' id="slider">
+            <Carousel  responsive={responsive}  infiniteLoop={true} className='photo-carrousel' id="slider">
                 <div>
                     <img src={p1} alt="Foto 1"/>
                 </div>
@@ -68,7 +68,7 @@ function Home({products}) {
                 </div>
             </Carousel>
 
-            <div>
+            <div className="content">
                 <h2
                     style={{
                         marginLeft: "30px",
@@ -140,7 +140,7 @@ function Home({products}) {
                         style={{border: '0'}}
                         allowfullscreen=""
                         loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
+                        referrerPolicy="no-referrer-when-downgrade"
                         className='mapita'>
                     </iframe>
                 </div>

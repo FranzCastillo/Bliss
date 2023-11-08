@@ -8,6 +8,10 @@
   margin: 0 auto; 
 }
 
+.container {
+  justify-content: center;
+}
+
 .widgets {
     display: flex;
     justify-content: center;
@@ -71,28 +75,41 @@
     }
 }
 
-@media (max-width: 746px) {
+@media (max-width: 810px) {
   
+  .container {
+    align-items: center;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+  }
+
   .widgets {
     display: inline-block;
     justify-content: center;
     align-items: center;
     text-align: center;
-    width: 50%;
+    width: 90%;
   }
 
   .catalogue {
     clear: both;
-
+    margin-top: 10%;
+    align-self: center;
+    align-content: center;
+    align-items: center;
   }
 
   .map {
+    align-self: center;
+    align-items: center;
     clear: both;
-    margin-top: 10%;
+    margin-top: 20%;
+    width: 100%;
   }
   
   .mapita {
-    width: 110%;
+    width: 100%;
   }
   
 }
