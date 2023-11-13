@@ -77,14 +77,16 @@ function App() {
     const isSeller = securityLevel === 2
     const isManager = securityLevel === 3
     const isAdmin = securityLevel === 4
-    
+
   return (
       <div className="App">
           {isLoged&&(
-            <NavBarUser/>
-          )}
-          {!securityLevel&&(
-            <LoadingPage/>
+            <>
+              <NavBarUser/>
+              {!securityLevel&&(
+                <LoadingPage/>
+              )}
+            </>
           )}
           <Routes>
             <Route path='/' element={<Home products={fetchedProducts}/>}/>
