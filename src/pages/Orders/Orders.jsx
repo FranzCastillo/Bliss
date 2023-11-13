@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {supabase} from '../../supabase/client.js';
 import {DataGrid, GridActionsCellItem} from '@mui/x-data-grid';
-import {useNavigate} from "react-router-dom";
 import DetailsButton from './Components/DetailsButton.jsx';
 import FileButton from './Components/FileButton.jsx';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,8 +8,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Swal from 'sweetalert2';
 
 
+/**
+ * Orders component. In charge of showing all the orders in the /all-orders path
+ * @returns {Element} JSX
+ * @constructor
+ */
 function Orders() {
-    const navigate = useNavigate();
+    // Columns displayed by the Data Grid
     const columns = [
         {field: 'id', headerName: 'ID', width: 70, type: 'number'},
         {field: 'cliente', headerName: 'Cliente', width: 225},
@@ -67,8 +71,10 @@ function Orders() {
         }
     ];
 
+    // Rows displayed by the Data Grid
     const [rows, setRows] = useState([]);
 
+    // Fetch rows from the database
     const fetchRows = async () => {
         try {
             let {data, error} = await supabase
@@ -84,6 +90,7 @@ function Orders() {
             if (error) {
                 throw new Error('Error fetching rows');
             }
+            // Maps the results of the query to the names of the columns
             data = data.map((row) => ({
                 id: row.id,
                 cliente: row.usuarios.email,
@@ -94,11 +101,11 @@ function Orders() {
             return data;
         } catch (error) {
             console.error(error);
-            // Handle error here, if needed
             return [];
         }
     };
 
+    // Fetch rows from the database on component mount
     useEffect(() => {
         const fetchData = async () => {
             const data = await fetchRows();
@@ -108,14 +115,21 @@ function Orders() {
         fetchData();
     }, []);
 
+    // Loading state
     const [loading, setLoading] = useState(true);
 
+    // Set loading state to false when rows have not been fetched
     useEffect(() => {
         if (rows.length > 0) {
             setLoading(false);
         }
     }, [rows]);
 
+    /**
+     * Deletes a row from the database
+     * @param id The if of the row to be deleted
+     * @returns {Promise<void>} A promise that resolves when the row has been deleted
+     */
     const deleteRow = async (id) => {
         try {
             const {data, error} = await supabase
@@ -132,7 +146,6 @@ function Orders() {
             setRows(newRows);
         } catch (error) {
             console.error(error);
-            // Handle error here, if needed
         }
     }
 
