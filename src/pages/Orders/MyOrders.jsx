@@ -8,7 +8,13 @@ import FileButton from "./Components/FileButton.jsx";
 import DeleteIcon from "@mui/icons-material/Delete.js";
 import Swal from "sweetalert2";
 
+/**
+ * Similar to Orders.jsx, but this one only shows the orders placed by the logged-in user
+ * @returns {Element} JSX
+ * @constructor
+ */
 function MyOrders() {
+    // Columns to display in the data grid
     const columns = [
         {field: 'id', headerName: 'ID', width: 70, type: 'number'},
         {field: 'cliente', headerName: 'Vendedor', width: 225},
@@ -65,8 +71,13 @@ function MyOrders() {
         }
     ];
 
+    // Rows to display in the data grid
     const [rows, setRows] = useState([]);
 
+    /**
+     * Fetches the rows from the database
+     * @returns {Promise<*>} Promise that resolves to the rows fetched from the database
+     */
     const fetchRows = async () => {
         try {
             const id = await getUserId();
@@ -84,6 +95,7 @@ function MyOrders() {
             if (error) {
                 throw new Error('Error fetching rows' + error.message);
             }
+            // Maps the results of the query to the columns of the data grid
             data = data.map((row) => ({
                 id: row.id,
                 cliente: row.usuarios.email,
@@ -94,10 +106,15 @@ function MyOrders() {
             return data;
         } catch (error) {
             console.error(error);
-            // Handle error here, if needed
             return [];
         }
     };
+
+    /**
+     * Deletes a row from the database
+     * @param id {id} ID of the row to delete
+     * @returns {Promise<void>} Promise that resolves when the row is deleted
+     */
     const deleteRow = async (id) => {
         try {
             const {data, error} = await supabase
@@ -114,10 +131,10 @@ function MyOrders() {
             setRows(newRows);
         } catch (error) {
             console.error(error);
-            // Handle error here, if needed
         }
     }
 
+    // Fetch rows when component mounts
     useEffect(() => {
         const fetchData = async () => {
             const data = await fetchRows();
@@ -127,8 +144,10 @@ function MyOrders() {
         fetchData();
     }, []);
 
+    // Loading state
     const [loading, setLoading] = useState(true);
 
+    // Set loading to false until rows are fetched
     useEffect(() => {
         if (rows.length > 0) {
             setLoading(false);
