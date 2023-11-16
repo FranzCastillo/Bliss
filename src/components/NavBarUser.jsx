@@ -126,7 +126,7 @@ function NavBarUser() {
         return (
             <>
                 <div style={{width: '80%'}}> </div>
-
+                {/* Order hyperlink (for admins only) */}
                 {isAdmin && (
                     <Button onClick={() => navigate('/all-orders')} className="navbar-button" id="ords"
                             data-testid="ords">
@@ -143,6 +143,7 @@ function NavBarUser() {
                         </Typography>
                     </Button>
                 )}
+                {/* My order hyperlink (for sellers only) */}
                 {isSeller && (
                     <Button onClick={() => navigate('/my-orders')} className="navbar-button" id="ords"
                             data-testid="ords">
@@ -160,6 +161,7 @@ function NavBarUser() {
                 </Button>
                 */}
 
+                {/* Products hyperlink (for all users) */}
                 <Button onClick={() => navigate('/grid')} className="navbar-button" id="prods" data-testid="prods">
                     <svg width="28px" height="28px" viewBox="0 0 24 24">
                         <title>Productos</title>
@@ -179,6 +181,7 @@ function NavBarUser() {
                 </Button>
                 */}
 
+                {/* Cart hyperlink (for all users) */}
                 <StyledBadge badgeContent={totalQuantity} color='primary'>
                     <Button onClick={handleOpen} className="navbar-button" id="cart">
                         <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92">
@@ -204,6 +207,8 @@ function NavBarUser() {
                     </svg>
                 </Button>
                 */}
+
+                {/* Sign off hyperlink (for all users) */}
                 <Button onClick={handleLogOut} className="navbar-button" id="logout">
                     <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92">
                         <title>Cerrar Sesión</title>
@@ -215,9 +220,9 @@ function NavBarUser() {
         );
     };
 
+    {/* Mobile navbar for adaptability */}
     const renderMobileMenu = () => {
         
-    
         const toggleDrawer = (open) => (event) => {
             if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
                 return;
@@ -247,6 +252,7 @@ function NavBarUser() {
                     <Divider />
 
                     <div>
+                        {/* Orders hyperlink (for admins only) */}
                         {isAdmin && (
                             <ListItem  onClick={() => navigate('/all-orders')} className="navbar-button" id="ords" data-testid="ords">
                                 <ListItemIcon>
@@ -261,7 +267,7 @@ function NavBarUser() {
                                 <ListItemText primary={'Ordenes'}/>
                             </ListItem>
                         )}
-
+                        
                         {isManager && (
                             <ListItem onClick={() => navigate('/all-orders')} className="navbar-button" id="ords" data-testid="ords">
                                 <ListItemIcon>
@@ -276,7 +282,8 @@ function NavBarUser() {
                                 <ListItemText primary={'Ordenes'}/>
                             </ListItem>
                         )}
-
+                        
+                        {/* My orders hyperlink (for sellers only) */}
                         {isSeller && (
                             <ListItem onClick={() => navigate('/my-orders')} className="navbar-button" id="ords" data-testid="ords">
                                 <ListItemIcon>
@@ -292,7 +299,7 @@ function NavBarUser() {
                             </ListItem>
                         )}
                         
-
+                        {/* Products hyperlink (for all users) */}
                         <ListItem onClick={() => navigate('/grid')} className="navbar-button" id="prods" data-testid="prods">
                             <ListItemIcon>
                                 <svg width="28px" height="28px" viewBox="0 0 24 24">
@@ -303,7 +310,8 @@ function NavBarUser() {
                             </ListItemIcon>
                             <ListItemText primary={'Productos'}/>
                         </ListItem>
-
+                        
+                        {/* Cart hyperlink (for all users) */}
                         <ListItem onClick={handleOpen} className="navbar-button" id="cart">
                             <ListItemIcon>
                                 <StyledBadge badgeContent={totalQuantity} color='primary'>
@@ -324,7 +332,8 @@ function NavBarUser() {
                     </div>
 
                     <Divider />
-
+                    
+                    {/* Sign off hyperlink (for all users) */}
                     <div>
                         <ListItem onClick={handleLogOut} className="navbar-button" id="logout">
                             <ListItemIcon>

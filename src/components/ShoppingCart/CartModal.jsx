@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import SaveCartButton from "../SaveCart/SaveCartButton";
 
 function CartModal({open, handleClose}) {
+    //Styles of the cart modal
     const modalStyle = {
         position: 'absolute',
         top: '50%',
@@ -38,15 +39,16 @@ function CartModal({open, handleClose}) {
     const productCards = {
         padding: "25px"
     }
+    //Get the cart from the context
     const cart = React.useContext(ShoppingCartContext);
     const hasItems = cart.items.length > 0;
     const navigate = useNavigate();
 
+    //Handle the click of the button
     const handleButtonClick = () => {
         navigate('/orders', {replace: true});
         handleClose();
     };
-
 
     return (
         <Modal keepMounted open={open} onClose={handleClose}>
