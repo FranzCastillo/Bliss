@@ -1,6 +1,6 @@
 import '../styles/grid.scss';
 import { useState, useEffect } from "react";
-import { Grid, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Grid, FormControl, InputLabel, MenuItem, Select, Modal } from "@mui/material";
 import ProductCard from "./ProductCard.jsx";
 import FloatingButton from "../components/FloatingButton/FloatingButton";
 import LateralCart from "../components/LateralCart/LateralCart";
@@ -8,29 +8,33 @@ import PrimarySearchBar from "../components/PrimarySearchBar/PrimarySearchBar";
 import PropTypes from "prop-types";
 import {getCategories, getUserSecurityLevel} from "../supabase/supabaseUtils.js";
 import {supabase} from "../supabase/client";
-import { CircularProgress } from "@mui/material";
 import { FetchProducts } from '../fetchProducts';
+import LoadingIcon from '../../assets/icons/LoadingIcon.jsx'
 
 const ProductsGrid = () => {
-    const [loading, setLoading] = useState(true);
     const [names, setNames] = useState([]);
     const [category, setCategory] = useState("");
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [securityLevel, setSecurityLevel] = useState();
     const [search, setSearch] = useState("");
     const [products, setProducts] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
+        setIsLoading(true)
         getCategories().then((categoriesNames) => {
             setNames(categoriesNames);
+            setIsLoading(false)
         });
     }, []);
 
 
     useEffect(() => {
         async function fetchData() {
+          setIsLoading(true)
           const fetchedData = await FetchProducts();
           setProducts(fetchedData);
+          setIsLoading(false)
         }
         fetchData();
       }, []);
@@ -73,15 +77,19 @@ const ProductsGrid = () => {
                 setCategory(selectedCategory);
             };
 
-            useEffect(() => {
-                if (filteredProducts && names) {
-                    setLoading(false);
-                }
-            }, [filteredProducts, names]);
-
             return (
-                loading ? <CircularProgress/> :
                     <>
+                    <Modal 
+                        open={isLoading}
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <LoadingIcon width="100px"/>
+
+                    </Modal>
                         <div
                             className="principal"
                             style={{height: "100px", display: "flex"}}
