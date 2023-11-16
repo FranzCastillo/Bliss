@@ -3,6 +3,7 @@ import './LateralCart.scss';
 import {ShoppingCartContext} from '../../contexts/ShoppingCartContext';
 import LateralCartCard from './LateralCartCard/LateralCartCard';
 
+//Lateral cart component to show the items added to the cart on the right side of the screen
 const LateralCart = () => {
     const cart = React.useContext(ShoppingCartContext);
 
