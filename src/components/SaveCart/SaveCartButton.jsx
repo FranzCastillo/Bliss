@@ -4,9 +4,12 @@ import {Button} from '@mui/material'
 import {ShoppingCartContext} from '../../contexts/ShoppingCartContext'
 import {supabase} from '../../supabase/client'
 
-
+//Button to save the cart in the database
 export default function SaveCartButton() {
+    //Get the cart from the context
     const cart = React.useContext(ShoppingCartContext);
+
+    //Function to save the cart in the database
     const saveCart = async () => {
         const userData = await supabase.auth.getUser();
         let userId = null
@@ -47,6 +50,7 @@ export default function SaveCartButton() {
         }
     }
     return (
+        //Button interface
         <div className='save-cart-button'>
             <div className='button'>
                 <Button style={{marginLeft: "25px"}} onClick={saveCart}>

@@ -2,10 +2,11 @@ import PropTypes from 'prop-types';
 import './PrimarySearchBar.scss';
 import Container from '@mui/material/Container';
 
-
+//Primary search bar component to search products on the products page
 const PrimarySearchBar = ({search, handleSearch}) => {
 
     return (
+        //SVG icon of a magnifying glass
         <Container maxWidth="xs">
             <div className="search-bar-container">
                 <svg fill="#201B40" width="25px" height="25px" viewBox="0 0 92 92">
@@ -19,6 +20,7 @@ const PrimarySearchBar = ({search, handleSearch}) => {
                 c-1,0-2.1-0.4-2.8-1.2c-0.7-0.7-1.2-1.8-1.2-2.8c0-1,0.4-2.1,1.2-2.8c0.7-0.7,1.8-1.2,2.8-1.2C64.2,40.4,65.2,40.8,66,41.6z"
                     />
                 </svg>
+                {/* Textbox of de search bar */}
                 <input
                     type="text"
                     className="search-bar"
