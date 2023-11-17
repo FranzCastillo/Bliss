@@ -1,0 +1,35 @@
+.tabs-row{
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    position: relative;
+    top: 20px;
+    left: 20%;
+    background-color: white;
+    width: 230px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tabs{
+    display:flex;
+    background-color: #E8E3E1;
+    justify-content: center;
+    width: 116px;
+    height: 50px;
+    margin: 0;
+    align-items: center;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    
+}
+
+.tabs:hover{
+    cursor: pointer;
+}
+
+.active-tab{
+    background-color: white;
+}
