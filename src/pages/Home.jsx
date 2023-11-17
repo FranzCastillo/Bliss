@@ -15,6 +15,10 @@ import p3 from '../media/Photo3.png';
 import p4 from '../media/Photo4.png';
 import front from '../media/Front.png';
 
+/**
+* @param {*} props
+* @returns Home page
+*/
 function Home({products}) {
 
     const navigate = useNavigate();
@@ -23,6 +27,7 @@ function Home({products}) {
         navigate(`/product/${product.id}`, {state: {product}});
     };
 
+    // Función para mezclar aleatoriamente un array
     function shuffleArray(array) {
         const shuffledArray = [...array];
         for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -152,6 +157,7 @@ function Home({products}) {
     )
 }
 
+// Prop types
 Home.propTypes = {
     products: PropTypes.arrayOf(
         PropTypes.shape({

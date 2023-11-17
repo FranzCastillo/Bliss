@@ -1,5 +1,11 @@
 import LoadingIcon from "../../assets/icons/LoadingIcon";
 
+/**
+ * Loading Page
+ * @module LoadingPage
+ *  @returns {JSX}
+ * 
+ */
 const LoadingPage = () => {
     return (
         <div style={{
