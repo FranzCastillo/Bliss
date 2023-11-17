@@ -1,7 +1,21 @@
+/**
+ * @module PDFGenerator
+ * @category Orders
+ * @subcategory PDF
+ * @param {Object} props
+ * @param {number} props.id - The id of the order to generate the PDF.
+ * @returns {Promise<void>}
+ * Creates a PDF file with the details of the order.
+ */
+
 import jsPDF from "jspdf";
 import autoTable from 'jspdf-autotable'
 import {getOrderDetails, getOrderProducts} from "../Queries/OrderQueries.js";
 
+/**
+ * @param id - The id of the order to generate the PDF.
+ * @returns {Promise<void>} - Fulfilled when  a PDF file is created successfully with the details of the order. The file is downloaded automatically
+ */
 const createFile = async ({id}) => {
     const {data, error} = await getOrderDetails(id);
     const {data: productsData, error: productsError} = await getOrderProducts(id);
