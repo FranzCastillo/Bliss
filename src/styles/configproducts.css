@@ -33,3 +33,11 @@
 .active-tab{
     background-color: white;
 }
+
+.forum{
+    display: none
+}
+
+.active-forum{
+    display: block
+}
