@@ -308,7 +308,8 @@ function ConfigProducts({products}) {
                 </Typography>
             </Box>
             <br></br>
-            <Box component="form" onSubmit={(e) => handleNewSubmit(e)} sx={{mt: 3}}>
+            <Box component="form" onSubmit={(e) => handleNewSubmit(e)} sx={{mt: 3}} 
+            className={toggle === 1 ? "active-forum" : "forum"}>
                 <div className='new-prod'>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
@@ -441,7 +442,8 @@ function ConfigProducts({products}) {
                 </div>
             </Box>
             <br></br>
-            <Box component="form" onSubmit={(e) => handleDelete(e)} sx={{mt: 3}}>
+            <Box component="form" onSubmit={(e) => handleDelete(e)} sx={{mt: 3}}
+            className={toggle === 2 ? "active-forum" : "forum"}>
                 <div>
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={6}>
