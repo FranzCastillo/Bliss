@@ -1,7 +1,7 @@
 import React from 'react'
 
 /**
- * 
+ * Profile page
  * @returns Profile page
  */
 function Profile() {

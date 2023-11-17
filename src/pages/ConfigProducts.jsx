@@ -20,6 +20,7 @@ import {v4} from 'uuid'
 import LoadingIcon from '../../assets/icons/LoadingIcon.jsx'
 
 /**
+ * Config products page
  * @param {*} props
  * @returns Home page
  */

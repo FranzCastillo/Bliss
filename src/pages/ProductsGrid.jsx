@@ -12,7 +12,7 @@ import { FetchProducts } from '../fetchProducts';
 import LoadingIcon from '../../assets/icons/LoadingIcon.jsx'
 
 /**
- * 
+ * Products grid page
  * @returns ProductsGrid
  */
 const ProductsGrid = () => {

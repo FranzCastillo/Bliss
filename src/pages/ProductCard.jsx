@@ -5,6 +5,7 @@ import {Card, CardContent, CardMedia, Typography} from "@mui/material";
 import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
 
 /**
+ * Product card component
  * @param {*} props
  * @returns ProductCard
  */

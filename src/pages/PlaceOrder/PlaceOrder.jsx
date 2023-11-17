@@ -65,7 +65,7 @@ const getUserSellers = async () => {
 };
 
 /**
- * 
+ * PlaceOrder page
  * @returns PlaceOrder page
  */
 function PlaceOrder() {

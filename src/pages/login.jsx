@@ -17,7 +17,7 @@ import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
 import {getCartDataByUserId, getUserDataByEmail, signInWithEmailAndPassword} from "../supabase/supabaseUtils.js";
 
 /**
- *
+ * Copyrigth element
  * @param {*} props
  * @returns Copyright element
  */
@@ -37,7 +37,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 /**
- *
+ * Signin form page
  * @returns Signin form
  */
 export default function Login() {

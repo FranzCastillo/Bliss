@@ -7,7 +7,7 @@ import {Button, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGrou
 import LateralCart from "../components/LateralCart/LateralCart";
 
 /**
- * 
+ * Product details page
  * @returns ProductDetails
  */
 const ProductDetails = () => {

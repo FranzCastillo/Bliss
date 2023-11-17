@@ -16,7 +16,7 @@ import {supabase} from "../supabase/client.js"
 import {signUpUser} from "../supabase/supabaseUtils.js";
 
 /**
- *
+ * Copyrigth element
  * @param {*} props
  * @returns Copyright element
  */
@@ -36,7 +36,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 /**
- *
+ * Signup form page
  * @returns Signup form
  */
 export default function Signup() {
@@ -65,7 +65,7 @@ export default function Signup() {
         }
     };
 
-    // Funtion to redirect to home if user is logged in
+    // Function to redirect to home if user is logged in
     useEffect(() => {
         const {data: authListener} = supabase.auth.onAuthStateChange((event, session) => {
             if (location.pathname === "/signup" && session) {

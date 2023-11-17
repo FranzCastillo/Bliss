@@ -2,7 +2,11 @@ import PropTypes from 'prop-types';
 import './PrimarySearchBar.scss';
 import Container from '@mui/material/Container';
 
-//Primary search bar component to search products on the products page
+/**
+ * Primary search bar component to search products on the products page
+ * @param {*} props
+ * @returns PrimarySearchBar
+ */
 const PrimarySearchBar = ({search, handleSearch}) => {
 
     return (

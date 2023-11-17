@@ -5,10 +5,15 @@ import {useNavigate} from "react-router-dom";
 import {Button} from "@mui/material";
 import {ShoppingCartContext} from "../../contexts/ShoppingCartContext";
 
+/**
+ * Place order modal
+ * @returns OrderPlaced
+ */
 const OrderPlaced = () => {
     const navigate = useNavigate();
     const cart = useContext(ShoppingCartContext);
 
+    // Function to clear the cart
     useEffect(() => {
         cart.clearCart();
     }, []);

@@ -19,6 +19,10 @@ import Box from '@mui/material/Box';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 
+/**
+ * Navbar component
+ * @returns Navbar
+*/
 function NavBarUser() {
 
     const navigate = useNavigate();

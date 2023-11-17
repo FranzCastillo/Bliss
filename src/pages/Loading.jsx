@@ -3,8 +3,7 @@ import LoadingIcon from "../../assets/icons/LoadingIcon";
 /**
  * Loading Page
  * @module LoadingPage
- *  @returns {JSX}
- * 
+ * @returns {JSX}
  */
 const LoadingPage = () => {
     return (

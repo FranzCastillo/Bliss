@@ -16,13 +16,15 @@ import p4 from '../media/Photo4.png';
 import front from '../media/Front.png';
 
 /**
-* @param {*} props
-* @returns Home page
+ * Home page
+ * @param {*} props
+ * @returns Home page
 */
 function Home({products}) {
 
     const navigate = useNavigate();
 
+    // Function to navigate to the product details page
     const handleProductClick = (product) => {
         navigate(`/product/${product.id}`, {state: {product}});
     };
