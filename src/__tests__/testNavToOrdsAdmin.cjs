@@ -11,21 +11,20 @@ login_test = async function () {
         await driver.findElement(By.name("email")).sendKeys("cas21562@uvg.edu.gt", Key.TAB);
         await driver.findElement(By.name("password")).sendKeys("cas21562", Key.ENTER);
 
-        // // Checks if the user is logged in
-        // let slider = await driver.findElement(By.className("carousel-root photo-carrousel"));
-        // if (slider) {
-        //     console.log("LOGIN TEST PASSED");
-        // }
-
+        
+        // Searches until the element "ords" is found
         await driver.wait(until.elementLocated(By.id("ords")));
+
+        // Clicks the element "ords"
         await driver.findElement(By.id("ords")).click()
 
 
-    } catch(error) {
+    } catch(error) { //If an error occurs is printed
         console.log("LOGIN TEST FAILED");
         console.log("ERROR: " + error)
     }
 
+    // Quits with a small pause
     finally {
         setTimeout(() => {
             driver.quit()
@@ -33,4 +32,5 @@ login_test = async function () {
     }
 }
 
+// Calls the function
 login_test();
