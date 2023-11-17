@@ -1,3 +1,7 @@
+/**
+ * In charge of displaying the details of a specific order.
+ */
+
 import React, {useEffect, useState} from 'react';
 import {supabase} from '../../../supabase/client.js';
 import {useNavigate, useParams} from 'react-router-dom';
@@ -5,6 +9,11 @@ import './OrderDetails.scss';
 import CircularProgress from '@mui/material/CircularProgress';
 import {getOrderDetails} from "../Queries/OrderQueries.js";
 
+/**
+ * Displays the details of a specific order.
+ * @returns {Element}
+ * @constructor
+ */
 function OrderDetails() {
     const navigate = useNavigate();
 
@@ -14,6 +23,7 @@ function OrderDetails() {
     const [products, setProducts] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    // Fetches the order details from the database.
     useEffect(() => {
         async function fetchOrder() {
             const {data, error} = await getOrderDetails(id);
@@ -27,6 +37,7 @@ function OrderDetails() {
         fetchOrder();
     }, [id]);
 
+    // Fetches the products of the order from the database.
     useEffect(() => {
         async function fetchProducts() {
             const {data, error} = await supabase
@@ -56,6 +67,7 @@ function OrderDetails() {
         fetchProducts();
     }, [id]);
 
+    // Sets the loading state to false when the order and products are fetched.
     useEffect(() => {
         if (order && products) {
             setLoading(false);
