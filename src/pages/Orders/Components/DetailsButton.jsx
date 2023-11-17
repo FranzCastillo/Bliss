@@ -3,6 +3,12 @@ import Button from "@mui/material/Button";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import * as React from "react";
 
+/**
+ * Components that navigates to the details page of a specified order id.
+ * @param id The id of the order to navigate to.
+ * @returns {Element}
+ * @constructor
+ */
 const DetailsButton = ({id}) => {
     const navigate = useNavigate();
 
