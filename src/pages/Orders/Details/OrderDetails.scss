@@ -26,6 +26,31 @@
             margin: 0;
         }
     }
+    .title {
+        font-size: 20px;
+    }
+    .buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+
+        button {
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #201B40;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                background-color: #3D3470;
+            }
+        }
+    }
 }
 
 .product-table {

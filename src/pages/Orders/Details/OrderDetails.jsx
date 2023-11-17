@@ -79,7 +79,19 @@ function OrderDetails() {
             <div id="order-details">
                 {order ? (
                     <>
-                        <h1>Detalles del pedido #{id}</h1>
+                        <div className="title">
+                            <h1>Detalles del pedido #{id}</h1>
+                        </div>
+                        <div className="buttons">
+                            <button
+                                className="back-button"
+                                onClick={() => {
+                                    navigate(-1);
+                                }}
+                            >
+                                Volver
+                            </button>
+                        </div>
                         <hr/>
                         <div className="details">
                             <div id={"client"}>
