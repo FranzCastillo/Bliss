@@ -3,6 +3,12 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import * as React from "react";
 import createFile from "../PDF/PDFGenerator";
 
+/**
+ * Component that allows a specified order id to generate a PDF file with the order details.
+ * @param id
+ * @returns {Element}
+ * @constructor
+ */
 const FileButton = ({id}) => {
     return (
         <Button
