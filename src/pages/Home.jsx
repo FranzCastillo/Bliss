@@ -27,7 +27,7 @@ function Home({products}) {
         navigate(`/product/${product.id}`, {state: {product}});
     };
 
-    // Función para mezclar aleatoriamente un array
+    // Function to shuffle an array
     function shuffleArray(array) {
         const shuffledArray = [...array];
         for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -37,7 +37,7 @@ function Home({products}) {
         return shuffledArray;
     }
     
-    // Obtén una copia de la lista original y mézclala aleatoriamente
+    // Function to get 8 random products
     const shuffledProducts = shuffleArray(products).slice(0, 8);
 
       const responsive = {

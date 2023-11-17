@@ -14,7 +14,7 @@ const ProductCard = ({product}) => {
     const cart = useContext(ShoppingCartContext);
     const navigate = useNavigate();
 
-    // Función para navegar a la página de un producto
+    // Function to navigate to the product details page
     const handleProductClick = () => {
         navigate(`/product/${product.id}`, {state: {product}});
     };

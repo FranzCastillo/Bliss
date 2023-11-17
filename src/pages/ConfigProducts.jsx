@@ -37,7 +37,7 @@ function ConfigProducts({products}) {
     const [isLoading, setIsLoading] = useState(false)
     const [amount, setAmount] = useState(100)
 
-    // Función para mostrar un alert de error
+    // Function to raise an error alert
     const raiseErrorAlert = (error) => {
         Swal.fire({
             icon: 'error',
@@ -62,7 +62,7 @@ function ConfigProducts({products}) {
         setSelectedOptions(event.target.value);
     };
 
-    // Función para mostrar la imagen seleccionada
+    // Function to handle the image change
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -74,7 +74,7 @@ function ConfigProducts({products}) {
         }
     }
 
-    // Función para relacionar el precio con el producto
+    // Function to relate the price with the product
     async function relatePrice(id) {
         const {error} = await supabase
             .from('precio_del_producto')
@@ -86,8 +86,8 @@ function ConfigProducts({products}) {
 
     }
 
-    // Función para agregar un nuevo producto
     /**
+     * Function to handle the new product submit
      * @param {*} e 
      * @returns 
      */
@@ -144,9 +144,8 @@ function ConfigProducts({products}) {
         }
     }
 
-    // Función para eliminar un producto
     /**
-     * 
+     * Function to handle the delete submit
      * @param {*} e 
      */
     function handleDelete(e){
@@ -183,8 +182,8 @@ function ConfigProducts({products}) {
         
     }
 
-    // Función para eliminar un producto de una tabla
     /**
+     * Function to delete a product
      * @param {*} prodid
      * @param {*} table
      * @returns
@@ -242,8 +241,8 @@ function ConfigProducts({products}) {
         }
     }
 
-    // Función para relacionar la disponibilidad con el producto
     /**
+     * Function to relate the disponibility with the product
      * @param {*} id
      * @returns
      */
@@ -268,6 +267,7 @@ function ConfigProducts({products}) {
 
     }
 
+    // Function to handle the new filename
     const handleNewFilename = async (e) => {
         setFilename(e.target.files[0].name)
         setFile(e.target.files[0])

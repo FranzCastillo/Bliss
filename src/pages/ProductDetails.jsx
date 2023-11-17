@@ -20,20 +20,20 @@ const ProductDetails = () => {
     const [loading, setLoading] = useState(true);
     const [quantity, setQuantity] = useState(1);
 
-    // Función para agregar un producto al carrito
+    // Function to add a product to the cart
     const handleAddToCart = () => {
           cart.addMultipleProducts(product.id, selectedSize, quantity);
     };
 
     const quantities = [1,2,3,4,5,6,7,8,9,10];
 
-    // Función para actualizar la cantidad seleccionada
+    // Function to update the selected quantity
     const handleQuantityChange = (event) => {
         const selectedQuantity = event.target.value;
         setQuantity(selectedQuantity);
     };
     
-    // Función para seleccionar la talla
+    // Function to update the selected size
     const handleSelectSize = (event) => {
         setSelectedSize(event.target.value);
     };

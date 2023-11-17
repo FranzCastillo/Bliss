@@ -46,12 +46,12 @@ export default function Login() {
     const location = useLocation();
     const [invalid, setInvalid] = React.useState();
 
-    // Función para registrar un usuario
+    // Function to set the user in local storage
     const setUser = (user) => {
         window.localStorage.setItem('user', user);
     }
 
-    // Función para obtener el carrito de un usuario
+    // Function to set the cart of a user
     const setCart = async (user) => {
         try {
             const {data: userDataByEmail, error: userError} = await getUserDataByEmail(user);
@@ -70,7 +70,7 @@ export default function Login() {
         }
     }
 
-    // Función para iniciar sesión
+    // Function to login a user
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -100,7 +100,7 @@ export default function Login() {
         }
     };
 
-    // Función para verificar si el usuario ya inició sesión
+    // Function to redirect to home if user is logged in
     useEffect(() => {
         const {data: authListener} = supabase.auth.onAuthStateChange((event, session) => {
             if (location.pathname === "/login" && session) {

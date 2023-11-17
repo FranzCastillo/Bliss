@@ -25,7 +25,7 @@ const ProductsGrid = () => {
     const [products, setProducts] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
-    //Get categories
+    // Get categories
     useEffect(() => {
         setIsLoading(true)
         getCategories().then((categoriesNames) => {
@@ -34,7 +34,7 @@ const ProductsGrid = () => {
         });
     }, []);
 
-    //Fetch products
+    // Fetch products
     useEffect(() => {
         async function fetchData() {
           setIsLoading(true)
@@ -45,7 +45,7 @@ const ProductsGrid = () => {
         fetchData();
       }, []);
 
-    //Get user security level
+    // Get user security level
     useEffect(() => {
         async function getUserMail() {
           const userData = await supabase.auth.getUser();
@@ -62,7 +62,7 @@ const ProductsGrid = () => {
     
       const isAdmin = securityLevel === 4;
     
-    //Filter products by category
+    // Filter products by category
       useEffect(() => {
         if (category === "") {
           setFilteredProducts(products);

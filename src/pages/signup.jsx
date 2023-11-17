@@ -44,7 +44,7 @@ export default function Signup() {
     const location = useLocation();
     const [invalid, setInvalid] = React.useState();
 
-    // Función para registrar un usuario
+    // Funtion to register a user
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -65,7 +65,7 @@ export default function Signup() {
         }
     };
 
-    // Función para verificar si el usuario ya inició sesión
+    // Funtion to redirect to home if user is logged in
     useEffect(() => {
         const {data: authListener} = supabase.auth.onAuthStateChange((event, session) => {
             if (location.pathname === "/signup" && session) {
