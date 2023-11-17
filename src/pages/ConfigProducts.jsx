@@ -19,6 +19,10 @@ import Swal from 'sweetalert2';
 import {v4} from 'uuid'
 import LoadingIcon from '../../assets/icons/LoadingIcon.jsx'
 
+/**
+ * @param {*} props
+ * @returns Home page
+ */
 function ConfigProducts({products}) {
 
     const [name, setName] = useState('')
@@ -33,6 +37,7 @@ function ConfigProducts({products}) {
     const [isLoading, setIsLoading] = useState(false)
     const [amount, setAmount] = useState(100)
 
+    // Función para mostrar un alert de error
     const raiseErrorAlert = (error) => {
         Swal.fire({
             icon: 'error',
@@ -40,7 +45,6 @@ function ConfigProducts({products}) {
             text: error,
         })
     }
-
 
     const handleNewCategory = (event) => {
         setCategory(event.target.value)
@@ -58,7 +62,7 @@ function ConfigProducts({products}) {
         setSelectedOptions(event.target.value);
     };
 
-
+    // Función para mostrar la imagen seleccionada
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -70,7 +74,7 @@ function ConfigProducts({products}) {
         }
     }
 
-
+    // Función para relacionar el precio con el producto
     async function relatePrice(id) {
         const {error} = await supabase
             .from('precio_del_producto')
@@ -82,6 +86,11 @@ function ConfigProducts({products}) {
 
     }
 
+    // Función para agregar un nuevo producto
+    /**
+     * @param {*} e 
+     * @returns 
+     */
     async function handleNewSubmit(e) {
         e.preventDefault()
         setIsLoading(true)
@@ -135,6 +144,11 @@ function ConfigProducts({products}) {
         }
     }
 
+    // Función para eliminar un producto
+    /**
+     * 
+     * @param {*} e 
+     */
     function handleDelete(e){
         setIsLoading(true)
         e.preventDefault()
@@ -169,6 +183,12 @@ function ConfigProducts({products}) {
         
     }
 
+    // Función para eliminar un producto de una tabla
+    /**
+     * @param {*} prodid
+     * @param {*} table
+     * @returns
+     */
     async function Delete(prodid,table){
         if(table == 1){
             const { error } = await supabase
@@ -222,7 +242,11 @@ function ConfigProducts({products}) {
         }
     }
 
-
+    // Función para relacionar la disponibilidad con el producto
+    /**
+     * @param {*} id
+     * @returns
+     */
     async function relateDisponibility(id) {
         const {data, fail} = await supabase
             .from('disponibilidad_de_producto')
