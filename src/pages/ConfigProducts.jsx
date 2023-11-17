@@ -296,10 +296,14 @@ function ConfigProducts({products}) {
             </Modal>
             
             <Box className="tabs-row">
-                <Typography  component="h1" variant="h5" className='tabs'>
+                <Typography  component="h1" variant="h5" className={toggle === 1 ? "tabs active-tab" : "tabs"}
+                onClick={() => handleToggle(1)}
+                >
                     Agregar
                 </Typography>
-                <Typography  component="h1" variant="h5"  className='tabs'>
+                <Typography  component="h1" variant="h5"  className={toggle === 2 ? "tabs active-tab" : "tabs"}
+                onClick={() => handleToggle(2)}
+                >
                     Eliminar
                 </Typography>
             </Box>
