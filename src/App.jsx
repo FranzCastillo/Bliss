@@ -21,7 +21,10 @@ import { ShoppingCartContext } from './contexts/ShoppingCartContext';
 import OrderDetails from "./pages/Orders/Details/OrderDetails.jsx";
 import LoadingPage from './pages/Loading.jsx';
 
-
+/**
+ * App
+ * @returns App
+*/
 function App() {
   const cart = React.useContext(ShoppingCartContext);
   const navigate = useNavigate()
@@ -29,6 +32,7 @@ function App() {
   const [fetchedProducts, setFetchedProducts] = useState([]);
   const [isLoged, setIsLoged] = useState()
   
+  // Function to fetch the products
   useEffect(() => {
     async function fetchData() {
       const fetchedData = await FetchProducts();
@@ -37,6 +41,7 @@ function App() {
     fetchData();
   }, []);
 
+  // Function to check the user session
   useEffect(()=>{
     const{data:authListener}=supabase.auth.onAuthStateChange((event,session) =>{
       if(!session){
@@ -54,6 +59,7 @@ function App() {
     };
   },[])
 
+  // Function to get the security level of the user
   const [securityLevel, setSecurityLevel] = useState() 
     useEffect(()=>{
         async function getUserMail() {
@@ -74,6 +80,7 @@ function App() {
         getUserMail()
     })
 
+    // Security levels
     const isSeller = securityLevel === 2
     const isManager = securityLevel === 3
     const isAdmin = securityLevel === 4
