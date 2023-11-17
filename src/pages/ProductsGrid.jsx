@@ -11,6 +11,10 @@ import {supabase} from "../supabase/client";
 import { FetchProducts } from '../fetchProducts';
 import LoadingIcon from '../../assets/icons/LoadingIcon.jsx'
 
+/**
+ * 
+ * @returns ProductsGrid
+ */
 const ProductsGrid = () => {
     //Consts
     const [names, setNames] = useState([]);
