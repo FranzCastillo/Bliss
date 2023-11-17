@@ -18,6 +18,7 @@ import {supabase} from '../supabase/client';
 import Swal from 'sweetalert2';
 import {v4} from 'uuid'
 import LoadingIcon from '../../assets/icons/LoadingIcon.jsx'
+import '../styles/configproducts.css';
 
 /**
  * Config products page
@@ -37,6 +38,7 @@ function ConfigProducts({products}) {
     const [selectedImage, setSelectedImage] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [amount, setAmount] = useState(100)
+    const [toggle, setToggle] = useState(1)
 
     // Function to raise an error alert
     const raiseErrorAlert = (error) => {
@@ -45,6 +47,10 @@ function ConfigProducts({products}) {
             title: 'Oops...',
             text: error,
         })
+    }
+
+    const handleToggle = (id) =>{
+        setToggle(id)
     }
 
     const handleNewCategory = (event) => {
@@ -289,10 +295,15 @@ function ConfigProducts({products}) {
                 <LoadingIcon width="100px"/>
             </Modal>
             
+            <Box className="tabs-row">
+                <Typography  component="h1" variant="h5" className='tabs'>
+                    Agregar
+                </Typography>
+                <Typography  component="h1" variant="h5"  className='tabs'>
+                    Eliminar
+                </Typography>
+            </Box>
             <br></br>
-            <Typography component="h1" variant="h5">
-                Agregar Un Producto
-            </Typography>
             <Box component="form" onSubmit={(e) => handleNewSubmit(e)} sx={{mt: 3}}>
                 <div className='new-prod'>
                     <Grid container spacing={2}>
@@ -426,9 +437,6 @@ function ConfigProducts({products}) {
                 </div>
             </Box>
             <br></br>
-             <Typography component="h1" variant="h5">
-                Eliminar Un Producto
-            </Typography>
             <Box component="form" onSubmit={(e) => handleDelete(e)} sx={{mt: 3}}>
                 <div>
                     <Grid container spacing={2} justifyContent="center">
