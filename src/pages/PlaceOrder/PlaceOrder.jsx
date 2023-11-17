@@ -50,7 +50,7 @@ const getUserSellers = async () => {
     const { data, error } = await supabase
         .from('usuarios')
         .select('id, nombre, apellido')
-        .eq('rol_id', 2);
+        .or('rol_id.eq.2,rol_id.eq.3,rol_id.eq.4');
 
     if (error) {
         alert(error.message);
