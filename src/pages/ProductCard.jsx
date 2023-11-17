@@ -4,12 +4,17 @@ import '../styles/productcard.scss';
 import {Card, CardContent, CardMedia, Typography} from "@mui/material";
 import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
 
+/**
+ * @param {*} props
+ * @returns ProductCard
+ */
 const ProductCard = ({product}) => {
 
     const imageURL = import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"
     const cart = useContext(ShoppingCartContext);
     const navigate = useNavigate();
 
+    // Función para navegar a la página de un producto
     const handleProductClick = () => {
         navigate(`/product/${product.id}`, {state: {product}});
     };
