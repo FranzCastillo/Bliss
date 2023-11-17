@@ -12,6 +12,7 @@ import { FetchProducts } from '../fetchProducts';
 import LoadingIcon from '../../assets/icons/LoadingIcon.jsx'
 
 const ProductsGrid = () => {
+    //Consts
     const [names, setNames] = useState([]);
     const [category, setCategory] = useState("");
     const [filteredProducts, setFilteredProducts] = useState([]);
@@ -20,6 +21,7 @@ const ProductsGrid = () => {
     const [products, setProducts] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
+    //Get categories
     useEffect(() => {
         setIsLoading(true)
         getCategories().then((categoriesNames) => {
@@ -28,7 +30,7 @@ const ProductsGrid = () => {
         });
     }, []);
 
-
+    //Fetch products
     useEffect(() => {
         async function fetchData() {
           setIsLoading(true)
@@ -39,6 +41,7 @@ const ProductsGrid = () => {
         fetchData();
       }, []);
 
+    //Get user security level
     useEffect(() => {
         async function getUserMail() {
           const userData = await supabase.auth.getUser();
@@ -55,6 +58,7 @@ const ProductsGrid = () => {
     
       const isAdmin = securityLevel === 4;
     
+    //Filter products by category
       useEffect(() => {
         if (category === "") {
           setFilteredProducts(products);
@@ -79,6 +83,7 @@ const ProductsGrid = () => {
 
             return (
                     <>
+                    {/* Loading modal */}
                     <Modal 
                         open={isLoading}
                         sx={{
@@ -99,6 +104,7 @@ const ProductsGrid = () => {
                                 className="secondary"
                                 style={{width: "100%", display: "flex"}}
                             >
+                                {/* Title, searchbar and category dropbox*/}
                                 <Grid container spacing={2}>
                                     <Grid item xs={7} textAlign="left">
                                         <h1
@@ -144,7 +150,8 @@ const ProductsGrid = () => {
                                             </Select>
                                         </FormControl>
                                     </Grid>
-
+                                    
+                                    {/* Products */}
                                     {filteredProducts
                                         .filter(
                                             (product) =>
