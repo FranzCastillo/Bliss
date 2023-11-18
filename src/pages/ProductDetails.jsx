@@ -6,6 +6,10 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import {Button, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, InputLabel, MenuItem, Select } from '@mui/material/';
 import LateralCart from "../components/LateralCart/LateralCart";
 
+/**
+ * Product details page
+ * @returns ProductDetails
+ */
 const ProductDetails = () => {
     const cart = useContext(ShoppingCartContext);
     const location = useLocation();
@@ -16,17 +20,20 @@ const ProductDetails = () => {
     const [loading, setLoading] = useState(true);
     const [quantity, setQuantity] = useState(1);
 
+    // Function to add a product to the cart
     const handleAddToCart = () => {
           cart.addMultipleProducts(product.id, selectedSize, quantity);
     };
 
     const quantities = [1,2,3,4,5,6,7,8,9,10];
 
+    // Function to update the selected quantity
     const handleQuantityChange = (event) => {
         const selectedQuantity = event.target.value;
         setQuantity(selectedQuantity);
     };
     
+    // Function to update the selected size
     const handleSelectSize = (event) => {
         setSelectedSize(event.target.value);
     };

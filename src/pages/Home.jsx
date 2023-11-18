@@ -15,14 +15,21 @@ import p3 from '../media/Photo3.png';
 import p4 from '../media/Photo4.png';
 import front from '../media/Front.png';
 
+/**
+ * Home page
+ * @param {*} props
+ * @returns Home page
+*/
 function Home({products}) {
 
     const navigate = useNavigate();
 
+    // Function to navigate to the product details page
     const handleProductClick = (product) => {
         navigate(`/product/${product.id}`, {state: {product}});
     };
 
+    // Function to shuffle an array
     function shuffleArray(array) {
         const shuffledArray = [...array];
         for (let i = shuffledArray.length - 1; i > 0; i--) {
@@ -32,7 +39,7 @@ function Home({products}) {
         return shuffledArray;
     }
     
-    // Obtén una copia de la lista original y mézclala aleatoriamente
+    // Function to get 8 random products
     const shuffledProducts = shuffleArray(products).slice(0, 8);
 
       const responsive = {
@@ -152,6 +159,7 @@ function Home({products}) {
     )
 }
 
+// Prop types
 Home.propTypes = {
     products: PropTypes.arrayOf(
         PropTypes.shape({

@@ -18,7 +18,13 @@ import {supabase} from '../supabase/client';
 import Swal from 'sweetalert2';
 import {v4} from 'uuid'
 import LoadingIcon from '../../assets/icons/LoadingIcon.jsx'
+import '../styles/configproducts.css';
 
+/**
+ * Config products page
+ * @param {*} props
+ * @returns Home page
+ */
 function ConfigProducts({products}) {
 
     const [name, setName] = useState('')
@@ -32,7 +38,9 @@ function ConfigProducts({products}) {
     const [selectedImage, setSelectedImage] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
     const [amount, setAmount] = useState(100)
+    const [toggle, setToggle] = useState(1)
 
+    // Function to raise an error alert
     const raiseErrorAlert = (error) => {
         Swal.fire({
             icon: 'error',
@@ -41,6 +49,9 @@ function ConfigProducts({products}) {
         })
     }
 
+    const handleToggle = (id) =>{
+        setToggle(id)
+    }
 
     const handleNewCategory = (event) => {
         setCategory(event.target.value)
@@ -58,7 +69,7 @@ function ConfigProducts({products}) {
         setSelectedOptions(event.target.value);
     };
 
-
+    // Function to handle the image change
     const handleImageChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -70,7 +81,7 @@ function ConfigProducts({products}) {
         }
     }
 
-
+    // Function to relate the price with the product
     async function relatePrice(id) {
         const {error} = await supabase
             .from('precio_del_producto')
@@ -82,6 +93,11 @@ function ConfigProducts({products}) {
 
     }
 
+    /**
+     * Function to handle the new product submit
+     * @param {*} e 
+     * @returns 
+     */
     async function handleNewSubmit(e) {
         e.preventDefault()
         setIsLoading(true)
@@ -90,6 +106,7 @@ function ConfigProducts({products}) {
             return
         }
 
+        // Parse the image name
         const uid = v4()
 
         const fileParts = filename.split('.')
@@ -98,6 +115,7 @@ function ConfigProducts({products}) {
 
         const parsedImageNameMime = parsedImageName + "." + fileParts[1]
 
+        // Upload the image
         const {data, error} = await supabase
             .storage
             .from('images')
@@ -135,6 +153,10 @@ function ConfigProducts({products}) {
         }
     }
 
+    /**
+     * Function to handle the delete submit
+     * @param {*} e 
+     */
     function handleDelete(e){
         setIsLoading(true)
         e.preventDefault()
@@ -169,6 +191,12 @@ function ConfigProducts({products}) {
         
     }
 
+    /**
+     * Function to delete a product
+     * @param {*} prodid
+     * @param {*} table
+     * @returns
+     */
     async function Delete(prodid,table){
         if(table == 1){
             const { error } = await supabase
@@ -222,7 +250,11 @@ function ConfigProducts({products}) {
         }
     }
 
-
+    /**
+     * Function to relate the disponibility with the product
+     * @param {*} id
+     * @returns
+     */
     async function relateDisponibility(id) {
         const {data, fail} = await supabase
             .from('disponibilidad_de_producto')
@@ -244,6 +276,7 @@ function ConfigProducts({products}) {
 
     }
 
+    // Function to handle the new filename
     const handleNewFilename = async (e) => {
         setFilename(e.target.files[0].name)
         setFile(e.target.files[0])
@@ -264,11 +297,21 @@ function ConfigProducts({products}) {
                 <LoadingIcon width="100px"/>
             </Modal>
             
+            <Box className="tabs-row">
+                <Typography  component="h1" variant="h5" className={toggle === 1 ? "tabs active-tab" : "tabs"}
+                onClick={() => handleToggle(1)}
+                >
+                    Agregar
+                </Typography>
+                <Typography  component="h1" variant="h5"  className={toggle === 2 ? "tabs active-tab" : "tabs"}
+                onClick={() => handleToggle(2)}
+                >
+                    Eliminar
+                </Typography>
+            </Box>
             <br></br>
-            <Typography component="h1" variant="h5">
-                Agregar Un Producto
-            </Typography>
-            <Box component="form" onSubmit={(e) => handleNewSubmit(e)} sx={{mt: 3}}>
+            <Box component="form" onSubmit={(e) => handleNewSubmit(e)} sx={{mt: 3}} 
+            className={toggle === 1 ? "active-forum" : "forum"}>
                 <div className='new-prod'>
                     <Grid container spacing={2}>
                         <Grid item xs={6}>
@@ -401,10 +444,8 @@ function ConfigProducts({products}) {
                 </div>
             </Box>
             <br></br>
-             <Typography component="h1" variant="h5">
-                Eliminar Un Producto
-            </Typography>
-            <Box component="form" onSubmit={(e) => handleDelete(e)} sx={{mt: 3}}>
+            <Box component="form" onSubmit={(e) => handleDelete(e)} sx={{mt: 3}}
+            className={toggle === 2 ? "active-forum" : "forum"}>
                 <div>
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item xs={6}>

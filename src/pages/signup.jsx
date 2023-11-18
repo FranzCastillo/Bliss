@@ -16,7 +16,7 @@ import {supabase} from "../supabase/client.js"
 import {signUpUser} from "../supabase/supabaseUtils.js";
 
 /**
- *
+ * Copyrigth element
  * @param {*} props
  * @returns Copyright element
  */
@@ -36,7 +36,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 /**
- *
+ * Signup form page
  * @returns Signup form
  */
 export default function Signup() {
@@ -44,6 +44,7 @@ export default function Signup() {
     const location = useLocation();
     const [invalid, setInvalid] = React.useState();
 
+    // Funtion to register a user
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -64,6 +65,7 @@ export default function Signup() {
         }
     };
 
+    // Function to redirect to home if user is logged in
     useEffect(() => {
         const {data: authListener} = supabase.auth.onAuthStateChange((event, session) => {
             if (location.pathname === "/signup" && session) {

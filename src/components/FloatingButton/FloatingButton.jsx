@@ -3,7 +3,10 @@ import './FloatingButton.scss'
 import {AiFillSetting} from "react-icons/ai";
 import {useNavigate} from 'react-router-dom';
 
-//Floating button to navigate to the configuration page
+/**
+ * Floating button to navigate to the configuration page
+ * @returns FloatingButton
+*/
 function FloatingButton() {
     const navigate = useNavigate()
     const handleSubmit = (e) => {

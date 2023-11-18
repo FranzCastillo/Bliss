@@ -1,5 +1,9 @@
 import {supabase} from './supabase/client.js';
 
+/**
+ * Function to fetch all the products from the database
+ * @returns Array of products
+ */
 export async function FetchProducts() {
     try {
         const {data: productData, error} = await supabase.rpc('getproducts');
@@ -69,6 +73,10 @@ export async function FetchProducts() {
     }
 }
 
+/**
+ * Function to fetch all the products data from the database
+ * @returns Array of arrays of products
+ */
 export async function getProductData(id) {
     const products = await FetchProducts();
     let productData = products.find((product) => product.id === id);

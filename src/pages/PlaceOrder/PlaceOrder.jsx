@@ -8,6 +8,7 @@ import CartProductCard from "../../components/ShoppingCart/CartProductCard/CartP
 import { ShoppingCartContext } from "../../contexts/ShoppingCartContext";
 import {supabase} from "../../supabase/client";
 
+// Function to get the user email
 const getUserEmail = async () => {
     return await supabase.auth.getSession().then((session) => {
         if (session) {
@@ -18,6 +19,7 @@ const getUserEmail = async () => {
     });
 };
 
+// Function to get the user id
 const getUserId = async () => {
     const email = await getUserEmail();
 
@@ -33,6 +35,7 @@ const getUserId = async () => {
     }
 }
 
+// Function to get the user address
 const getUserAddress = async (email) => {
     const { data, error } = await supabase
         .from('usuarios')
@@ -46,6 +49,7 @@ const getUserAddress = async (email) => {
     }
 };
 
+// Function to get the sellers
 const getUserSellers = async () => {
     const { data, error } = await supabase
         .from('usuarios')
@@ -60,6 +64,10 @@ const getUserSellers = async () => {
     }
 };
 
+/**
+ * PlaceOrder page
+ * @returns PlaceOrder page
+ */
 function PlaceOrder() {
     const navigate = useNavigate();
     const cart = useContext(ShoppingCartContext);
@@ -74,7 +82,8 @@ function PlaceOrder() {
 
     const saveOrderInDB = async () => {
         const userId = await getUserId();
-        // Create the registry in the database
+
+        // Save the order in the database
         const { data, error } = await supabase
             .from('pedidos')
             .insert([{
@@ -86,7 +95,7 @@ function PlaceOrder() {
                     vendedor_id: salesPerson,
             }]);
 
-        // Gets the id of the new registry
+        // Get the id of the order
         let orderId = 0;
         await supabase
             .from('pedidos')
@@ -98,7 +107,7 @@ function PlaceOrder() {
                 orderId = data.data[0].id;
             });
 
-        // saves the products in the database
+        // Save the products of the order in the database
         const promises = cart.items.map(async (item) => {
             await supabase.from('productos_del_pedido').insert([
                 {
@@ -113,6 +122,7 @@ function PlaceOrder() {
         await Promise.all(promises);
     }
 
+    // Function to clear the cart in the database
     const clearCartInDb = async () => {
         const user = window.localStorage.getItem('user');
         const {data:userData, error:userError} = await supabase
@@ -130,6 +140,7 @@ function PlaceOrder() {
         }
     }
 
+    // Function to clear the cart in the context
     const handleSubmit = (event) => {
         event.preventDefault()
         cart.clearCart()
@@ -157,6 +168,7 @@ function PlaceOrder() {
         marginTop: "25px"
     }
 
+    // Get the user email and address
     useEffect(() => {
         getUserEmail().then((email) => {
             setEmail(email || '');
@@ -168,12 +180,14 @@ function PlaceOrder() {
 
     const [securityLevel, setSecurityLevel] = useState();
 
+    // Get the sellers
     useEffect(() => {
         getUserSellers().then((sellerNames) => {
             setNames(sellerNames);
         });
     }, []);
 
+    // Get the security level of the user
     useEffect(() => {
         async function getUserMail() {
         const userData = await supabase.auth.getUser();
@@ -194,11 +208,13 @@ function PlaceOrder() {
         getUserMail();
     }, []);
 
+    // Check if the user cart is empty
     useEffect(() => {
         if (cart.getTotal() === 0) {
             navigate('/grid');
         }
     }, [cart.getTotal()]);
+
 
     return (
         <Container component="main" maxWidth="xs">

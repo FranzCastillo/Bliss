@@ -5,9 +5,20 @@ import "./CartProductCard.scss"
 import Button from "@mui/material/Button";
 import {ShoppingCartContext} from "../../../contexts/ShoppingCartContext";
 
+/**
+ * Card for each product in the cart
+ * @param id
+ * @param quantity
+ * @param size
+ * @param style
+ * @returns CartProductCard
+*/
 const CartProductCard = ({id, quantity, size, style}) => {
+    
     const [product, setProduct] = useState([]);
     const [imageURL, setImage] = useState(' ')
+    
+    // Fetches the product data
     useEffect(() => {
         async function fetchData() {
             const fetchedProduct = await getProductData(id)
@@ -17,11 +28,13 @@ const CartProductCard = ({id, quantity, size, style}) => {
         fetchData()
     }, []);
 
+    // Sets the image url
     useEffect(() => {
         const img = import.meta.env.VITE_STORAGE_URL + product.imageUrl + ".png"
         setImage(img)
     }, [product]);
 
+    // Styles
     const cardStyle = {
         backgroundColor: "#d2d1d9",
         display: 'flex',
@@ -65,6 +78,7 @@ const CartProductCard = ({id, quantity, size, style}) => {
         justifyContent: "center", // Center horizontally
     };
 
+    // Context
     const cart = React.useContext(ShoppingCartContext);
 
     return (

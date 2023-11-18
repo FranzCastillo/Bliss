@@ -17,7 +17,7 @@ import {ShoppingCartContext} from "../contexts/ShoppingCartContext";
 import {getCartDataByUserId, getUserDataByEmail, signInWithEmailAndPassword} from "../supabase/supabaseUtils.js";
 
 /**
- *
+ * Copyrigth element
  * @param {*} props
  * @returns Copyright element
  */
@@ -37,7 +37,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 /**
- *
+ * Signin form page
  * @returns Signin form
  */
 export default function Login() {
@@ -46,10 +46,12 @@ export default function Login() {
     const location = useLocation();
     const [invalid, setInvalid] = React.useState();
 
+    // Function to set the user in local storage
     const setUser = (user) => {
         window.localStorage.setItem('user', user);
     }
 
+    // Function to set the cart of a user
     const setCart = async (user) => {
         try {
             const {data: userDataByEmail, error: userError} = await getUserDataByEmail(user);
@@ -68,6 +70,7 @@ export default function Login() {
         }
     }
 
+    // Function to login a user
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -97,6 +100,7 @@ export default function Login() {
         }
     };
 
+    // Function to redirect to home if user is logged in
     useEffect(() => {
         const {data: authListener} = supabase.auth.onAuthStateChange((event, session) => {
             if (location.pathname === "/login" && session) {
