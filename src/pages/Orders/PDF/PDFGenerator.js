@@ -74,6 +74,7 @@ const createFile = async ({id}) => {
             doc.text(40, 40, 'Detalles de la Orden');
             doc.setFontSize(10);
             doc.text('# de Orden: ' + id, 40, 60);
+            doc.text('Nombre del cliente: ' + data.usuarios.nombre + " " + data.usuarios.apellido, 40, 50)
             doc.text('Fecha de colocación: ' + data.fecha, 40, 70);
             doc.text('Estado: ' + data.estado, 40, 80,);
             doc.text('Dirección: ' + data.direccion, 40, 90);
