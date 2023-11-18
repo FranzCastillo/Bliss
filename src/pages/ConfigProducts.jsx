@@ -106,6 +106,7 @@ function ConfigProducts({products}) {
             return
         }
 
+        // Parse the image name
         const uid = v4()
 
         const fileParts = filename.split('.')
@@ -114,6 +115,7 @@ function ConfigProducts({products}) {
 
         const parsedImageNameMime = parsedImageName + "." + fileParts[1]
 
+        // Upload the image
         const {data, error} = await supabase
             .storage
             .from('images')
